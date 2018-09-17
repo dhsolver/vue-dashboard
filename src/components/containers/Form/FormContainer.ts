@@ -57,11 +57,19 @@ export class FormContainer extends Vue {
   @Getter('loginStorage', {}) loginStorage!: any;
   @Getter('loggedIn', {}) loggedIn!: any;
   @Getter('submittedContactInfo', {}) submittedContactInfo: any;
+  @Getter('uploadedFile', {}) uploadedFile: any;
 
   @Watch('submittedContactInfo') submittedContactInfoChanged(value, oldValue) {
     console.log(this.submittedContactInfo, 'callback api (submit contract)')
     if (this.submittedContactInfo) {
       if (this.step === 1) this.step = 2;
+    }
+  }
+
+  @Watch('uploadedFile') uploadedFileChanged(value, oldValue) {
+    if (this.uploadedFile) {
+      if (this.step === 2) this.step = 3;
+      this.fileUpLoadValidated = true;
     }
   }
 
@@ -108,9 +116,10 @@ export class FormContainer extends Vue {
             this.submitContactInfo();
           }
           break;
+        case 2:
+          this.step++;
+          break;
       }
-
-
     }
   }
 
@@ -192,10 +201,21 @@ export class FormContainer extends Vue {
     this.$store.dispatch(MutationTypes.SUBMIT_CONTACT_INFO, contactInfo);
   }
 
+  private uploadFile(file: File) {
+    this.$store.dispatch(MutationTypes.UPLOAD_FILE, file);
+  }
   success_handler (response) {
     console.log(response, 'slfjlksjdfljsfdlkj');
     this.fileUpLoadValidated = false;
 
+  }
+  handleFileUpload (fileList) {
+    if (!fileList.length) return;
+    if (fileList[0].type.indexOf('csv') === -1) {
+      alert('Only csv file is valid!');
+    } else {
+      this.uploadFile(fileList[0]);
+    }
   }
 
 }

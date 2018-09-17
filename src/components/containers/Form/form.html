@@ -189,7 +189,7 @@
         <div v-show="step==2">
           <fieldset>
             <div class="wd-form__load">
-              <multiple-file-uploader
+              <!-- <multiple-file-uploader
                 postURL="https://rw3gl2g6ff.execute-api.us-east-1.amazonaws.com/prod/enrich"
                 successMessagePath=""
                 errorMessagePath=""
@@ -198,7 +198,11 @@
                 @upload-success='success_handler'
                 :showHttpMessages="false"
                 >
-              </multiple-file-uploader>
+              </multiple-file-uploader> -->
+
+              <label>File
+                <input type="file" id="file" ref="file" @change="handleFileUpload($event.target.files)"/>
+              </label>
             </div>
           </fieldset>
         </div>

@@ -6,5 +6,7 @@ export class MutationTypes {
 
   public static SUBMIT_CONTACT_INFO = 'SUBMIT_CONTACT_INFO';
 
+  public static UPLOAD_FILE = 'UPLOAD_FILE';
+
   public static STRIPE_A1 = 'STRIPE_A1';
 }

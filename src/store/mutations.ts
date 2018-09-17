@@ -5,7 +5,7 @@ import {State} from './state';
 
 declare var localStorage;
 declare function  initializeStorage ();
-  
+
 
 const mutations: MutationTree<State> = {
 
@@ -25,6 +25,10 @@ const mutations: MutationTree<State> = {
   },
   [MutationTypes.SUBMIT_CONTACT_INFO]: (state: State) => {
     state.submittedContactInfo = true;
+  },
+  [MutationTypes.UPLOAD_FILE]: (state: State) => {
+    console.log('uploaded file');
+    state.uploadedFile = true;
   }
 
 };

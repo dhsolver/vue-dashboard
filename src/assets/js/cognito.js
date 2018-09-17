@@ -183,3 +183,53 @@ function refreshAWSCredentials() {
 
 
 }
+
+function uploadFile(file) {
+  return new Promise((resolve, reject) => {
+    var userPoolId = localStorage.getItem('userPoolId');
+    var clientId = localStorage.getItem('clientId');
+    var identityPoolId = localStorage.getItem('identityPoolId');
+    var loginPrefix = localStorage.getItem('loginPrefix');
+
+    var poolData = {
+      UserPoolId : userPoolId, // Your user pool id here
+      ClientId : clientId // Your client id here
+    };
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var cognitoUser = userPool.getCurrentUser();
+
+    let tokenInfo = {};
+    if (localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens')) {
+      tokenInfo = JSON.parse(localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens'))
+    }
+
+    // Set the region where your identity pool exists (us-east-1, eu-west-1)
+    AWS.config.region = 'us-east-1';
+
+    // Configure the credentials provider to use your identity pool
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'us-east-1:4baee7b3-4ea4-45a6-aeab-b2eac550a143',
+        Logins: {
+          'cognito-idp.us-east-1.amazonaws.com/us-east-1_XG9JMRGxm': tokenInfo['IdToken']['jwtToken'],
+        }
+    });
+
+    // Make the call to obtain credentials
+    AWS.config.credentials.get(function(){
+        var s3bucket = new AWS.S3();
+        const obj = {
+          Key: `${tokenInfo['IdToken']['payload']['email']}/${file.name}`,
+          Bucket: 'ui-michael',
+          Body: file,
+          ContentType: file.type
+        };
+        s3bucket.upload(obj).on('httpUploadProgress', (evt) => {
+        }).send((err, data) => {
+          if (err) {
+            reject(err);
+          }
+          resolve(data);
+        });
+    });
+  });
+}

@@ -14,6 +14,10 @@ const getters: GetterTree<State, State> = {
   submittedContactInfo(state): boolean {
     const {submittedContactInfo} = state;
     return submittedContactInfo;
+  },
+  uploadedFile(state): boolean {
+    const {uploadedFile} = state;
+    return uploadedFile;
   }
 };
 
