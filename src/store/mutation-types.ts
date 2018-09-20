@@ -5,6 +5,7 @@ export class MutationTypes {
   public static LOGOUT_USER = 'LOGOUT_USER';
 
   public static SUBMIT_CONTACT_INFO = 'SUBMIT_CONTACT_INFO';
+  public static GET_CONTACT_INFO = 'GET_CONTACT_INFO';
 
   public static UPLOAD_FILE = 'UPLOAD_FILE';
 

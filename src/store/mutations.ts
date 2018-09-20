@@ -30,7 +30,6 @@ const mutations: MutationTree<State> = {
     console.log('uploaded file');
     state.uploadedFile = true;
   }
-
 };
 
 export default mutations;
