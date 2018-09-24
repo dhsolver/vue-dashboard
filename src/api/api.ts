@@ -1,10 +1,9 @@
 import axios from 'axios'
 
 
-let baseUrl = 'https://rw3gl2g6ff.execute-api.us-east-1.amazonaws.com/dev'; //'https://go.wrench.ai/';
-// let baseUrl = 'http://enrich-farg-pub-nlb-a23e88944947dbea.elb.us-east-1.amazonaws.com';
+let baseUrl = 'https://rw3gl2g6ff.execute-api.us-east-1.amazonaws.com/dev';
 let convertObjectToFormData = (items) => {
-  const formData = new FormData()
+  const formData = new FormData();
   for (let key in items) {
     formData.append(key, items[key])
   }
@@ -12,7 +11,7 @@ let convertObjectToFormData = (items) => {
 }
 
 let convertObjectToUrlData = (items) => {
-  const params = new URLSearchParams()
+  const params = new URLSearchParams();
   for (let key in items) {
     if (items[key]) {
       params.append(key, items[key])

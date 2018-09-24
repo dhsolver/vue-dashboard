@@ -76,8 +76,7 @@ webpackConfig.plugins = [...webpackConfig.plugins,
   purifyCss,
   new HtmlWebpackPlugin({
     inject: true,
-    template: helpers.root('/src/index.html'),
-    favicon: helpers.root('/src/favicon.ico'),
+    template: helpers.root('./src/index.html'),
     minify: {
       removeComments: true,
       collapseWhitespace: true,
@@ -102,7 +101,6 @@ webpackConfig.plugins = [...webpackConfig.plugins,
   new DefinePlugin({
     'process.env': env
   }),
-  new FaviconsWebpackPlugin(helpers.root('/src/icon.png'))
 ];
 
 module.exports = webpackConfig;

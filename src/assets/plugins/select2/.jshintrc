@@ -17,7 +17,7 @@
     "window": false
   },
   "indent": 2,
-  "maxlen": 80,
+  "maxlen": 120,
   "noarg": true,
   "nonew": true,
   "quotmark": "single",

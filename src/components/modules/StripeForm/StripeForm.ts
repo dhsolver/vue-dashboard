@@ -35,7 +35,7 @@ export class StripeForm extends Vue {
 
   async purchase () {
     let self = this;
-    
+
     const { token, error } = await stripe.createToken(this.card);
 
     if (error) {
@@ -44,11 +44,11 @@ export class StripeForm extends Vue {
       console.log('Success!', token);
 
 
-      this.$store.dispatch(MutationTypes.STRIPE_A1, {client_name:'Wrench.AI', token: token, amount: this.amount});
+      this.$store.dispatch(MutationTypes.STRIPE_A1, {client_name: 'Wrench.AI', token: token, amount: this.amount});
 
 
     }
-    
- 
+
+
   }
 }

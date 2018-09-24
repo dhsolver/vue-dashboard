@@ -37,9 +37,9 @@ const actions: ActionTree<State, State> = {
   },
 
   [MutationTypes.LOGIN_USER]: ({commit}, loginData) => {
-    const configString = localStorage.getItem("awsConfig");
+    const configString = localStorage.getItem('awsConfig');
     const config = JSON.parse(configString);
-    if(config == null) {
+    if (config == null) {
       loginUser(loginData.username, loginData.password);
     }
   },

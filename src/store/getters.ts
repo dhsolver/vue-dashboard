@@ -7,7 +7,7 @@ const getters: GetterTree<State, State> = {
     const {loginStorage} = state;
     return localStorage;
   },
-  loggedIn(state): boolean{
+  loggedIn(state): boolean {
     const {loggedIn} = state;
     return loggedIn;
   },

@@ -10,10 +10,8 @@ export class State {
   public uploadedFile: boolean;
 
   constructor() {
-
     this.loginStorage = localStorage;
-
-    const configString = localStorage.getItem("awsConfig");
+    const configString = localStorage.getItem('awsConfig');
     const config = JSON.parse(configString);
     this.loggedIn = config != null;
     this.submittedContactInfo = false;

@@ -11,7 +11,7 @@ const mutations: MutationTree<State> = {
 
   [MutationTypes.LOGIN_CHANGED]: (state: State) => {
     state.loginStorage = localStorage;
-    const configString = localStorage.getItem("awsConfig");
+    const configString = localStorage.getItem('awsConfig');
     const config = JSON.parse(configString);
     state.loggedIn = config != null;
     console.log('loginChanged', state.loginStorage)
