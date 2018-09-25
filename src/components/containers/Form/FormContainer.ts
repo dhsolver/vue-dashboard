@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import {MutationTypes} from '../../../store/mutation-types';
+import { MutationTypes } from '../../../store/mutation-types';
 import { Component, Prop, Watch } from 'vue-property-decorator'
 import { Getter } from 'vuex-class';
 
@@ -51,7 +51,7 @@ export class FormContainer extends Vue {
   address1 = '';
   addressValidated = true;
   address2 = '';
-  birthday = new Date(1980, 1,  1);
+  birthday = new Date(1980, 1, 1);
   fileUpLoadValidated = false;
 
   @Getter('loginStorage', {}) loginStorage!: any;
@@ -73,7 +73,6 @@ export class FormContainer extends Vue {
     }
   }
 
-
   // Login
   userLogin() {
 
@@ -81,7 +80,7 @@ export class FormContainer extends Vue {
     this.passwordValidated = this.password !== '';
     if (this.userNameValidated && this.passwordValidated) {
       console.log('sending request...');
-      const loginInfo = {username: this.userName, password: this.password};
+      const loginInfo = { username: this.userName, password: this.password };
       this.$store.dispatch(MutationTypes.LOGIN_USER, loginInfo);
     }
   }
@@ -91,7 +90,7 @@ export class FormContainer extends Vue {
   }
 
   // COMMON
-  getClassNameForTab (tab) {
+  getClassNameForTab(tab) {
 
     let class1 = `wd-step ${this.step === tab ? 'active' : ''}`;
     if (tab === 0) {
@@ -107,15 +106,16 @@ export class FormContainer extends Vue {
     if (this.validateStep(this.step)) {
       switch (this.step) {
         case 0:
-          this.step++;
-          break;
+          this.step ++;
+        break;
         case 1:
           if (this.submittedContactInfo) {
             this.step++;
-          } else {
+          }
+          else {
             this.submitContactInfo();
           }
-          break;
+        break;
         case 2:
           this.step++;
           break;
@@ -124,18 +124,10 @@ export class FormContainer extends Vue {
   }
 
   setStep(tab) {
-    // if (tab > 0) {
-    //   console.log(tab, this.formValidated[tab-1])
-    //   if (this.formValidated[tab-1]) {
-    //     this.step = tab;
-    //   }
-    // } else {
-    //   this.step = 0;
-    // }
-    // console.log(this.step)
-    // console.log(tab, this.formValidated[tab-1])
-    // if (!this.formValidated[tab-1]) return;
-    // this.step = tab;
+    console.log(tab);
+    if (this.loggedIn && tab < 3) {
+      this.step = tab;
+    }
   }
 
   prevStep() {
@@ -164,16 +156,16 @@ export class FormContainer extends Vue {
         this.emailValidated = this.email !== '';
         this.addressValidated = this.address1 + this.address2 !== '';
         if (this.firstNameValidated &&
-            this.lastNameValidated &&
-            this.phoneNumberValidated &&
-            this.companyValidated &&
-            this.emailValidated) {
-              this.formValidated[tab] = true;
-              return true;
+          this.lastNameValidated &&
+          this.phoneNumberValidated &&
+          this.companyValidated &&
+          this.emailValidated) {
+          this.formValidated[tab] = true;
+          return true;
         }
         break;
       case 2:
-        if ( this.fileUpLoadValidated ) {
+        if (this.fileUpLoadValidated) {
           return true;
         }
         break;
@@ -181,6 +173,23 @@ export class FormContainer extends Vue {
     }
     this.formValidated[tab] = false;
     return false;
+  }
+
+  private getContactInfo() {
+    this.$store.dispatch(MutationTypes.GET_CONTACT_INFO, { callback: contact_info => {
+      if (this.loggedIn) {
+        this.firstName = contact_info.first_name;
+        this.lastName = contact_info.last_name;
+        this.email = contact_info.email;
+        this.company = contact_info.company;
+        this.phoneNumber = contact_info.phone;
+        this.address1 = contact_info.street_address_1;
+        this.address2 = contact_info.street_address_2;
+        this.birthday = contact_info.birthday;
+        this.step = 2;
+      }
+    }});
+
   }
 
   private submitContactInfo() {
@@ -194,7 +203,7 @@ export class FormContainer extends Vue {
       'street_2': 'Apt 2B',
       'city': 'Los Angeles',
       'state': 'CA', 'zip':
-      '91203', 'year': '1970',
+        '91203', 'year': '1970',
       'month': '01',
       'day': '21'
     };
@@ -204,7 +213,7 @@ export class FormContainer extends Vue {
   private uploadFile(file: File) {
     this.$store.dispatch(MutationTypes.UPLOAD_FILE, file);
   }
-  success_handler (response) {
+  success_handler(response) {
     console.log(response, 'slfjlksjdfljsfdlkj');
     this.fileUpLoadValidated = false;
 
