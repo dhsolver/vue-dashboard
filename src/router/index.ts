@@ -3,10 +3,10 @@ import VueRouter from 'vue-router';
 
 // conatiners
 import { AppContainer } from '../components/containers/App';
-
 import { FormContainer } from '../components/containers/Form';
 import { DashboardContainer } from '../components/containers/Dashboard';
 import { AdminContainer } from '../components/containers/Admin';
+import { StripeContainer } from '../components/containers/Stripe';
 
 // modules
 import { Navbar } from '../components/modules/Navbar';
@@ -31,13 +31,17 @@ const router = new VueRouter({
       component: DashboardContainer,
       name: 'dashboard',
       path: '/dashboard',
-    }, {
+    },
+    {
       component: AdminContainer,
       name: 'admin',
       path: '/admin',
-    }, 
-    
-
+    },
+    // {
+    //   component: StripeContainer,
+    //   name: 'stripe',
+    //   path: '/stripe',
+    // },
   ],
 });
 
