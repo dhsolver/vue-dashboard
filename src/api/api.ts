@@ -119,12 +119,13 @@ let sendPut = (url, payload, headers = null) => {
   })
 }
 
-let sendGet = (url, config = null) => {
+let sendGet = (url, headers = null) => {
   let pageCount = null
   setConfig()
+  console.log(config);
   $http = axios.create(config.axiosConfig)
   return new Promise((resolve, reject) => {
-    $http.get(url, config)
+    $http.get(url, config.axiosConfig)
       .then((handleSuccess) => {
         resolve(handleSuccess)
       })

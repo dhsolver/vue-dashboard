@@ -12,8 +12,8 @@
         <li class="wd-step__item">
           <a id="step1" :class="getClassNameForTab(0)" @click="setStep(0)">
 
-            <span v-if="loggedIn && step!=0"  class="wd-step__number">
-              <FontAwesomeIcon icon="check"/>
+            <span v-if="loggedIn && step!=0" class="wd-step__number">
+              <FontAwesomeIcon icon="check" />
             </span>
             <span v-else class="number wd-step__number">1</span>
 
@@ -26,8 +26,8 @@
 
         <li class="wd-step__item">
           <a id="step2" :class="getClassNameForTab(1)" @click="setStep(1)">
-            <span v-if="submittedContactInfo && step!=1"  class="wd-step__number">
-              <FontAwesomeIcon icon="check"/>
+            <span v-if="submittedContactInfo && step!=1" class="wd-step__number">
+              <FontAwesomeIcon icon="check" />
             </span>
             <span v-else class="number wd-step__number">2</span>
             <span class="wd-step__title">
@@ -40,8 +40,8 @@
 
         <li class="wd-step__item">
           <a id="step3" :class="getClassNameForTab(2)" @click="setStep(2)">
-            <span v-if="formValidated[2] && step!=2"  class="wd-step__number">
-              <FontAwesomeIcon icon="check"/>
+            <span v-if="formValidated[2] && step!=2" class="wd-step__number">
+              <FontAwesomeIcon icon="check" />
             </span>
             <span v-else class="number wd-step__number">3</span>
 
@@ -65,57 +65,61 @@
         </li>
       </ul>
       <!-- end wizard-step -->
-        <!-- begin step-3 -->
-        <div v-show="step==0">
-          <!-- begin fieldset -->
-          <fieldset>
+      <!-- begin step-3 -->
+      <div v-show="step==0">
+        <!-- begin fieldset -->
+        <fieldset>
 
-            <div class="row">
+          <div class="row">
 
-              <div class="wd-wrap">
-                <div class="wd-form__wrapper" v-if="loggedIn">
+            <div class="wd-wrap">
+              <div class="wd-form__wrapper" v-if="loggedIn">
 
-                  <legend class="wd-form__header">You are now logged in.</legend>
+                <legend class="wd-form__header">You are now logged in.</legend>
 
-                  <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
-                    <!-- <button class="btn btn-default sw-btn-next wd-btn-next" type="button" @click="nextStep" :disabled="isDisabledNextBtn()">Next</button> -->
-                    <button class="btn btn-default" type="button" @click="userLogout()"> Logout</button>
-                  </div>
-
+                <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
+                  <button class="btn btn-default sw-btn-prev wd-btn-prev" type="button" @click="userLogout()"> Logout</button>
                 </div>
-                <div class="wd-form__wrapper" v-else>
 
-                  <legend class="wd-form__header">Select your login username and password</legend>
+              </div>
+              <div class="wd-form__wrapper" v-else>
 
-                  <div class="wd-form__wrp">
-                    <label class="wd-form__label">Username<span>*</span></label>
-                    <input type="text" name="username" placeholder="johnsmithy" v-model="userName" @change="userNameValidated=true" :class="`wd-form__input ${userNameValidated?'':'input-error'}`"/>
-                  </div>
+                <legend class="wd-form__header">Select your login username and password</legend>
 
-                  <div class="wd-form__wrp">
-                    <label class="wd-form__label">Pasword<span>*</span></label>
-                    <input type="password" name="password" placeholder="Your password" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
-                  </div>
+                <div class="wd-form__wrp">
+                  <label class="wd-form__label">Username
+                    <span>*</span>
+                  </label>
+                  <input type="text" name="username" placeholder="johnsmithy" v-model="userName" @change="userNameValidated=true" :class="`wd-form__input ${userNameValidated?'':'input-error'}`"
+                  />
+                </div>
 
-                    <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
-                      <!-- <button class="btn btn-default sw-btn-next wd-btn-next" type="button" @click="nextStep" :disabled="isDisabledNextBtn()">Next</button> -->
-                      <a class="btn btn-default" @click="userLogin()">Login</a>
-                    </div>
+                <div class="wd-form__wrp">
+                  <label class="wd-form__label">Pasword
+                    <span>*</span>
+                  </label>
+                  <input type="password" name="password" placeholder="Your password" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"
+                  />
+                </div>
+
+                <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
+                  <a class="btn btn-default sw-btn-next wd-btn-next" @click="userLogin()">Login</a>
+                </div>
 
 
-                  <!--
+                <!--
                   <div class="wd-form__wrp">
                     <label class="wd-form__label">Confirm Pasword<span>*</span></label>
                     <input type="password" name="password2" placeholder="Confirmed password" class="wd-form__input" />
                   </div> -->
 
-                </div>
               </div>
             </div>
-          </fieldset>
-          <!-- end fieldset -->
-        </div>
-        <!-- end step-3 -->
+          </div>
+        </fieldset>
+        <!-- end fieldset -->
+      </div>
+      <!-- end step-3 -->
 
       <!-- begin wizard-content -->
       <div>
@@ -133,46 +137,67 @@
                   <legend class="wd-form__header">Information about you</legend>
 
                   <div class="wd-form__wrp">
-                    <label class="wd-form__label">First Name<span>*</span></label>
-                    <input type="text" placeholder="First Name" v-model="firstName" @change="firstNameValidated=true" :class="`wd-form__input ${firstNameValidated?'':'input-error'}`" />
+                    <label class="wd-form__label">First Name
+                      <span>*</span>
+                    </label>
+                    <input type="text" placeholder="First Name" v-model="firstName" @change="firstNameValidated=true" :class="`wd-form__input ${firstNameValidated?'':'input-error'}`"
+                    />
                   </div>
 
                   <div class="wd-form__wrp">
-                    <label class="wd-form__label">Last Name<span>*</span></label>
-                    <input type="text" placeholder="Last Name" v-model="lastName" @change="lastNameValidated=true" :class="`wd-form__input ${lastNameValidated?'':'input-error'}`" />
+                    <label class="wd-form__label">Last Name
+                      <span>*</span>
+                    </label>
+                    <input type="text" placeholder="Last Name" v-model="lastName" @change="lastNameValidated=true" :class="`wd-form__input ${lastNameValidated?'':'input-error'}`"
+                    />
                   </div>
 
                   <div class="wd-form__wrp">
-                    <label class="wd-form__label">Company<span>*</span></label>
-                    <input type="text" placeholder="Company" v-model="company" @change="companyValidated=true" :class="`wd-form__input ${companyValidated?'':'input-error'}`" />
+                    <label class="wd-form__label">Company
+                      <span>*</span>
+                    </label>
+                    <input type="text" placeholder="Company" v-model="company" @change="companyValidated=true" :class="`wd-form__input ${companyValidated?'':'input-error'}`"
+                    />
                   </div>
 
                   <div class="wd-form__wrp">
-                    <label class="wd-form__label">Phone Number<span>*</span></label>
-                    <input type="tel" placeholder="555-432-1012" v-model="phoneNumber" @change="phoneNumberValidated=true" :class="`wd-form__input ${phoneNumberValidated?'':'input-error'}`" />
+                    <label class="wd-form__label">Phone Number
+                      <span>*</span>
+                    </label>
+                    <input type="tel" placeholder="555-432-1012" v-model="phoneNumber" @change="phoneNumberValidated=true" :class="`wd-form__input ${phoneNumberValidated?'':'input-error'}`"
+                    />
                   </div>
 
                   <div class="wd-form__wrp">
-                    <label class="wd-form__label">Email address<span>*</span></label>
-                    <input type="email" placeholder="mail@website.com" v-model="email" @change="emailValidated=true" :class="`wd-form__input ${emailValidated?'':'input-error'}`" />
+                    <label class="wd-form__label">Email address
+                      <span>*</span>
+                    </label>
+                    <input type="email" placeholder="mail@website.com" v-model="email" @change="emailValidated=true" :class="`wd-form__input ${emailValidated?'':'input-error'}`"
+                    />
                   </div>
 
                   <div class="wd-form__wrp">
-                    <label class="wd-form__label">Address<span>*</span></label>
+                    <label class="wd-form__label">Address
+                      <span>*</span>
+                    </label>
                     <!-- <div> -->
-                    <input type="text" name="address1" placeholder="Address 1" v-model="address1" @change="addressValidated=true" :class="`wd-form__input ${addressValidated?'':'input-error'}`" />
+                    <input type="text" name="address1" placeholder="Address 1" v-model="address1" @change="addressValidated=true" :class="`wd-form__input ${addressValidated?'':'input-error'}`"
+                    />
                     <!-- </div> -->
                   </div>
                   <div class="wd-form__wrp">
                     <div></div>
-                    <input type="text" name="address2" placeholder="Address 2" v-model="address2" @change="addressValidated=true" :class="`wd-form__input ${addressValidated?'':'input-error'}`" />
+                    <input type="text" name="address2" placeholder="Address 2" v-model="address2" @change="addressValidated=true" :class="`wd-form__input ${addressValidated?'':'input-error'}`"
+                    />
 
                   </div>
 
                   <div class="wd-form__wrp">
-                    <label class=" wd-form__label">Date of Birth<span>*</span></label>
+                    <label class=" wd-form__label">Date of Birth
+                      <span>*</span>
+                    </label>
                     <div>
-                      <datepicker v-model="birthday" name="birthday" format="yyyy-MM-dd" :disabled="formValidated[1]"></datepicker>
+                      <datepicker v-model="birthday" :typeable="true" name="birthday" format="yyyy-MM-dd" :disabled="formValidated[1]"></datepicker>
                     </div>
                   </div>
 
@@ -189,17 +214,6 @@
         <div v-show="step==2">
           <fieldset>
             <div class="wd-form__load">
-              <!-- <multiple-file-uploader
-                postURL="https://rw3gl2g6ff.execute-api.us-east-1.amazonaws.com/prod/enrich"
-                successMessagePath=""
-                errorMessagePath=""
-                headerMessage=""
-                dropAreaPrimaryMessage="Drop CSV files here or click to upload."
-                @upload-success='success_handler'
-                :showHttpMessages="false"
-                >
-              </multiple-file-uploader> -->
-
               <label>File
                 <input type="file" id="file" ref="file" @change="handleFileUpload($event.target.files)"/>
               </label>
@@ -212,10 +226,11 @@
         <div v-show="step==3">
           <div class="wd-form__success">
             <h2 class="wd-form__success--title">Upload Successfully</h2>
-            <p class="wd-form__success--subtitle">Thanks! We'll start matching your data with your clients. While
-              you're waiting, we've created a profile for you. <br /> Serendipity will now match the data you provided
-              with customers, leads, companies, products, and more.</p>
-            <p><a href="javascript:;" class="wd-btn ">Proceed to User Profile</a></p>
+            <p class="wd-form__success--subtitle">Thanks! We'll start matching your data with your clients. While you're waiting, we've created a profile for you.
+              <br /> Serendipity will now match the data you provided with customers, leads, companies, products, and more.</p>
+            <p>
+              <a href="javascript:;" class="wd-btn ">Proceed to User Profile</a>
+            </p>
           </div>
         </div>
         <!-- end step-4 -->

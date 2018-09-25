@@ -1,7 +1,7 @@
 import {ActionTree} from 'vuex';
 import {MutationTypes} from './mutation-types';
 import {State} from './state';
-import { sendPost, sendPostForm } from '../api/api';
+import { sendPost, sendPostForm, sendGet } from '../api/api';
 
 declare function loginUser(email, pwd): any;
 declare function uploadFile(file);
@@ -69,6 +69,29 @@ const actions: ActionTree<State, State> = {
     })
   },
 
+  [MutationTypes.GET_CONTACT_INFO]: ({ commit }, {callback}) => {
+    // contactInfo = {"first_name": "Dave", "last_name": "Smith", "company_name": "Wrench.AI Test sssss 1", "phone_number": "888-555-1212", "email": "kevin@wrench.ai", "street_1": "555 Main St.", "street_2": "Apt 2B", "city": "Los Angeles", "state": "CA", "zip": "91203", "year": "1970", "month": "01", "day": "21"};
+    sendPost('/get_contact_info', {},
+      {
+        'Content-Type': 'application/json',
+        'Access-Control-Request-Method': 'POST',
+        'Access-Control-Request-Headers': 'origin, x-requested',
+        'Access-Control-Request-Origin': 'https://foo.bar.org'
+      })
+      .then((res: any) => {
+        if (callback) {
+          callback(res.data.payload);
+        }
+      })
+      .catch((error: any) => {
+        if (error.response && error.response.data) {
+          console.log(error.response.data)
+        } else {
+          console.log(error.message)
+        }
+      })
+  },
+
   [MutationTypes.UPLOAD_FILE]: ({commit}, file) => {
     console.log('********* file upload action ********');
     uploadFile(file).then(data => {
@@ -78,6 +101,8 @@ const actions: ActionTree<State, State> = {
       console.log('*** error ***', error);
     });
   },
+
+
 };
 
 export default actions;
