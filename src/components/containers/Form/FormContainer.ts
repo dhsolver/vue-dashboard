@@ -73,9 +73,12 @@ export class FormContainer extends Vue {
     }
   }
 
+  mounted() {
+    this.getContactInfo();
+  }
+
   // Login
   userLogin() {
-
     this.userNameValidated = this.userName !== '';
     this.passwordValidated = this.password !== '';
     if (this.userNameValidated && this.passwordValidated) {
@@ -111,8 +114,7 @@ export class FormContainer extends Vue {
         case 1:
           if (this.submittedContactInfo) {
             this.step++;
-          }
-          else {
+          } else {
             this.submitContactInfo();
           }
         break;
@@ -120,6 +122,8 @@ export class FormContainer extends Vue {
           this.step++;
           break;
       }
+
+
     }
   }
 
