@@ -217,9 +217,10 @@ function uploadFile(file) {
     // Make the call to obtain credentials
     AWS.config.credentials.get(function(){
         var s3bucket = new AWS.S3();
+        longFileName = tokenInfo['IdToken']['payload']['email'] + ' || ' + tokenInfo['IdToken']['payload']['sub'] + ' || ' + file.name;
         const obj = {
-          Key: `${tokenInfo['IdToken']['payload']['email']}/${file.name}`,
-          Bucket: 'ui-michael',
+          Key: longFileName,
+          Bucket: 'enrichment-file-drop-wrench-ai',
           Body: file,
           ContentType: file.type
         };
