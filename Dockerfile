@@ -14,6 +14,5 @@ RUN npm run build
 RUN rm -rf ./src
 RUN rm -rf ./build
 
-# Port to expose
 EXPOSE 8080
 CMD [ "yarn", "serve" ]

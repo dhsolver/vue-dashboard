@@ -20,17 +20,13 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      component: AppContainer,
+      component: DashboardContainer,
       name: 'index',
       path: '/',
     }, {
       component: FormContainer,
       name: 'form',
       path: '/form',
-    }, {
-      component: DashboardContainer,
-      name: 'dashboard',
-      path: '/dashboard',
     },
     {
       component: AdminContainer,

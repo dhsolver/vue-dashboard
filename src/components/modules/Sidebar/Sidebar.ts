@@ -6,6 +6,7 @@ import { Logger } from '../../../utils/log';
 @Component({
   template: require('./Sidebar.html')
 })
+
 export class Sidebar extends Vue {
 
   protected logger: Logger;
