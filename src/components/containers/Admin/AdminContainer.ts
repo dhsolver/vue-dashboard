@@ -9,8 +9,6 @@ import { Component, Prop, Watch } from 'vue-property-decorator'
   template: require('./admin.html'),
   components: {
   }
-  
- 
 })
 
 

@@ -34,6 +34,7 @@
     "@updivision/vue2-multi-uploader": "^1.6.2",
     "ajv": "^6.5.3",
     "axios": "^0.18.0",
+    "d3": "^5.7.0",
     "stripe": "^6.10.0",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.3",

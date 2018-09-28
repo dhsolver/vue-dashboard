@@ -91,6 +91,38 @@ const actions: ActionTree<State, State> = {
         }
       })
   },
+  //
+  // [MutationTypes.GET_PERSON_INFO]: ({ commit }, {callback}) => {
+  //   console.log('doing get pers info post')
+  //   // console.log('callback: ' + callback)
+  //   // d1f93ae7-7adc-4c8e-bb73-9e1d39d46121
+  //   // 7bd4964d-49f4-402e-9a28-aec668527ac5
+  //   // c593e420-8753-4927-977c-b2c8c3e6a2cd
+  //   sendPost('/get_person_info', {'entity_id': '7bd4964d-49f4-402e-9a28-aec668527ac5'},
+  //     {
+  //       'Content-Type': 'application/json',
+  //       'Access-Control-Request-Method': 'POST',
+  //       'Access-Control-Request-Headers': 'origin, x-requested',
+  //       'Access-Control-Request-Origin': 'https://foo.bar.org'
+  //     })
+  //     .then((res: any) => {
+  //       console.log('response from pers info')
+  //       console.log('res.status: ' + res.status)
+  //       console.log('res.request.responseURL: ' + res.request.responseURL)
+  //       if (callback) {
+  //         callback(res.data.payload);
+  //       }
+  //     })
+  //     .catch((error: any) => {
+  //       console.log('catch on p info')
+  //       if (error.response && error.response.data) {
+  //         console.log(error.response.data)
+  //       } else {
+  //         console.log(error.message)
+  //       }
+  //     })
+  // },
+
 
   [MutationTypes.UPLOAD_FILE]: ({commit}, file) => {
     console.log('********* file upload action ********');

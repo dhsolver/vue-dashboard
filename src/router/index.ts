@@ -6,6 +6,7 @@ import { AppContainer } from '../components/containers/App';
 import { FormContainer } from '../components/containers/Form';
 import { DashboardContainer } from '../components/containers/Dashboard';
 import { AdminContainer } from '../components/containers/Admin';
+// import { D3Container } from '../components/containers/d3';
 import { StripeContainer } from '../components/containers/Stripe';
 
 // modules
@@ -33,6 +34,11 @@ const router = new VueRouter({
       name: 'admin',
       path: '/admin',
     },
+    // {
+    //   component: D3Container,
+    //   name: 'd3',
+    //   path: '/d3',
+    // },
     // {
     //   component: StripeContainer,
     //   name: 'stripe',
