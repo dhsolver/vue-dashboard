@@ -236,6 +236,17 @@ function uploadFile(file) {
 }
 
 
+function getSubjectId() {
+  if (localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens')) {
+    const tokenInfo = JSON.parse(localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens'));
+    sub_id = tokenInfo['IdToken']['payload']['sub'];
+    return sub_id;
+  }
+  else {
+    return 'log in token not found';
+  }
+}
+
 function registeringRequest (email, pw) {
   event.preventDefault();
 
