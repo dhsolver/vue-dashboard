@@ -33,7 +33,7 @@
         <!-- END profile-header-content -->
         <!-- BEGIN profile-header-tab -->
         <ul class="profile-header-tab nav nav-tabs">
-          
+
           <li class="nav-item"><a href="#profile-about" class="nav-link active" data-toggle="tab">PROFILE</a></li>
           <li class="nav-item"><a href="#profile-post" class="nav-link" data-toggle="tab">POSTS</a></li>
           <li class="nav-item"><a href="#profile-photos" class="nav-link" data-toggle="tab">PHOTOS</a></li>
@@ -82,7 +82,7 @@
                   <div class="stats-right">
                     <span class="stats-text">259 Shares</span>
                     <span class="stats-text">21 Comments</span>
-                  </div> 
+                  </div>
                   <div class="stats">
                     <span class="fa-stack fa-fw stats-icon">
                       <i class="fa fa-circle fa-stack-2x text-danger"></i>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="timeline-footer">
                   <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a> 
+                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
                   <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
                 </div>
                 <div class="timeline-comment-box">
@@ -141,7 +141,7 @@
                 </div>
                 <div class="timeline-footer">
                   <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a> 
+                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
                   <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
                 </div>
               </div>
@@ -175,7 +175,7 @@
                 </div>
                 <div class="timeline-footer">
                   <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a> 
+                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
                   <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
                 </div>
               </div>
@@ -212,7 +212,7 @@
                 </div>
                 <div class="timeline-footer">
                   <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a> 
+                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
                   <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
                 </div>
               </div>
@@ -246,46 +246,29 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-if="isFetching">
+                <tr><td>Loading...</td></tr>
+              </tbody>
+              <tbody v-if="!isFetching">
                 <tr>
                   <td class="field">First Name</td>
-                  <td>Olga <a href="javascript:;" class="m-l-5">Edit</a></td>
+                  <td>{{firstName}}</td>
                 </tr>
                 <tr>
                   <td class="field">Last Name</td>
-                  <td>Tiagur <a href="javascript:;" class="m-l-5">Edit</a></td>
+                  <td>{{lastName}}</td>
                 </tr>
                 <tr>
                   <td class="field">Company</td>
-                  <td>The Company <a href="javascript:;" class="m-l-5">Edit</a></td>
+                  <td>{{company}}</td>
                 </tr>
                 <tr>
                   <td class="field">Phone Number</td>
-                  <td><a href="javascript:;">Add Number</a></td>
+                  <td>{{phone}}</td>
                 </tr>
                 <tr>
                   <td class="field">Email address</td>
-                  <td><a href="javascript:;">Add address</a></td>
-                </tr>
-                <tr>
-                  <td class="field"></td>
-                  <td><a href="javascript:;">Add address2</a></td>
-                </tr>
-                <tr>
-                  <td class="field">Date of Birth</td>
-                  <td>
-                    <select class="form-control input-inline input-xs" name="day">
-                      <option value="04" selected>04</option>
-                    </select>
-                    -
-                    <select class="form-control input-inline input-xs" name="month">
-                      <option value="11" selected>11</option>
-                    </select>
-                    -
-                    <select class="form-control input-inline input-xs" name="year">
-                      <option value="1989" selected>1989</option>
-                    </select>
-                  </td>
+                  <td>{{email}}</td>
                 </tr>
                 <tr class="gender-row">
                   <td class="field">Gender</td>
@@ -337,7 +320,7 @@
               <a href="javascript:;" class="superbox-img">
                 <img data-img="../assets/images/gallery/gallery-4.jpg" />
                 <span style="background: url(../assets/images/gallery/gallery-4-thumb.jpg);"></span>
-              </a>  
+              </a>
             </div>
             <div class="superbox-list">
               <a href="javascript:;" class="superbox-img">
