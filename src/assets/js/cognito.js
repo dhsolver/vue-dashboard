@@ -234,3 +234,73 @@ function uploadFile(file) {
     });
   });
 }
+
+
+function registeringRequest (email, pw) {
+  event.preventDefault();
+
+  var poolData = {
+    UserPoolId : cognitoUserPoolId,
+    ClientId : cognitoUserPoolClientId
+  };
+  var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+  var attributeList = [];
+
+  var dataEmail = {
+      Name : 'email',
+      Value : email
+  };
+
+  var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+
+  attributeList.push(attributeEmail);
+
+  userPool.signUp(email, pw, attributeList, null, function(err, result){
+      if (err) {
+          alert(err.message);
+          return;
+      }
+      cognitoUser = result.user;
+      console.log(cognitoUser);
+      localStorage.setItem('email', email);
+      document.getElementById('registering_request_sent').click();
+  });
+
+
+}
+
+function registeringWithCode(confirmCode){
+  console.log('start registeringWithCode()')
+
+  event.preventDefault();
+
+  var poolData = {
+    UserPoolId : cognitoUserPoolId,
+    ClientId : cognitoUserPoolClientId
+  };
+
+  var userName = localStorage.getItem('email');
+
+  var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  var userData = {
+      Username : userName,
+      Pool : userPool
+  };
+
+  var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+  cognitoUser.confirmRegistration(confirmCode, true, function(err, result) {
+      if (err) {
+        if (err.code == 'UnknownError') {
+          alert('success!');
+          location.href="/form"
+        } else {
+          alert(err.message);
+          console.log(err)
+          return;
+        }
+      }
+
+  });
+
+}

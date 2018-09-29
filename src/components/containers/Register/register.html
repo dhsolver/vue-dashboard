@@ -1,0 +1,58 @@
+<!-- begin #content -->
+<div id="content" class="content">
+  <fieldset>
+
+    <div class="row">
+
+      <div class="wd-wrap">
+        <div class="wd-form__wrapper" v-if="step==0">
+
+          <legend class="wd-form__header">Register for WRENCH-AI</legend>
+
+          <div class="wd-form__wrp">
+            <label class="wd-form__label">Email<span>*</span></label>
+            <input type="text" name="username" placeholder="email@wrench.ai" v-model="email" @change="emailValidated=true" :class="`wd-form__input ${emailValidated?'':'input-error'}`"/>
+          </div>
+
+          <div class="wd-form__wrp">
+            <label class="wd-form__label">Pasword<span>*</span></label>
+            <input type="password" name="password" placeholder="Your password" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
+          </div>
+
+          <div class="wd-form__wrp">
+            <label class="wd-form__label">Confirm password<span>*</span></label>
+            <input type="password" name="password_confirm" placeholder="Confirm your password" v-model="passwordConfirm" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
+          </div><input type="hidden" id="registering_request_sent" @click="registeringRequestSent"/>
+
+          <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
+            <a class="btn btn-default sw-btn-next" @click="userRegister()">Register</a>
+          </div>
+
+
+        </div>
+
+
+        <div class="wd-form__wrapper" v-if="step==1">
+          <legend class="wd-form__header">Register for WRENCH-AI</legend>
+          <div class="wd-form__wrp">
+            <label class="wd-form__label">Confirm Code<span>*</span></label>
+            <input type="text" name="confirmCode" placeholder="000000" v-model="code" @change="emailValidated=true" :class="`wd-form__input ${codeValidated?'':'input-error'}`"/>
+          </div>
+
+          <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
+            <a class="btn btn-default sw-btn-next" @click="confirmCode">Confirm</a>
+          </div>
+        </div>
+
+        <div class="wd-form__wrapper"  v-if="step==2">
+          <legend class="wd-form__header">Register for WRENCH-AI</legend>
+          <div class="wd-form__wrp"><div>Success!</div></div>
+          <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
+            <a class="btn btn-default sw-btn-next" @click="gotoLogin">Goto Login</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </fieldset>
+</div>
