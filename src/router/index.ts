@@ -17,14 +17,13 @@ const router = new VueRouter({
   routes: [
     {
       component: DashboardContainer,
-      name: 'index',
+      name: 'dashboard',
       path: '/',
     }, {
       component: FormContainer,
       name: 'form',
       path: '/form',
-    },
-    {
+    }, {
       component: AdminContainer,
       name: 'admin',
       path: '/admin',
