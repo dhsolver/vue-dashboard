@@ -16,7 +16,8 @@ declare function getSubjectId();
   },
   data: function() {
      return {
-       subjectId: getSubjectId()
+       subjectId: getSubjectId(),
+       selected: 'A'
      };
   },
 })
