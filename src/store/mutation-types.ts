@@ -9,6 +9,8 @@ export class MutationTypes {
   // public static GET_PERSON_INFO = 'GET_PERSON_INFO';
 
   public static UPLOAD_FILE = 'UPLOAD_FILE';
+  public static GET_PERSON_INFO = 'GET_PERSON_INFO';
+
 
   public static STRIPE_A1 = 'STRIPE_A1';
 }

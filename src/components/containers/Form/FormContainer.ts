@@ -52,6 +52,7 @@ export class FormContainer extends Vue {
   addressValidated = true;
   address2 = '';
   birthday = new Date(1980, 1, 1);
+  birthdayValidated = true;
   fileUpLoadValidated = false;
 
   @Getter('loginStorage', {}) loginStorage!: any;

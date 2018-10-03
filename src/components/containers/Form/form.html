@@ -205,7 +205,8 @@
                       <span>*</span>
                     </label>
                     <div>
-                      <datepicker v-model="birthday" :typeable="true" name="birthday" format="yyyy-MM-dd" :disabled="formValidated[1]"></datepicker>
+                      <input type="date" name="birthday" placeholder="Birthday" v-model="birthday" @change="birthdayValidated=true" :class="`wd-form__input ${birthdayValidated?'':'input-error'}`"
+                        />
                     </div>
                   </div>
 
@@ -236,9 +237,6 @@
             <h2 class="wd-form__success--title">Upload Successfully</h2>
             <p class="wd-form__success--subtitle">Thanks! We'll start matching your data with your clients. While you're waiting, we've created a profile for you.
               <br /> Serendipity will now match the data you provided with customers, leads, companies, products, and more.</p>
-            <p>
-              <a href="javascript:;" class="wd-btn ">Proceed to User Profile</a>
-            </p>
           </div>
         </div>
         <!-- end step-4 -->
