@@ -245,12 +245,13 @@ export class FormContainer extends Vue {
 
   }
   handleFileUpload (fileList) {
-    if (!fileList.length) return;
-    if (fileList[0].type.indexOf('csv') === -1) {
-      alert('Only csv file is valid!');
-    } else {
-      this.uploadFile(fileList[0]);
-    }
+    console.log('fileList.length: ' + (fileList.length));
+    if (!fileList.length)
+      return;
+    console.log('fileList[0].type): ' + (fileList[0].type));
+    console.log('fileList[0].type.indexOf(\'csv\'): ' + (fileList[0].type.indexOf('csv')));
+    console.log('uploading file');
+    this.uploadFile(fileList[0]);
   }
 
 }
