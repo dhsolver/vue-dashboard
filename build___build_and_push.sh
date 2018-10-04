@@ -1,6 +1,3 @@
-$(aws ecr get-login --no-include-email)
-
-
 
 
 docker build -t wrench-web .
@@ -9,9 +6,3 @@ docker push 463336248486.dkr.ecr.us-east-1.amazonaws.com/wrench-ai:wrench-web
 
 
 
-
-
-
-
------ run on local ------
-docker run -p 8080 wrench-web
