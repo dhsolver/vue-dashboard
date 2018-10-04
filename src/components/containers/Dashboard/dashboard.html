@@ -74,15 +74,21 @@
                 </div>
               </div>
               <div class="panel-body panel-body--chart">
-                  <iframe id="adoption-curve-iframe" style="width: 100%; height: 400px;" frameborder="0" scrolling="no" v-bind:src="'http://dash-prod.cvjzxpr5zh.us-east-1.elasticbeanstalk.com/chart=adoption_curve&s=' + subjectId + '&x=' + adop_curve_x + '&y=' + adop_curv_y"></iframe>
+                <iframe style="width: 100%; height: 400px;" frameborder="0" scrolling="no" v-bind:src="'http://dash-prod.cvjzxpr5zh.us-east-1.elasticbeanstalk.com/chart=adoption_curve&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y"></iframe>
 
-                <select v-model="selected" v-on:change="updateChart('adoption-curve')">
+                <select v-model="adopt_curve_y" >
                   <option disabled value="">Please select one</option>
-                  <option>A</option>
-                  <option>B</option>
-                  <option>C</option>
+                  <option v-for="option in adopt_curve_y_options" v-bind:value="option.value">
+                    {{ option.text }}
+                  </option>
                 </select>
-                <span>Selected: {{ selected }}</span>
+
+                <select v-model="adopt_curve_x" >
+                  <option disabled value="">Please select one</option>
+                  <option v-for="option in adopt_curve_x_options" v-bind:value="option.value">
+                    {{ option.text }}
+                  </option>
+                </select>
 
               </div>
             </div>

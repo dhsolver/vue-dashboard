@@ -181,28 +181,6 @@ export class FormContainer extends Vue {
   }
 
   private getContactInfo() {
-    // console.log('start getCInfo-------------------------------------------')
-    // this.$store.dispatch(MutationTypes.GET_PERSON_INFO, { callback: person_info => {
-    //   console.log(' start get pers inf callback')
-    //     console.log(person_info.first_name);
-    //     console.log(person_info.last_name);
-    //     console.log(person_info.email);
-    //     console.log(person_info.company);
-    //     console.log(person_info.phone);
-    //     console.log(person_info.gender);
-    //   console.log(' end logging for get pers inf callback')
-    //
-    //   if (this.loggedIn) {
-    //     this.firstName = person_info.first_name;
-    //     this.lastName = person_info.last_name;
-    //     this.email = person_info.email;
-    //     this.company = person_info.company;
-    //     this.phoneNumber = person_info.phone;
-    //     this.birthday = person_info.gender;
-    //     this.step = 2;
-    //   }
-    // }});
-
     this.$store.dispatch(MutationTypes.GET_CONTACT_INFO, { callback: contact_info => {
       if (this.loggedIn) {
         this.firstName = contact_info.first_name;
