@@ -10,7 +10,7 @@ import {MutationTypes} from '../../../store/mutation-types';
 export class Footbar extends Vue {
 
   protected logger: Logger;
-  
+
 
   inverted: boolean = true; // default value
 
@@ -26,12 +26,6 @@ export class Footbar extends Vue {
   pathChanged() {
     this.logger.info('Changed current path to: ' + this.$route.path);
   }
-
-  changeLoginState() {
-    this.$store.dispatch(MutationTypes.LOGIN_CHANGED);
-  }
-
-
   mounted() {
     if (!this.logger) this.logger = new Logger();
     this.$nextTick(() => this.logger.info(this.object.default));
