@@ -40,7 +40,9 @@ const actions: ActionTree<State, State> = {
     const configString = localStorage.getItem('awsConfig');
     const config = JSON.parse(configString);
     if (config == null) {
-      loginUser(loginData.username, loginData.password);
+      loginUser(loginData.username, loginData.password).then(() => {
+        commit(MutationTypes.LOGIN_CHANGED);
+      });
     }
   },
 
