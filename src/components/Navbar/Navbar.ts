@@ -3,6 +3,9 @@ import { Component, Watch } from 'vue-property-decorator';
 import { Link } from './link';
 import { Logger } from '../../utils/log';
 import {MutationTypes} from '../../store/mutation-types';
+import { Getter } from 'vuex-class';
+import router from '../../router';
+
 @Component({
   template: require('./navbar.html')
 })
@@ -20,6 +23,14 @@ export class Navbar extends Vue {
     new Link('List', '/list')
   ];
 
+  @Getter('loggedIn', {}) loggedIn!: any;
+
+  @Watch('loggedIn')
+  loggedInChanged(value, oldValue) {
+    if (!value && oldValue) {
+      router.push('login');
+    }
+  }
   @Watch('$route.path')
   pathChanged() {
     this.logger.info('Changed current path to: ' + this.$route.path);
@@ -32,5 +43,9 @@ export class Navbar extends Vue {
 
   tempStripeAction() {
     this.$store.dispatch(MutationTypes.STRIPE_A1);
+  }
+
+  logout() {
+    this.$store.dispatch(MutationTypes.LOGOUT_USER);
   }
 }
