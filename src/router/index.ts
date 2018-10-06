@@ -26,6 +26,7 @@ const router = new VueRouter({
           component: DashboardContainer,
           name: 'dashboard',
           path: '/dashboard',
+          alias: '/',
           meta: { requiresAuth: true }
         }, {
           component: FormContainer,
