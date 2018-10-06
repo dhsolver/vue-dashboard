@@ -22,9 +22,15 @@ export class Navbar extends Vue {
     new Link('Counter', '/counter'),
     new Link('List', '/list')
   ];
+  username = '';
 
   @Getter('loggedIn', {}) loggedIn!: any;
+  @Getter('loginStorage', {}) loginStorage!: any;
 
+  @Watch('loginStorage')
+  loginStorageChanged(value, oldValue) {
+    this.username = JSON.parse(value.sessionTokens).AccessToken.payload.username;
+  }
   @Watch('loggedIn')
   loggedInChanged(value, oldValue) {
     if (!value && oldValue) {
@@ -39,6 +45,7 @@ export class Navbar extends Vue {
   mounted() {
     if (!this.logger) this.logger = new Logger();
     this.$nextTick(() => this.logger.info(this.object.default));
+    this.username = JSON.parse(this.loginStorage.sessionTokens).AccessToken.payload.username;
   }
 
   tempStripeAction() {
