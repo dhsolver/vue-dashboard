@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import {MutationTypes} from '../../../store/mutation-types';
+import {MutationTypes} from '../../store/mutation-types';
 import { Component, Prop, Model, Watch } from 'vue-property-decorator'
 
 @Component({

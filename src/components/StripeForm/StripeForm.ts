@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { Component, Watch } from 'vue-property-decorator';
-import {MutationTypes} from '../../../store/mutation-types';
+import {MutationTypes} from '../../store/mutation-types';
 
 declare var stripe: any;
 declare var elements: any;

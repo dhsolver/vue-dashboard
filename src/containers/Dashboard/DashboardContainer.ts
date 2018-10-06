@@ -4,7 +4,7 @@ import {Component, Watch} from 'vue-property-decorator'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {faCheck} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {MutationTypes} from '../../../store/mutation-types';
+import {MutationTypes} from '../../store/mutation-types';
 
 library.add(faCheck);
 

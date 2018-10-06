@@ -1,12 +1,12 @@
 import Vue from 'vue';
-import { MutationTypes } from '../../../store/mutation-types';
+import { MutationTypes } from '../../store/mutation-types';
 import { Component, Prop, Watch } from 'vue-property-decorator'
 import { Getter } from 'vuex-class';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import router from '../../../router';
-import store from '../../../store';
+import router from '../../router';
+import store from '../../store';
 
 library.add(faCheck)
 

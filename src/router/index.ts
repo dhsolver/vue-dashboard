@@ -2,12 +2,12 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 // conatiners
-import { AppContainer } from '../components/containers/App';
-import { FormContainer } from '../components/containers/Form';
-import { DashboardContainer } from '../components/containers/Dashboard';
-import { AdminContainer } from '../components/containers/Admin';
-import { RegisterContainer } from '../components/containers/Register';
-import { LoginContainer } from '../components/containers/Login';
+import { AppContainer } from '../containers/App';
+import { FormContainer } from '../containers/Form';
+import { DashboardContainer } from '../containers/Dashboard';
+import { AdminContainer } from '../containers/Admin';
+import { RegisterContainer } from '../containers/Register';
+import { LoginContainer } from '../containers/Login';
 
 
 // register the plugin

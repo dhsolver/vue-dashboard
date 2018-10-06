@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { Navbar } from '../../modules/Navbar';
-import { Sidebar } from '../../modules/Sidebar';
-import { Footbar } from '../../modules/Footbar';
+import { Navbar } from '../../components/Navbar';
+import { Sidebar } from '../../components/Sidebar';
+import { Footbar } from '../../components/Footbar';
 
 @Component({
   template: require('./app.html'),
