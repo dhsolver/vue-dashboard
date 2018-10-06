@@ -5,7 +5,7 @@ import { Getter } from 'vuex-class';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
+import router from '../../../router';
 import store from '../../../store';
 
 library.add(faCheck)
@@ -25,14 +25,15 @@ export class LoginContainer extends Vue {
   @Getter('loggedIn', {}) loggedIn!: any;
 
   @Watch('loggedIn') loggedInChanged(value, oldValue) {
-    console.log('loggedIn changed');
+    if (value && !oldValue) {
+      router.push('dashboard');
+    }
   }
 
   userLogin() {
     this.userNameValidated = this.userName !== '';
     this.passwordValidated = this.password !== '';
     if (this.userNameValidated && this.passwordValidated) {
-      console.log('sending request...');
       const loginInfo = { username: this.userName, password: this.password };
       this.$store.dispatch(MutationTypes.LOGIN_USER, loginInfo);
     }

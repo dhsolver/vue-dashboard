@@ -20,6 +20,7 @@ const router = new VueRouter({
       component: AppContainer,
       name: 'app',
       path: '/',
+      meta: { requiresAuth: true },
       children: [
         {
           component: DashboardContainer,
