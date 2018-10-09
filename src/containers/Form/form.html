@@ -73,55 +73,23 @@
           <div class="row">
 
             <div class="wd-wrap">
+
+
+
+
+
               <div class="wd-form__wrapper" v-if="loggedIn">
 
                 <legend class="wd-form__header">You are now logged in.</legend>
 
-                <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
-                  <button class="btn btn-default sw-btn-prev wd-btn-prev" type="button" @click="userLogout()"> Logout</button>
-                </div>
-
               </div>
               <div class="wd-form__wrapper" v-else>
 
-                <legend class="wd-form__header">Select your login username and password</legend>
-
-                <div class="wd-form__wrp">
-                  <label class="wd-form__label">Username
-                    <span>*</span>
-                  </label>
-                  <input type="text" name="username" placeholder="johnsmithy" v-model="userName" @change="userNameValidated=true" :class="`wd-form__input ${userNameValidated?'':'input-error'}`"
-                  />
-                </div>
-
-                <div class="wd-form__wrp">
-                  <label class="wd-form__label">Pasword
-                    <span>*</span>
-                  </label>
-                  <input type="password" name="password" placeholder="Your password" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"
-                  />
-                </div>
-
-                <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
-                  <a class="btn btn-default sw-btn-next wd-btn-next" @click="userLogin()">Login</a>
-                </div>
-              </div>
-
-
-
-
-              <div class="wd-wrap">
-                  <div class="wd-form__wrp">
-                  <label class="wd-form__label">
-                  </label>
-                    <span>Don't have an account?
-                      <router-link to="/register">
-                        <a><span>Register</span></a>
-                      </router-link>
-                    </span>
-                </div>
+                <legend class="wd-form__header">Please log in</legend>
 
               </div>
+
+
             </div>
           </div>
         </fieldset>
