@@ -28,7 +28,7 @@ library.add(faCheck)
 
 export class FormContainer extends Vue {
 
-  step = 0;
+  step = 2;
   formValidated = [];
 
   userName = '';

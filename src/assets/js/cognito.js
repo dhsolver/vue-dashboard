@@ -282,17 +282,19 @@ function registeringWithCode(confirmCode){
 
   var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
   cognitoUser.confirmRegistration(confirmCode, true, function(err, result) {
-      if (err) {
-        if (err.code == 'UnknownError') {
-          alert('success!');
-          location.href="/form"
-        } else {
-          alert(err.message);
-          console.log(err)
-          return;
-        }
+    if (result == 'SUCCESS') {
+      location.href = "/login";
+    }
+    else if (err) {
+      if (err.code == 'UnknownError') {
+        alert('success!');
+        location.href="/form"
+      } else {
+        alert(err.message);
+        console.log(err)
+        return;
       }
-
+    }
   });
 
 }
