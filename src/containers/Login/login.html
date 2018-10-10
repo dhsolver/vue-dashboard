@@ -1,43 +1,52 @@
-<form action="/" method="POST" class="form-control-with-bg">
-  <!-- begin wizard -->
-  <div class="form-wizard">
-    <fieldset>
-      <div class="row">
-        <div class="wd-wrap">
-          <div class="wd-form__wrapper">
-            <div class="wd-form__wrp">
-              <label class="wd-form__label">Username
-                <span>*</span>
-              </label>
-              <input type="text" name="username" placeholder="johnsmithy" v-model="userName" @change="userNameValidated=true" :class="`wd-form__input ${userNameValidated?'':'input-error'}`"
-              />
-            </div>
-            <div class="wd-form__wrp">
-              <label class="wd-form__label">Password
-                <span>*</span>
-              </label>
-              <input type="password" name="password" placeholder="Your password" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"
-              />
-            </div>
-            <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
-              <a class="btn btn-default sw-btn-next wd-btn-next" @click="userLogin()">Login</a>
-            </div>
-          </div>
-          <div class="wd-wrap">
-              <div class="wd-form__wrp">
-              <label class="wd-form__label">
-              </label>
-                <span>Don't have an account?
-                  <router-link to="/register">
-                    <a><span>Register</span></a>
-                  </router-link>
-                </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </fieldset>
+<div class="login login-with-news-feed">
+  <!-- begin news-feed -->
+  <div class="news-feed">
+      <div class="news-image" style="background-image: url(../../assets/images/bg.jpg)"></div>
   </div>
-  <!-- end wizard -->
-</form>
+  <!-- end news-feed -->
+  <!-- begin right-content -->
+  <div class="right-content">
+    <!-- begin login-header -->
+    <div class="login-header">
+      <div class="brand">
+        <b>Log In</b>
+      </div>
+      <div class="icon">
+        <i class="fa fa-sign-in"></i>
+      </div>
+    </div>
+    <!-- end login-header -->
+    <!-- begin login-content -->
+    <div class="login-content">
+      <form action="/" method="POST" class="margin-bottom-0">
+        <div class="form-group m-b-15">
+          <input type="text" name="username" placeholder="johnsmithy" v-model="userName" @change="userNameValidated=true" :class="`form-control form-control-lg ${userNameValidated?'':'input-error'}`"
+            />
+        </div>
+        <div class="form-group m-b-15">
+          <input type="password" name="password" placeholder="Your password" v-model="password" @change="passwordValidated=true" :class="`form-control form-control-lg ${passwordValidated?'':'input-error'}`"
+            />
+        </div>
+        <div class="login-buttons">
+          <a type="submit" class="btn btn-success btn-block btn-lg" @click="userLogin()">Sign me in</a>
+        </div>
+        <div class="m-t-20 m-b-40 p-b-40 text-inverse">
+          Not a member yet? Click
+          <router-link to="/register">
+            <a class="text-success">here</a>
+          </router-link>
+          to register.
+        </div>
+        <hr />
+        <p class="text-center text-grey-darker">
+          &copy; Wrench.AI All Right Reserved 2018
+        </p>
+      </form>
+    </div>
+    <!-- end login-content -->
+  </div>
+  <!-- end right-container -->
+</div>
+<!-- end login -->
+
 
