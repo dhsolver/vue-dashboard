@@ -26,7 +26,7 @@ export class LoginContainer extends Vue {
 
   @Watch('loggedIn') loggedInChanged(value, oldValue) {
     if (value && !oldValue) {
-      router.push('dashboard');
+      router.push('form');
     }
   }
 
