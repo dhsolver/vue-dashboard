@@ -125,7 +125,8 @@
               <span class="d-none d-md-inline navbar-user__name">{{username}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="javascript:;" class="dropdown-item"><i class="fas fa-sliders-h"></i>Setting</a>
+              <router-link class="dropdown-item" to="/settings"><i class="fas fa-sliders-h"></i>Settings</router-link>
+              <!-- <a href="javascript:;" class="dropdown-item">Setting</a> -->
               <div class="dropdown-divider"></div>
               <a href="javascript:;" class="dropdown-item" @click="logout()"><i class="fas fa-power-off"></i>Log Out</a>
             </div>

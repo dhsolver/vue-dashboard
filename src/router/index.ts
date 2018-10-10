@@ -35,8 +35,8 @@ const router = new VueRouter({
           meta: { requiresAuth: true }
         }, {
           component: AdminContainer,
-          name: 'admin',
-          path: '/admin',
+          name: 'settings',
+          path: '/settings',
           meta: { requiresAuth: true }
         }
       ]
