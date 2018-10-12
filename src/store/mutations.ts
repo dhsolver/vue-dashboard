@@ -9,7 +9,7 @@ declare function  initializeStorage ();
 
 const mutations: MutationTree<State> = {
 
-  [MutationTypes.LOGIN_CHANGED]: (state: State) => {
+  [MutationTypes.LOGIN_SUCCEEDED]: (state: State) => {
     state.loginStorage = localStorage;
     const configString = localStorage.getItem('awsConfig');
     const config = JSON.parse(configString);
@@ -29,7 +29,13 @@ const mutations: MutationTree<State> = {
   [MutationTypes.UPLOAD_FILE]: (state: State) => {
     console.log('uploaded file');
     state.uploadedFile = true;
-  }
+  },
+  [MutationTypes.LOGIN_REQUESTED]: (state: State) => {
+    state.loginError = '';
+  },
+  [MutationTypes.LOGIN_FAILED]: (state: State, payload) => {
+    state.loginError = payload;
+  },
 };
 
 export default mutations;

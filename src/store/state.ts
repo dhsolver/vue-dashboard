@@ -6,6 +6,7 @@ export class State {
   /* form */
   public loginStorage: any;
   public loggedIn: boolean;
+  public loginError: string;
   public submittedContactInfo: boolean;
   public uploadedFile: boolean;
 
@@ -16,6 +17,7 @@ export class State {
     this.loggedIn = config != null;
     this.submittedContactInfo = false;
     this.uploadedFile = false;
+    this.loginError = '';
   }
 }
 
