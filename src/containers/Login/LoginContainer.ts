@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import router from '../../router';
 import store from '../../store';
 
+import './styles.scss';
+
 library.add(faCheck)
 
 @Component({
