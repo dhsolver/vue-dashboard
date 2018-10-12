@@ -1,4 +1,4 @@
-<div class="register register-with-news-feed">
+<div class="login login-with-news-feed">
     <!-- begin news-feed -->
     <div class="news-feed">
         <div class="news-image" style="background-image: url(../../assets/images/bg.jpg)"></div>
@@ -6,8 +6,8 @@
     <!-- end news-feed -->
     <!-- begin right-content -->
     <div class="right-content">
-      <!-- begin register-header -->
-      <div class="register-header">
+      <!-- begin login-header -->
+      <div class="login-header">
         <div class="brand">
           <b>Sign Up</b>
         </div>
@@ -15,36 +15,34 @@
           <i class="fa fa-sign-in"></i>
         </div>
       </div>
-      <!-- end register-header -->
-      <!-- begin register-content -->
-      <div class="register-content">
+      <!-- end login-header -->
+      <!-- begin login-content -->
+      <div class="login-content">
         <form action="/" method="POST" class="margin-bottom-0">
-          <div class="wd-wrap" v-if="step==0">
-            <div class="wd-form__wrapper">
-                <div class="wd-form__wrp">
-                  <input type="text" name="username" placeholder="Email address*" v-model="email" @change="emailValidated=true" :class="`wd-form__input ${emailValidated?'':'input-error'}`"/>
-                </div>
-                <div class="wd-form__wrp">
-                  <input type="password" name="password" placeholder="Your password*" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
-                </div>
-                <div class="wd-form__wrp">
-                  <input type="password" name="password_confirm" placeholder="Confirm your password*" v-model="passwordConfirm" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
-                </div>
-                <div class="wd-form__wrp m-b-30">
-                  <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
-                    <a class="btn btn-default sw-btn-next wd-btn-next" @click="userRegister()">Register</a>
-                  </div>
-                </div>
-              </div>
-              <div class="wd-wrap m-b-30">
-                <div class="wd-form__wrp">
-                  <span>Already a member? Click
-                    <router-link to="/login">
-                      <a><span>here</span></a>
-                    </router-link> to login.
-                  </span>
-                </div>
-              </div>
+          <div v-if="step==0">
+            <div class="form-group m-b-15">
+              <input type="text" name="username" placeholder="email@wrench.ai" v-model="email" @change="emailValidated=true" :class="`form-control form-control-lg ${emailValidated?'':'input-error'}`"/>
+            </div>
+            <div class="form-group m-b-15">
+              <input type="password" name="password" placeholder="Your password" v-model="password" @change="passwordValidated=true" :class="`form-control form-control-lg ${passwordValidated?'':'input-error'}`"/>
+            </div>
+            <div class="form-group m-b-15">
+              <input type="password" name="password_confirm" placeholder="Confirm your password" v-model="passwordConfirm" @change="passwordValidated=true" :class="`form-control form-control-lg ${passwordValidated?'':'input-error'}`"/>
+            </div>
+            <div class="login-buttons">
+              <a type="submit" class="btn btn-success btn-block btn-lg" @click="userRegister()">Register</a>
+            </div>
+            <div class="m-t-20 m-b-40 p-b-40 text-inverse">
+              Already a member? Click
+              <router-link to="/login">
+                <a class="text-success">here</a>
+              </router-link>
+              to login.
+            </div>
+            <hr />
+            <p class="text-center text-grey-darker">
+              &copy; Wrench.AI All Right Reserved 2018
+            </p>
           </div>
           <div class="wd-form__wrapper" v-if="step==1">
             <div class="wd-form__wrp">
@@ -65,9 +63,9 @@
           </div>
         </form>
       </div>
-      <!-- end register-content -->
+      <!-- end login-content -->
     </div>
     <!-- end right-container -->
   </div>
-  <!-- end register -->
+  <!-- end login -->
 
