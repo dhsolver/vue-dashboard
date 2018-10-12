@@ -73,44 +73,40 @@
                     <a href="javascript:;" class="btn btn-icon" data-click="panel-remove"><i class="fa fa-times"></i></a>
                 </div>
               </div>
-              <div class="panel-body panel-body--chart">
-                <iframe style="width: 100%; height: 400px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=adoption_curve&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y"></iframe>
+          <div class="panel-body panel-body--chart">
+            <iframe style="width: 100%; height: 400px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=adoption_curve&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y"></iframe>
+            <select v-model="adopt_curve_y" >
+              <option disabled value="">Please select one</option>
+              <option v-for="option in adopt_curve_y_options" v-bind:value="option.value">
+                {{ option.text }}
+              </option>
+            </select>
+            <select v-model="adopt_curve_x" >
+              <option disabled value="">Please select one</option>
+              <option v-for="option in adopt_curve_x_options" v-bind:value="option.value">
+                {{ option.text }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-                <select v-model="adopt_curve_y" >
-                  <option disabled value="">Please select one</option>
-                  <option v-for="option in adopt_curve_y_options" v-bind:value="option.value">
-                    {{ option.text }}
-                  </option>
-                </select>
-
-                <select v-model="adopt_curve_x" >
-                  <option disabled value="">Please select one</option>
-                  <option v-for="option in adopt_curve_x_options" v-bind:value="option.value">
-                    {{ option.text }}
-                  </option>
-                </select>
-
+        <div class="col-xl-4">
+          <div class="panel bg-white">
+            <div class="panel-heading panel-heading--light">
+              <h4 class="panel-title">OUTREACH PRIORITIES</h4>
+              <div class="panel-heading-btn">
+                  <a href="javascript:;" class="btn btn-icon" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                  <a href="javascript:;" class="btn btn-icon" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                  <a href="javascript:;" class="btn btn-icon" data-click="panel-remove"><i class="fa fa-times"></i></a>
               </div>
             </div>
-        </div>
-        <!--<div class="col-xl-4">-->
-          <!--<div class="panel bg-white panel&#45;&#45;full">-->
-                <!--<div class="panel-heading panel-heading&#45;&#45;light">-->
-              <!--<h4 class="panel-title">Cannibalization</h4>-->
-                  <!--<div class="panel-heading-btn">-->
-                      <!--<a href="javascript:;" class="btn btn-icon" data-click="panel-expand"><i class="fa fa-expand"></i></a>-->
-                      <!--<a href="javascript:;" class="btn btn-icon" data-click="panel-reload"><i class="fa fa-redo"></i></a>-->
-                      <!--<a href="javascript:;" class="btn btn-icon" data-click="panel-remove"><i class="fa fa-times"></i></a>-->
-                  <!--</div>-->
-                <!--</div>-->
-
-                <!--<div class="panel-body panel-body&#45;&#45;chart">-->
-                <!--<iframe style="width: 100%; height: 400px;" frameborder="0" scrolling="no" src="https://plot.ly/~Wrenchai/38.embed?share_key=y5INPSaHYon4xOul18XFgo"></iframe>-->
-                <!--</div>-->
-              <!--</div>-->
-          <!--</div>-->
-
+            <div class="panel-body panel-body--chart">
+                <iframe style="width: 100%; height: 400px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=channel_strategy&s=' + subjectId"></iframe>
+            </div>
+          </div>
       </div>
+    </div>
 
       <!--row two-->
     <div class="row">
@@ -124,7 +120,6 @@
                       <a href="javascript:;" class="btn btn-icon" data-click="panel-remove"><i class="fa fa-times"></i></a>
                   </div>
                 </div>
-
                 <div class="panel-body panel-body--chart">
                     <iframe style="width: 100%; height: 400px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=influencers&s=' + subjectId + '&x=' + influencers_x + '&y=' + influencers_y"></iframe>
 
@@ -166,7 +161,7 @@
       <!--row three-->
     <div class="row">
         <div class="col-xl-4">
-            <div class="panel bg-white">
+            <div class="panel bg-white panel--full">
                 <div class="panel-heading panel-heading--light">
                   <h4 class="panel-title">PERSONALITY TYPES</h4>
                   <div class="panel-heading-btn">
@@ -178,21 +173,6 @@
 
                 <div class="panel-body panel-body--chart">
                     <iframe style="width: 100%; height: 400px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=ocean&s=' + subjectId"></iframe>
-                </div>
-              </div>
-          </div>
-        <div class="col-xl-4">
-              <div class="panel bg-white">
-                <div class="panel-heading panel-heading--light">
-                  <h4 class="panel-title">OUTREACH PRIORITIES</h4>
-                  <div class="panel-heading-btn">
-                      <a href="javascript:;" class="btn btn-icon" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                      <a href="javascript:;" class="btn btn-icon" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-                      <a href="javascript:;" class="btn btn-icon" data-click="panel-remove"><i class="fa fa-times"></i></a>
-                  </div>
-                </div>
-                <div class="panel-body panel-body--chart">
-                    <iframe style="width: 100%; height: 400px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=channel_strategy&s=' + subjectId"></iframe>
                 </div>
               </div>
           </div>
