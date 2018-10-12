@@ -23,19 +23,15 @@ export class LoginContainer extends Vue {
   userNameValidated = true;
   password = '';
   passwordValidated = true;
-  error = '';
   @Getter('loginStorage', {}) loginStorage!: any;
   @Getter('loggedIn', {}) loggedIn!: any;
-  @Getter('loginError') loginError!: string;
 
   @Watch('loggedIn') loggedInChanged(value, oldValue) {
     if (value && !oldValue) {
       router.push('form');
     }
   }
-  @Watch('loginError') loginErrorChanged(value, oldValue) {
-    this.error = value;
-  }
+
   userLogin() {
     this.userNameValidated = this.userName !== '';
     this.passwordValidated = this.password !== '';

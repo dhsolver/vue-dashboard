@@ -33,21 +33,18 @@
                     <input type="password" name="password" placeholder="Password*" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"
                     />
                   </div>
-                  <div class="invalid-feedback">
-                    {{loginError}}
-                  </div>
-                  <div class="btn-group navbar-btn sw-btn-group" role="group">
+                  <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
                     <a class="btn btn-default sw-btn-next wd-btn-next" @click="userLogin()">Login</a>
                   </div>
                 </div>
-              </div>
-              <div class="wd-wrap">
-                <div class="wd-form__wrp">
-                  <span>Don't have an account?
-                    <router-link to="/register">
-                      <a><span>Register</span></a>
-                    </router-link>
-                  </span>
+                <div class="wd-wrap">
+                  <div class="wd-form__wrp">
+                    <span>Don't have an account?
+                      <router-link to="/register">
+                        <a><span>Register</span></a>
+                      </router-link>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

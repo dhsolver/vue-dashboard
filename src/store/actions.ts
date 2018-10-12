@@ -10,8 +10,8 @@ declare var localStorage;
 
 const actions: ActionTree<State, State> = {
 
-  [MutationTypes.LOGIN_SUCCEEDED]: ({commit}) => {
-    commit(MutationTypes.LOGIN_SUCCEEDED);
+  [MutationTypes.LOGIN_CHANGED]: ({commit}) => {
+    commit(MutationTypes.LOGIN_CHANGED);
   },
 
 
@@ -40,11 +40,8 @@ const actions: ActionTree<State, State> = {
     const configString = localStorage.getItem('awsConfig');
     const config = JSON.parse(configString);
     if (config == null) {
-      commit(MutationTypes.LOGIN_REQUESTED);
       loginUser(loginData.username, loginData.password).then(() => {
-        commit(MutationTypes.LOGIN_SUCCEEDED);
-      }).catch(err => {
-        commit(MutationTypes.LOGIN_FAILED, err.message);
+        commit(MutationTypes.LOGIN_CHANGED);
       });
     }
   },
