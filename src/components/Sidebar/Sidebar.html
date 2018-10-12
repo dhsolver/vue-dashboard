@@ -1,66 +1,98 @@
-		<!-- begin #sidebar -->
-		<div id="sidebar" class="sidebar">
-	      <!-- begin sidebar scrollbar -->
-	      <div data-scrollbar="true" data-height="100%">
-	        <!-- begin sidebar nav -->
-	        <ul class="nav">
-	          <router-link tag="li" :class="$route.path=='/dashboard' ? 'active' : ''" to="/dashboard">
-	            <a>
-	              <i class="fa fa-th-large"></i>
-	              <span>Dashboard</span>
-	            </a>
-	          </router-link>
+<!-- begin #sidebar -->
+<div id="sidebar" class="sidebar">
+	<!-- begin sidebar scrollbar -->
+	<div data-scrollbar="true" data-height="100%">
+		<!-- begin sidebar nav -->
+		<ul class="nav">
+			<router-link tag="li" :class="$route.path=='/dashboard' ? 'active' : ''" to="/dashboard">
+				<a>
+					<i class="fa fa-th-large"></i>
+					<span>Home</span>
+				</a>
+			</router-link>
+			<li class="has-sub">
+				<a href="javascript:;">
+					<b class="caret"></b>
+					<i class="fa fa-upload"></i>
+					<span>Upload</span>
+				</a>
+				<ul class="sub-menu">
+					<router-link tag="li" :class="$route.path=='/form' ? 'active' : ''" to="/form">
+						<a>Contacts</a>
+					</router-link>
+				</ul>
+			</li>
+			<li class="has-sub">
+				<a href="javascript:;">
+					<b class="caret"></b>
+					<i class="fa fa-chart-line"></i>
+					<span>Campaigns</span>
+				</a>
+				<ul class="sub-menu">
+					<li>
+						<a href="https://app.smartsheet.com/b/publish?EQBCT=36554fdcafaa4d4ba8bfdd97899d97de" target="_blank">Product Launch</a>
+					</li>
+					<li>
+						<a href="https://app.smartsheet.com/b/publish?EQBCT=cbd3f1d1a9134dd1ace68645d67b8a79" target="_blank">Crowdfunding Raise</a>
+					</li>
+					<li>
+						<a href="https://app.smartsheet.com/b/publish?EQBCT=24ff154b29d647efa31ff24b6c11d3f8" target="_blank">Past Performance</a>
+					</li>
+					<li>
+						<a href="https://app.smartsheet.com/b/publish?EQBCT=dbf9311fbf71487dbe8d8c1030b8c844" target="_blank">Onboarding</a>
+					</li>
+					<li>
+						<a href="https://app.smartsheet.com/b/publish?EQBCT=4b583f0c29ce491fbdbe49d59609b8b0" target="_blank">Unknown To Influencer</a>
+					</li>
+					<li>
+						<a href="https://app.smartsheet.com/b/publish?EQBCT=381c8e19abe541b19e26ddeffc0f5969" target="_blank">ICO</a>
+					</li>
+				</ul>
+			</li>
 
-	          <router-link tag="li" :class="$route.path=='/form' ? 'active' : ''" to="/form">
-              <a>
-                  <i class="fa fa-chart-line"></i>
-                  <span>Campaign</span>
-              </a>
-            </router-link>
+			<!--<li :class="$route.path=='/serendipity' ? 'active has-sub' : 'has-sub'">-->
+			<!--<a href="serendipity">-->
+			<!--&lt;!&ndash;<b class="caret"></b>&ndash;&gt;-->
+			<!--<i class="fas fa-chart-pie"></i>-->
+			<!--<span>People</span>-->
+			<!--</a>-->
+			<!--<ul class="sub-menu">-->
+			<!--<li><a href="#">Ovreview</a></li>-->
+			<!--<li><a href="people">People</a></li>-->
+			<!--<li><a href="#">Companies</a></li>-->
+			<!--<li><a href="#">Tables</a></li>-->
+			<!--<li class="has-sub">-->
+			<!--<a href="javascript:;">-->
+			<!--<b class="caret"></b>-->
+			<!--<span>Parkour</span> -->
+			<!--</a>-->
+			<!--<ul class="sub-menu">-->
+			<!--<li><a href="#">Ovreview</a></li>-->
+			<!--<li><a href="#">People</a></li>-->
+			<!--<li><a href="#">Companies</a></li>-->
+			<!--<li><a href="#">Calendar</a></li>-->
+			<!--</ul>-->
+			<!--</li>-->
+			<!--</ul>-->
+			<!--</li>-->
 
-	          <!--<li :class="$route.path=='/serendipity' ? 'active has-sub' : 'has-sub'">-->
-	            <!--<a href="serendipity">-->
-	                <!--&lt;!&ndash;<b class="caret"></b>&ndash;&gt;-->
-	                <!--<i class="fas fa-chart-pie"></i>-->
-	                <!--<span>People</span>-->
-	            <!--</a>-->
-	            <!--<ul class="sub-menu">-->
-	              <!--<li><a href="#">Ovreview</a></li>-->
-	              <!--<li><a href="people">People</a></li>-->
-	              <!--<li><a href="#">Companies</a></li>-->
-	              <!--<li><a href="#">Tables</a></li>-->
-	              <!--<li class="has-sub">-->
-	                <!--<a href="javascript:;">-->
-	                  <!--<b class="caret"></b>-->
-	                  <!--<span>Parkour</span> -->
-	                <!--</a>-->
-	                <!--<ul class="sub-menu">-->
-	                  <!--<li><a href="#">Ovreview</a></li>-->
-	                  <!--<li><a href="#">People</a></li>-->
-	                  <!--<li><a href="#">Companies</a></li>-->
-	                  <!--<li><a href="#">Calendar</a></li>-->
-	                <!--</ul>-->
-	              <!--</li>-->
-	            <!--</ul>-->
-	          <!--</li>-->
+			<router-link tag="li" :class="$route.path=='/settings' ? 'active' : ''" to="/settings">
+				<a>
+					<i class="fas fa-user-cog"></i>
+					<span>Settings</span>
+				</a>
+			</router-link>
 
-	          <router-link tag="li" :class="$route.path=='/settings' ? 'active' : ''" to="/settings">
-	            <a>
-	              <i class="fas fa-user-cog"></i>
-	              <span>Settings</span>
-	            </a>
-            </router-link>
+			<!--<li>-->
+			<!--<a href="#">-->
+			<!--<i class="fas fa-cog"></i>-->
+			<!--<span>Settings</span>-->
+			<!--</a>-->
+			<!--</li>-->
 
-	          <!--<li>-->
-	            <!--<a href="#">-->
-	              <!--<i class="fas fa-cog"></i>-->
-	              <!--<span>Settings</span>-->
-	            <!--</a>-->
-	          <!--</li>-->
-
-	        </ul>
-	        <!-- end sidebar nav -->
-	      </div>
-	      <!-- end sidebar scrollbar -->
-    	</div>
-		<!-- end #sidebar -->
+		</ul>
+		<!-- end sidebar nav -->
+	</div>
+	<!-- end sidebar scrollbar -->
+</div>
+<!-- end #sidebar -->
