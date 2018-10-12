@@ -11,10 +11,6 @@ const getters: GetterTree<State, State> = {
     const {loggedIn} = state;
     return loggedIn;
   },
-  loginError(state): string {
-    const { loginError } = state;
-    return loginError;
-  },
   submittedContactInfo(state): boolean {
     const {submittedContactInfo} = state;
     return submittedContactInfo;

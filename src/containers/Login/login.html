@@ -1,64 +1,43 @@
-<div class="login login-with-news-feed">
-  <!-- begin news-feed -->
-  <div class="news-feed">
-      <div class="news-image" style="background-image: url(../../assets/images/bg.jpg)"></div>
-  </div>
-  <!-- end news-feed -->
-  <!-- begin right-content -->
-  <div class="right-content">
-    <!-- begin login-header -->
-    <div class="login-header">
-      <div class="brand">
-        <b>Log In</b>
-      </div>
-      <div class="icon">
-        <i class="fa fa-sign-in"></i>
-      </div>
-    </div>
-    <!-- end login-header -->
-    <!-- begin login-content -->
-    <div class="login-content">
-      <form action="/" method="POST" class="form-control-with-bg">
-        <!-- begin wizard -->
-        <div class="form-wizard">
-          <fieldset>
-            <div class="row">
-              <div class="wd-wrap">
-                <div class="wd-form__wrapper">
-                  <div class="wd-form__wrp">
-                    <input type="text" name="username" placeholder="Username*" v-model="userName" @change="userNameValidated=true" :class="`wd-form__input ${userNameValidated?'':'input-error'}`"
-                    />
-                  </div>
-                  <div class="wd-form__wrp">
-                    <input type="password" name="password" placeholder="Password*" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"
-                    />
-                  </div>
-                  <div class="invalid-feedback">
-                    {{loginError}}
-                  </div>
-                  <div class="btn-group navbar-btn sw-btn-group" role="group">
-                    <a class="btn btn-default sw-btn-next wd-btn-next" @click="userLogin()">Login</a>
-                  </div>
-                </div>
-              </div>
-              <div class="wd-wrap">
-                <div class="wd-form__wrp">
-                  <span>Don't have an account?
-                    <router-link to="/register">
-                      <a><span>Register</span></a>
-                    </router-link>
-                  </span>
-                </div>
-              </div>
+<form action="/" method="POST" class="form-control-with-bg">
+  <!-- begin wizard -->
+  <div class="form-wizard">
+    <fieldset>
+      <div class="row">
+        <div class="wd-wrap">
+          <div class="wd-form__wrapper">
+            <div class="wd-form__wrp">
+              <label class="wd-form__label">Username
+                <span>*</span>
+              </label>
+              <input type="text" name="username" placeholder="johnsmithy" v-model="userName" @change="userNameValidated=true" :class="`wd-form__input ${userNameValidated?'':'input-error'}`"
+              />
             </div>
-          </fieldset>
+            <div class="wd-form__wrp">
+              <label class="wd-form__label">Password
+                <span>*</span>
+              </label>
+              <input type="password" name="password" placeholder="Your password" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"
+              />
+            </div>
+            <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
+              <a class="btn btn-default sw-btn-next wd-btn-next" @click="userLogin()">Login</a>
+            </div>
+          </div>
+          <div class="wd-wrap">
+              <div class="wd-form__wrp">
+              <label class="wd-form__label">
+              </label>
+                <span>Don't have an account?
+                  <router-link to="/register">
+                    <a><span>Register</span></a>
+                  </router-link>
+                </span>
+            </div>
+          </div>
         </div>
-      </form>
-    </div>
-    <!-- end login-content -->
+      </div>
+    </fieldset>
   </div>
-  <!-- end right-container -->
-</div>
-<!-- end login -->
-
+  <!-- end wizard -->
+</form>
 
