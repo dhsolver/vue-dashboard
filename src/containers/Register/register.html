@@ -10,6 +10,7 @@
       <div class="register-header">
         <div class="brand">
           <b>Sign Up</b>
+          <p style="font-size: 16px;">Create your account to get started.</p>
         </div>
         <div class="icon">
           <i class="fa fa-sign-in"></i>
@@ -22,14 +23,29 @@
           <div class="wd-wrap" v-if="step==0">
             <div class="wd-form__wrapper">
                 <div class="wd-form__wrp">
+                  <input type="text" name="firstname" placeholder="First name*" v-model="firstname" @change="firstnameValidated=true" :class="`wd-form__input ${firstnameValidated?'':'input-error'}`"/>
+                </div>
+                <div class="wd-form__wrp">
+                  <input type="text" name="lastname" placeholder="Last name*" v-model="lastname" @change="lastnameValidated=true" :class="`wd-form__input ${lastnameValidated?'':'input-error'}`"/>
+                </div>
+                <div class="wd-form__wrp">
                   <input type="text" name="username" placeholder="Email address*" v-model="email" @change="emailValidated=true" :class="`wd-form__input ${emailValidated?'':'input-error'}`"/>
                 </div>
                 <div class="wd-form__wrp">
                   <input type="password" name="password" placeholder="Your password*" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
                 </div>
                 <div class="wd-form__wrp">
-                  <input type="password" name="password_confirm" placeholder="Confirm your password*" v-model="passwordConfirm" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
+                  <input type="password" name="password_confirm" placeholder="Re-enter your password*" v-model="passwordConfirm" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
                   <input type="hidden" id="registering_request_sent" @click="registeringRequestSent"/>
+                </div>
+                <div class="wd-form__wrp">
+                  <input type="checkbox" id="agree" @change="agreeError=''" v-model="agree" />
+                  <label for="agree">
+                    By clicking Sign Up, you agree to our <a href="https://wrench.ai/terms/">Terms</a> and that you have read our <a href="https://wrench.ai/privacy-statement">Data Policy</a>, including our <a href="https://wrench.ai/privacy-statement">Cookie Use</a>.
+                  </label>
+                </div>
+                <div class="invalid-feedback">
+                  {{agreeError}}
                 </div>
                 <div class="wd-form__wrp m-b-30">
                   <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
