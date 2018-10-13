@@ -45,6 +45,13 @@
                     </router-link> to login.
                   </span>
                 </div>
+                <div class="wd-form__wrp">
+                  <span>Enter
+                    <a href="javascript:;" @click="changeStep()">
+                      <span>confirmation code</span>
+                    </a>.
+                  </span>
+                </div>
               </div>
           </div>
           <div class="wd-form__wrapper" v-if="step==1">
@@ -53,7 +60,11 @@
               <input type="text" name="confirmCode" placeholder="000000" v-model="code" @change="emailValidated=true" :class="`wd-form__input ${codeValidated?'':'input-error'}`"/>
             </div>
 
-            <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
+            <div class="wd-form__wrapper"> 
+              <legend class="wd-form__header">Thanks! Check your email for a confirmation code. It may take a few minutes to arrive.</legend>
+            </div>
+
+            <div class="btn-group navbar-btn sw-btn-group pull-right confirm-button" role="group">
               <a class="btn btn-default sw-btn-next" @click="confirmCode">Confirm</a>
             </div>
           </div>
