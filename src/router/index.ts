@@ -14,7 +14,6 @@ import { LoginContainer } from '../containers/Login';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  mode: 'history',
   routes: [
     {
       component: AppContainer,
