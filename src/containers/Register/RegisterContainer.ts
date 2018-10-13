@@ -42,4 +42,8 @@ export class RegisterContainer extends Vue {
     this.step = 2;
   }
 
+  changeStep() {
+    this.step = 1;
+  }
+
 }
