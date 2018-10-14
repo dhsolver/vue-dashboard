@@ -33,13 +33,6 @@
                     <input type="password" name="password" placeholder="Password*" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"
                     />
                   </div>
-                  <div class="wd-wrap">
-                    <div class="wd-form__wrp justify-content-end">
-                      <router-link to="/forgot-password">
-                        Forgot your password?
-                      </router-link>
-                    </div>
-                  </div>
                   <div class="wd-form__wrp m-b-10">
                     <a class="btn btn-default btn-login sw-btn-next wd-btn-next" @click="userLogin()">Login</a>
                   </div>
@@ -51,6 +44,15 @@
                     <router-link to="/register">
                       <a><span>Register</span></a>
                     </router-link>
+                  </span>
+                </div>
+                <div class="wd-form__wrp">
+                  <span class="center-desc">
+                    Forgot password? Click
+                    <router-link to="/forgot-password">
+                      <a><span>here</span></a>
+                    </router-link>
+                    to reset.
                   </span>
                 </div>
               </div>
