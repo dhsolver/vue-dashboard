@@ -36,6 +36,30 @@ const mutations: MutationTree<State> = {
   [MutationTypes.LOGIN_FAILED]: (state: State, payload) => {
     state.loginError = payload;
   },
+  // FORGOT_PASSWORD
+  [MutationTypes.FORGOT_PASSWORD_REQUEST]: (state: State) => {
+    state.forgotPasswordStatus = 'REQUESTED';
+    state.forgotPasswordError = '';
+  },
+  [MutationTypes.FORGOT_PASSWORD_SUCCEEDED]: (state: State) => {
+    state.forgotPasswordStatus = 'SUCCEEDED';
+  },
+  [MutationTypes.FORGOT_PASSWORD_FAILED]: (state: State, payload) => {
+    state.forgotPasswordStatus = 'FAILED';
+    state.forgotPasswordError = payload;
+  },
+  // CONFIRM_PASSWORD
+  [MutationTypes.CONFIRM_PASSWORD_REQUEST]: (state: State) => {
+    state.confirmPasswordStatus = 'REQUESTED';
+    state.confirmPasswordError = '';
+  },
+  [MutationTypes.CONFIRM_PASSWORD_SUCCEEDED]: (state: State) => {
+    state.confirmPasswordStatus = 'SUCCEEDED';
+  },
+  [MutationTypes.CONFIRM_PASSWORD_FAILED]: (state: State, payload) => {
+    state.confirmPasswordStatus = 'FAILED';
+    state.confirmPasswordError = payload;
+  },
 };
 
 export default mutations;

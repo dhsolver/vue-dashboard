@@ -7,6 +7,10 @@ export class State {
   public loginStorage: any;
   public loggedIn: boolean;
   public loginError: string;
+  public forgotPasswordStatus: string;
+  public forgotPasswordError: string;
+  public confirmPasswordStatus: string;
+  public confirmPasswordError: string;
   public submittedContactInfo: boolean;
   public uploadedFile: boolean;
 
@@ -18,6 +22,10 @@ export class State {
     this.submittedContactInfo = false;
     this.uploadedFile = false;
     this.loginError = '';
+    this.forgotPasswordStatus = 'INITIALIZED';
+    this.forgotPasswordError = '';
+    this.confirmPasswordStatus = 'INITIALIZED';
+    this.confirmPasswordError = '';
   }
 }
 

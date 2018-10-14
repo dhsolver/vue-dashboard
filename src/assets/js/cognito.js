@@ -312,3 +312,55 @@ function registeringWithCode(confirmCode){
   });
 
 }
+
+function forgotPassword (username) {
+  return new Promise((resolve, reject) => {
+    var userPoolId = localStorage.getItem('userPoolId');
+    var clientId = localStorage.getItem('clientId');
+
+    var poolData = {
+      UserPoolId : userPoolId, // Your user pool id here
+      ClientId : clientId // Your client id here
+    };
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var userData = {
+      Username : username,
+      Pool : userPool
+    };
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    cognitoUser.forgotPassword({
+      onFailure: function(err) {
+        reject(err);
+      },
+      inputVerificationCode() {
+        resolve();
+      }
+    });
+  });
+}
+
+function confirmPassword (username, code, newPassword) {
+  return new Promise((resolve, reject) => {
+    var userPoolId = localStorage.getItem('userPoolId');
+    var clientId = localStorage.getItem('clientId');
+
+    var poolData = {
+      UserPoolId : userPoolId, // Your user pool id here
+      ClientId : clientId // Your client id here
+    };
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var userData = {
+      Username : username,
+      Pool : userPool
+    };
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    cognitoUser.confirmPassword(code, newPassword, {
+      onSuccess: function () {
+        resolve();
+      },
+      onFailure: function(err) {
+        reject(err);
+      }
+    });
+  });
+}
