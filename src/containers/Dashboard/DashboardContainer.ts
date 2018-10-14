@@ -65,19 +65,19 @@ declare function getSubjectId();
 
       this.$data.adopt_curve_x_options = dropdownValues;
       this.$data.adopt_curve_y_options = dropdownValues;
-      if (this.$data.adopt_curve_x === undefined || this.$data.adopt_curve_x === "undefined") {
+      if (this.$data.adopt_curve_x === undefined || this.$data.adopt_curve_x === 'undefined') {
         this.$data.adopt_curve_x = dropdownValues[0].value;
       }
-      if (this.$data.adopt_curve_y === undefined || this.$data.adopt_curve_y === "undefined") {
+      if (this.$data.adopt_curve_y === undefined || this.$data.adopt_curve_y === 'undefined') {
         this.$data.adopt_curve_y = dropdownValues[0].value;
       }
 
       this.$data.influencers_x_options = dropdownValues;
       this.$data.influencers_y_options = dropdownValues;
-      if (this.$data.influencers_x === undefined || this.$data.influencers_x === "undefined") {
+      if (this.$data.influencers_x === undefined || this.$data.influencers_x === 'undefined') {
         this.$data.influencers_x = dropdownValues[0].value;
       }
-      if (this.$data.influencers_y === undefined || this.$data.influencers_y === "undefined") {
+      if (this.$data.influencers_y === undefined || this.$data.influencers_y === 'undefined') {
         this.$data.influencers_y = dropdownValues[0].value;
       }
     }});
