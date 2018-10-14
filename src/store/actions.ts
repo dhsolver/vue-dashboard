@@ -4,6 +4,8 @@ import {State} from './state';
 import { sendPost } from '../api/api';
 
 declare function loginUser(email, pwd): any;
+declare function forgotPassword(username): any;
+declare function confirmPassword(username, code, newPassword): any;
 declare function uploadFile(file);
 declare var localStorage;
 
@@ -51,6 +53,32 @@ const actions: ActionTree<State, State> = {
 
   [MutationTypes.LOGOUT_USER]: ({commit}) => {
     commit(MutationTypes.LOGOUT_USER);
+  },
+
+  [MutationTypes.FORGOT_PASSWORD_REQUEST]: ({commit}, userData) => {
+    const configString = localStorage.getItem('awsConfig');
+    const config = JSON.parse(configString);
+    if (config == null) {
+      commit(MutationTypes.FORGOT_PASSWORD_REQUEST);
+      forgotPassword(userData.username).then(() => {
+        commit(MutationTypes.FORGOT_PASSWORD_SUCCEEDED);
+      }).catch(err => {
+        commit(MutationTypes.FORGOT_PASSWORD_FAILED, err.message);
+      });
+    }
+  },
+
+  [MutationTypes.CONFIRM_PASSWORD_REQUEST]: ({commit}, userData) => {
+    const configString = localStorage.getItem('awsConfig');
+    const config = JSON.parse(configString);
+    if (config == null) {
+      commit(MutationTypes.CONFIRM_PASSWORD_REQUEST);
+      confirmPassword(userData.username, userData.code, userData.newPassword).then(() => {
+        commit(MutationTypes.CONFIRM_PASSWORD_SUCCEEDED);
+      }).catch(err => {
+        commit(MutationTypes.CONFIRM_PASSWORD_FAILED, err.message);
+      });
+    }
   },
 
   [MutationTypes.SUBMIT_CONTACT_INFO]: ({commit}, contactInfo) => {

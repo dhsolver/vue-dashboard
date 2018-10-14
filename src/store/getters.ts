@@ -15,6 +15,22 @@ const getters: GetterTree<State, State> = {
     const { loginError } = state;
     return loginError;
   },
+  forgotPasswordStatus(state): string {
+    const { forgotPasswordStatus } = state;
+    return forgotPasswordStatus;
+  },
+  forgotPasswordError(state): string {
+    const { forgotPasswordError } = state;
+    return forgotPasswordError;
+  },
+  confirmPasswordStatus(state): string {
+    const { confirmPasswordStatus } = state;
+    return confirmPasswordStatus;
+  },
+  confirmPasswordError(state): string {
+    const { confirmPasswordError } = state;
+    return confirmPasswordError;
+  },
   submittedContactInfo(state): boolean {
     const {submittedContactInfo} = state;
     return submittedContactInfo;

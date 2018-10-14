@@ -25,6 +25,9 @@
             <div class="row">
               <div class="wd-wrap">
                 <div class="wd-form__wrapper">
+                  <div class="alert alert-danger" v-if="loginError">
+                    {{loginError}}
+                  </div>
                   <div class="wd-form__wrp">
                     <input type="text" name="username" placeholder="Username*" v-model="userName" @change="userNameValidated=true" :class="`wd-form__input ${userNameValidated?'':'input-error'}`"
                     />
@@ -33,8 +36,12 @@
                     <input type="password" name="password" placeholder="Password*" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"
                     />
                   </div>
-                  <div class="invalid-feedback">
-                    {{loginError}}
+                  <div class="wd-wrap">
+                    <div class="wd-form__wrp justify-content-end">
+                      <router-link to="/forgot-password">
+                        Forgot your password?
+                      </router-link>
+                    </div>
                   </div>
                   <div class="btn-group navbar-btn sw-btn-group" role="group">
                     <a class="btn btn-default sw-btn-next wd-btn-next" @click="userLogin()">Login</a>

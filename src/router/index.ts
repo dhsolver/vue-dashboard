@@ -8,6 +8,7 @@ import { DashboardContainer } from '../containers/Dashboard';
 import { AdminContainer } from '../containers/Admin';
 import { RegisterContainer } from '../containers/Register';
 import { LoginContainer } from '../containers/Login';
+import { ForgotPasswordContainer } from '../containers/ForgotPassword';
 
 
 // register the plugin
@@ -49,6 +50,11 @@ const router = new VueRouter({
       component: LoginContainer,
       name: 'login',
       path: '/login',
+    },
+    {
+      component: ForgotPasswordContainer,
+      name: 'forgot-password',
+      path: '/forgot-password',
     },
   ],
 });
