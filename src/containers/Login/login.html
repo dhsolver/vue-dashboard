@@ -7,12 +7,9 @@
   <!-- begin right-content -->
   <div class="right-content">
     <!-- begin login-header -->
-    <div class="login-header">
+    <div class="login-header text-center">
       <div class="brand">
         <b>Log In</b>
-      </div>
-      <div class="icon">
-        <i class="fa fa-sign-in"></i>
       </div>
     </div>
     <!-- end login-header -->
@@ -36,14 +33,14 @@
                   <div class="invalid-feedback">
                     {{loginError}}
                   </div>
-                  <div class="btn-group navbar-btn sw-btn-group" role="group">
-                    <a class="btn btn-default sw-btn-next wd-btn-next" @click="userLogin()">Login</a>
+                  <div class="wd-form__wrp m-b-10">
+                    <a class="btn btn-default btn-login sw-btn-next wd-btn-next" @click="userLogin()">Login</a>
                   </div>
                 </div>
               </div>
               <div class="wd-wrap">
                 <div class="wd-form__wrp">
-                  <span>Don't have an account?
+                  <span class="center-desc">Don't have an account?
                     <router-link to="/register">
                       <a><span>Register</span></a>
                     </router-link>
