@@ -9,8 +9,10 @@ import Datepicker from 'vuejs-datepicker';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
+import router from '../../router';
 import store from '../../store';
+
+import './styles.scss';
 
 library.add(faCheck)
 
@@ -69,8 +71,9 @@ export class FormContainer extends Vue {
 
   @Watch('uploadedFile') uploadedFileChanged(value, oldValue) {
     if (this.uploadedFile) {
-      if (this.step === 2) this.step = 3;
-      this.fileUpLoadValidated = true;
+      // if (this.step === 2) this.step = 3;
+      // this.fileUpLoadValidated = true;
+      router.push('dashboard');
     }
   }
 
