@@ -34,9 +34,9 @@ declare function getSubjectId();
     function formatOptions(corpora) {
         const rv = [];
         corpora.forEach(function(corpus) {
-            rv.push(
-              { 'value': corpus[0],  'text': corpus[1], }
-            );
+          rv.push(
+            { 'value': corpus[0],  'text': corpus[1], }
+          );
         });
         return rv;
     }
@@ -60,23 +60,26 @@ declare function getSubjectId();
     }
 
     this.$store.dispatch(MutationTypes.GET_CORPORA, { payload: {}, callback: res => {
-        this.$data.adopt_curve_x_options = formatOptions(res.data['common_corpora']);
-        this.$data.adopt_curve_y_options = formatOptions(res.data['client_corpora']);
-        if (!this.$data.adopt_curve_x) {
-          this.$data.adopt_curve_x = res.data['common_corpora'][0][0];
-        }
-        if (!this.$data.adopt_curve_y) {
-          this.$data.adopt_curve_y = res.data['client_corpora'][0][0];
-        }
+      const corpora = res.data['client_corpora'].concat(res.data['wrench_corpora'], res.data['common_corpora']);
+      const dropdownValues = formatOptions(corpora);
 
-        this.$data.influencers_x_options = formatOptions(res.data['common_corpora']);
-        this.$data.influencers_y_options = formatOptions(res.data['client_corpora']);
-        if (!this.$data.influencers_x) {
-          this.$data.influencers_x = res.data['common_corpora'][0][0];
-        }
-        if (!this.$data.influencers_y) {
-          this.$data.influencers_y = res.data['client_corpora'][0][0];
-        }
+      this.$data.adopt_curve_x_options = dropdownValues;
+      this.$data.adopt_curve_y_options = dropdownValues;
+      if (this.$data.adopt_curve_x === undefined || this.$data.adopt_curve_x === "undefined") {
+        this.$data.adopt_curve_x = dropdownValues[0].value;
+      }
+      if (this.$data.adopt_curve_y === undefined || this.$data.adopt_curve_y === "undefined") {
+        this.$data.adopt_curve_y = dropdownValues[0].value;
+      }
+
+      this.$data.influencers_x_options = dropdownValues;
+      this.$data.influencers_y_options = dropdownValues;
+      if (this.$data.influencers_x === undefined || this.$data.influencers_x === "undefined") {
+        this.$data.influencers_x = dropdownValues[0].value;
+      }
+      if (this.$data.influencers_y === undefined || this.$data.influencers_y === "undefined") {
+        this.$data.influencers_y = dropdownValues[0].value;
+      }
     }});
 
 

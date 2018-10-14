@@ -128,10 +128,18 @@ const actions: ActionTree<State, State> = {
     sendPost('/get_corpora', {})
       .then((res: any) => {
         if (callback) {
-          callback({
-            status: 'success',
-            data: res.data.payload,
-          });
+          if (res.data === undefined) {
+            callback({
+              status: 'error',
+              data: {},
+            });
+          }
+          else {
+            callback({
+              status: 'success',
+              data: res.data.payload,
+            });
+          }
         }
       })
       .catch((error: any) => {
