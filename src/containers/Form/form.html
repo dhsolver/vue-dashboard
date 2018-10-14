@@ -22,6 +22,14 @@
           </fieldset>
         </div>
         <!-- end step-2 -->
+
+        <div v-show="fileUpLoadValidated" class="wd-form__wrapper success-message">
+          <div class="wd-form__header">File was uploaded successfully. It will take several minutes to process. Go to dashboard by clicking 
+            <router-link tag="a" to="/dashboard">
+              <span>here</span>
+            </router-link>.
+          </div>
+        </div>
       </div>
       <!-- end wizard-content -->
     </div>

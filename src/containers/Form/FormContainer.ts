@@ -71,9 +71,9 @@ export class FormContainer extends Vue {
 
   @Watch('uploadedFile') uploadedFileChanged(value, oldValue) {
     if (this.uploadedFile) {
-      // if (this.step === 2) this.step = 3;
-      // this.fileUpLoadValidated = true;
-      router.push('dashboard');
+      if (this.step === 2) this.step = 3;
+      this.fileUpLoadValidated = true;
+      router.push('form');
     }
   }
 
