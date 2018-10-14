@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator'
+import router from '../../router';
 
 import './styles.scss';
 
@@ -24,6 +25,7 @@ export class RegisterContainer extends Vue {
   passwordValidated: boolean = true;
   agree: boolean = false;
   agreeError: string = '';
+  codeError: string = '';
 
   step: number = 0;
   code: string = '';
@@ -45,7 +47,11 @@ export class RegisterContainer extends Vue {
   }
 
   confirmCode() {
-    registeringWithCode(this.code);
+    registeringWithCode(this.code).then(() => {
+      router.push('login');
+    }).catch(err => {
+      this.codeError = err;
+    });
   }
 
   registeringSuccess() {

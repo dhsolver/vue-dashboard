@@ -277,40 +277,35 @@ function registeringRequest (email, pw, fname, lname) {
 }
 
 function registeringWithCode(confirmCode){
-  console.log('start registeringWithCode()')
+  return new Promise((resolve, reject) => {
+    console.log('start registeringWithCode()')
 
-  event.preventDefault();
+    event.preventDefault();
 
-  var poolData = {
-    UserPoolId : cognitoUserPoolId,
-    ClientId : cognitoUserPoolClientId
-  };
+    var poolData = {
+      UserPoolId : cognitoUserPoolId,
+      ClientId : cognitoUserPoolClientId
+    };
 
-  var userName = localStorage.getItem('email');
+    var userName = localStorage.getItem('email');
 
-  var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-  var userData = {
-      Username : userName,
-      Pool : userPool
-  };
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var userData = {
+        Username : userName,
+        Pool : userPool
+    };
 
-  var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-  cognitoUser.confirmRegistration(confirmCode, true, function(err, result) {
-    if (result == 'SUCCESS') {
-      location.href = "/login";
-    }
-    else if (err) {
-      if (err.code == 'UnknownError') {
-        alert('success!');
-        location.href="/form"
-      } else {
-        alert(err.message);
-        console.log(err)
-        return;
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    cognitoUser.confirmRegistration(confirmCode, true, function(err, result) {
+      console.log('***********', err, result);
+      if (result == 'SUCCESS') {
+        resolve();
       }
-    }
+      else if (err) {
+        reject(err.message);
+      }
+    });
   });
-
 }
 
 function forgotPassword (username) {
