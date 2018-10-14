@@ -18,3 +18,26 @@
 .register.register-with-news-feed .right-content .confirm-button {
   margin-bottom: 50px;
 }
+
+.register {
+  .invalid-feedback {
+    display: block;
+  }
+  .brand b {
+    color: #327FA3;
+  }
+  .brand p {
+    color: #707478;
+  }
+  .btn-register {
+    margin: 0 auto;
+  }
+  .center-desc {
+    margin: 0 auto;
+    color: #707478;
+  }
+  .agree-desc {
+    color: #707478;
+    font-weight: normal;
+  }
+}
