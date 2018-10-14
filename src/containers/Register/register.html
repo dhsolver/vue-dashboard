@@ -7,13 +7,10 @@
     <!-- begin right-content -->
     <div class="right-content">
       <!-- begin register-header -->
-      <div class="register-header">
+      <div class="register-header text-center">
         <div class="brand">
           <b>Sign Up</b>
           <p style="font-size: 16px;">Create your account to get started.</p>
-        </div>
-        <div class="icon">
-          <i class="fa fa-sign-in"></i>
         </div>
       </div>
       <!-- end register-header -->
@@ -38,31 +35,29 @@
                   <input type="password" name="password_confirm" placeholder="Re-enter your password*" v-model="passwordConfirm" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
                   <input type="hidden" id="registering_request_sent" @click="registeringRequestSent"/>
                 </div>
-                <div class="wd-form__wrp">
-                  <input type="checkbox" id="agree" @change="agreeError=''" v-model="agree" />
-                  <label for="agree">
+                <div class="wd-form__wrp m-b-10">
+                  <input type="checkbox" class="mr-2" id="agree" @change="agreeError=''" v-model="agree" />
+                  <label for="agree" class="agree-desc">
                     By clicking Sign Up, you agree to our <a href="https://wrench.ai/terms/">Terms</a> and that you have read our <a href="https://wrench.ai/privacy-statement">Data Policy</a>, including our <a href="https://wrench.ai/privacy-statement">Cookie Use</a>.
                   </label>
                 </div>
                 <div class="invalid-feedback">
                   {{agreeError}}
                 </div>
-                <div class="wd-form__wrp m-b-30">
-                  <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
-                    <a class="btn btn-default sw-btn-next wd-btn-next" @click="userRegister()">Register</a>
-                  </div>
+                <div class="wd-form__wrp m-b-10">
+                  <a class="btn btn-default btn-register sw-btn-next wd-btn-next" @click="userRegister()">Register</a>
                 </div>
               </div>
               <div class="wd-wrap m-b-30">
                 <div class="wd-form__wrp">
-                  <span>Already a member? Click
+                  <span class="center-desc">Already a member? Click
                     <router-link to="/login">
                       <a><span>here</span></a>
                     </router-link> to login.
                   </span>
                 </div>
                 <div class="wd-form__wrp">
-                  <span>Enter
+                  <span class="center-desc">Enter
                     <a href="javascript:;" @click="changeStep()">
                       <span>confirmation code</span>
                     </a>.
@@ -76,7 +71,7 @@
               <input type="text" name="confirmCode" placeholder="000000" v-model="code" @change="emailValidated=true" :class="`wd-form__input ${codeValidated?'':'input-error'}`"/>
             </div>
 
-            <div class="wd-form__wrapper"> 
+            <div class="wd-form__wrapper">
               <legend class="wd-form__header">Thanks! Check your email for a confirmation code. It may take a few minutes to arrive.</legend>
             </div>
 
