@@ -21,9 +21,9 @@ let config = {
 let $http = axios.create(config.axiosConfig)
 
 $http.interceptors.request.use((config) => {
-  if (localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens')) {
-    const tokenInfo = JSON.parse(localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens'));
-    config.headers['authorization'] = 'Bearer ' +  tokenInfo['IdToken']['jwtToken'];
+  if (localStorage.getItem('sessionTokens')) {
+    const tokenInfo = JSON.parse(localStorage.getItem('sessionTokens'));
+    // config.headers['authorization'] = 'Bearer ' +  tokenInfo['IdToken']['jwtToken'];
   }
   return config;
 }, (error) => {
@@ -33,7 +33,7 @@ $http.interceptors.request.use((config) => {
 $http.interceptors.response.use((response) => {
   return response;
 }, (error) => {
-  if (error.response.status == 401) {
+  if (error.response && error.response.status == 401) {
     localStorage.clear();
     initializeStorage();
     window.location.href = '/';

@@ -180,8 +180,8 @@ function uploadFile(file) {
     var cognitoUser = userPool.getCurrentUser();
 
     let tokenInfo = {};
-    if (localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens')) {
-      tokenInfo = JSON.parse(localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens'))
+    if (localStorage.getItem('sessionTokens')) {
+      tokenInfo = JSON.parse(localStorage.getItem('sessionTokens'))
     }
 
     // Set the region where your identity pool exists (us-east-1, eu-west-1)
@@ -218,8 +218,8 @@ function uploadFile(file) {
 
 
 function getSubjectId() {
-  if (localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens')) {
-    const tokenInfo = JSON.parse(localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens'));
+  if (localStorage.getItem('sessionTokens')) {
+    const tokenInfo = JSON.parse(localStorage.getItem('sessionTokens'));
     sub_id = tokenInfo['IdToken']['payload']['sub'];
     return sub_id;
   }
