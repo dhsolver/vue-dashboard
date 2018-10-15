@@ -111,8 +111,15 @@
 		$(document).ready(function() {
 			App.init();
 			FormWizard.init();
-
-
+			// Add Mouselflow Tag
+			window._mfq = window._mfq || [];
+			(function() {
+				var mf = document.createElement("script");
+				mf.type = "text/javascript";
+				mf.async = true;
+				mf.src = "//cdn.mouseflow.com/projects/40ba738a-d00f-40b4-ad5f-0ef944cdecbf.js";
+				document.getElementsByTagName("head")[0].appendChild(mf);
+			})();
 		});
 	</script>
 
