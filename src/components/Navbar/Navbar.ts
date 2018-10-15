@@ -45,7 +45,16 @@ export class Navbar extends Vue {
   mounted() {
     if (!this.logger) this.logger = new Logger();
     this.$nextTick(() => this.logger.info(this.object.default));
-    this.username = JSON.parse(this.loginStorage.sessionTokens).AccessToken.payload.username;
+    this.$store.dispatch(MutationTypes.GET_CLIENT_NAME_REQUEST, {
+      payload: {}, callback: (res) => {
+        if (res.status === 'ok') {
+          this.username = res.msg;
+        } else {
+          
+        }
+      }
+    });
+    // this.username = JSON.parse(this.loginStorage.sessionTokens).AccessToken.payload.username;
   }
 
   tempStripeAction() {
