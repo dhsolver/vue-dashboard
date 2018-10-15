@@ -33,9 +33,11 @@ $http.interceptors.request.use((config) => {
 $http.interceptors.response.use((response) => {
   return response;
 }, (error) => {
-  localStorage.clear();
-  initializeStorage();
-  window.location.href = '/';
+  if (error.response.status == 401) {
+    localStorage.clear();
+    initializeStorage();
+    window.location.href = '/';
+  }
   return Promise.reject(error);
 });
 
