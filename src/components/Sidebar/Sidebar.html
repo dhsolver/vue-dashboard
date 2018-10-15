@@ -30,6 +30,9 @@
 				</a>
 				<ul class="sub-menu">
 					<li>
+						<router-link :class="{'active': $route.path === '/create-campaign'}" to="/create-campaign">Create Campaign</router-link>
+					</li>
+					<li>
 						<a href="https://app.smartsheet.com/b/publish?EQBCT=36554fdcafaa4d4ba8bfdd97899d97de" target="_blank">Product Launch</a>
 					</li>
 					<li>

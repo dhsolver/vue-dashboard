@@ -9,6 +9,7 @@ import { AdminContainer } from '../containers/Admin';
 import { RegisterContainer } from '../containers/Register';
 import { LoginContainer } from '../containers/Login';
 import { ForgotPasswordContainer } from '../containers/ForgotPassword';
+import { CreateCampaignContainer } from '../containers/CreateCampaign';
 
 
 // register the plugin
@@ -37,6 +38,11 @@ const router = new VueRouter({
           component: AdminContainer,
           name: 'settings',
           path: '/settings',
+          meta: { requiresAuth: true }
+        }, {
+          component: CreateCampaignContainer,
+          name: 'create-campaign',
+          path: '/create-campaign',
           meta: { requiresAuth: true }
         }
       ]
