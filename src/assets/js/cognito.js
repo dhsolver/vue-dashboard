@@ -13,45 +13,45 @@ if(config != null) {
   refreshAWSCredentials();
 }
 
-function refreshAWSCredentials() {
-  var userPoolId = localStorage.getItem('userPoolId');
-  var clientId = localStorage.getItem('clientId');
-  var identityPoolId = localStorage.getItem('identityPoolId');
-  var loginPrefix = localStorage.getItem('loginPrefix');
+// function refreshAWSCredentials() {
+//   var userPoolId = localStorage.getItem('userPoolId');
+//   var clientId = localStorage.getItem('clientId');
+//   var identityPoolId = localStorage.getItem('identityPoolId');
+//   var loginPrefix = localStorage.getItem('loginPrefix');
 
-  var poolData = {
-    UserPoolId : userPoolId, // Your user pool id here
-    ClientId : clientId // Your client id here
-  };
-  var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-  var cognitoUser = userPool.getCurrentUser();
+//   var poolData = {
+//     UserPoolId : userPoolId, // Your user pool id here
+//     ClientId : clientId // Your client id here
+//   };
+//   var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+//   var cognitoUser = userPool.getCurrentUser();
 
-  if (cognitoUser != null) {
-    cognitoUser.getSession(function(err, result) {
-      if (result) {
-        console.log('You are now logged in.');
-        cognitoUser.refreshSession(result.getRefreshToken(), function(err, result) {
+//   if (cognitoUser != null) {
+//     cognitoUser.getSession(function(err, result) {
+//       if (result) {
+//         console.log('You are now logged in.');
+//         cognitoUser.refreshSession(result.getRefreshToken(), function(err, result) {
 
-          if (err) {//throw err;
-            console.log('In the err: '+err);
-          }
-          else{
-            localStorage.setItem('awsConfig', JSON.stringify(AWS.config));
-            var sessionTokens =
-            {
-              IdToken: result.getIdToken(),
-              AccessToken: result.getAccessToken(),
-              RefreshToken: result.getRefreshToken()
-            };
-            document.getElementById('login_state').click();
+//           if (err) {//throw err;
+//             console.log('In the err: '+err);
+//           }
+//           else{
+//             localStorage.setItem('awsConfig', JSON.stringify(AWS.config));
+//             var sessionTokens =
+//             {
+//               IdToken: result.getIdToken(),
+//               AccessToken: result.getAccessToken(),
+//               RefreshToken: result.getRefreshToken()
+//             };
+//             document.getElementById('login_state').click();
 
-          }
-        });
+//           }
+//         });
 
-      }
-    });
-  }
-}
+//       }
+//     });
+//   }
+// }
 
 function initializeStorage() {
   var identityPoolId = cognitoUserPoolId;//
