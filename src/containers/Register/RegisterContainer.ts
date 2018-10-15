@@ -67,7 +67,7 @@ export class RegisterContainer extends Vue {
   }
 
   openWindow(windowName) {
-    switch(windowName) {
+    switch (windowName) {
       case 'TERMS':
         if (!this.termsWindow || this.termsWindow.closed) {
           this.termsWindow = window.open('https://wrench.ai/terms/');
