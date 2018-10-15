@@ -88,6 +88,11 @@ declare function getSubjectId();
 
 
 export class DashboardContainer extends Vue {
+  contacts = '2,832,177';
+  companies = '832,177';
+  equivalent = '5,664,354';
+  modeledInsights = '2,832,177';
+
   @Watch('adopt_curve_x')
   adoptCurveXChanged(newValue) {
     localStorage.setItem('adopt_curve_x', newValue)
