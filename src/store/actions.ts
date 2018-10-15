@@ -189,6 +189,34 @@ const actions: ActionTree<State, State> = {
   },
 
 
+  [MutationTypes.GET_CLIENT_NAME_REQUEST]: ({ commit }, {payload, callback}) => {
+    sendPost('/get_client_name', payload)
+      .then((res: any) => {
+        callback(res.data);
+      })
+      .catch((error: any) => {
+        callback({
+          status: 'error',
+          msg: 'Failed to fetch client name.',
+        });
+      });
+  },
+
+
+  [MutationTypes.CREATE_CORPUS_REQUEST]: ({ commit }, {payload, callback}) => {
+    sendPost('/create_corpus', payload)
+      .then((res: any) => {
+        callback(res.data);
+      })
+      .catch((error: any) => {
+        callback({
+          status: 'error',
+          msg: 'Failed to create campaign',
+        });
+      });
+  },
+
+
 };
 
 export default actions;

@@ -1,0 +1,46 @@
+<!-- begin #content -->
+<div class="content">
+  <form action="/" method="POST" @submit.prevent="createCampaign">
+    <!-- begin row -->
+    <div class="row">
+      <!-- begin col-8 -->
+      <div class="wd-wrap">
+        <div class="wd-form__wrapper">
+          <legend class="wd-form__header">Create Campaign</legend>
+          <div class="alert alert-success" v-if="status === 'ok'">
+            {{ message }}
+          </div>
+          <div class="alert alert-danger" v-if="status === 'error'">
+            {{ error }}
+          </div>
+          <div class="form-group">
+            <label>Client Name</label>
+            <input type="text" class="form-control" readonly v-model="clientName" />
+          </div>
+          <div class="form-group" :class="{'has-error': !campaignNameValidated}">
+            <label>Campaign Name*</label>
+            <input type="text" maxlength="100" class="form-control" v-model="campaignName" @change="campaignNameValidated=true" />
+          </div>
+          <div class="form-group">
+            <label>Type</label>
+            <select class="form-control mb-0" v-model="type">
+              <option value="person">Person</option>
+              <option value="product">Product</option>
+              <option value="brand">Company / Brand</option>
+            </select>
+          </div>
+          <div class="form-group" :class="{'has-error': !descriptionValidated}">
+            <label>Description</label>
+            <textarea class="form-control" v-model="description" @change="descriptionValidated=true"></textarea>
+          </div>
+        </div>
+        <nav class="wd-form__footer text-center">
+          <button type="submit" class="btn btn-primary btn-dark width-150">Create</button>
+        </nav>
+      </div>
+      <!-- end col-8 -->
+    </div>
+    <!-- end row -->
+  </form>
+</div>
+<!-- end #content -->

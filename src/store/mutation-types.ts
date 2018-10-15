@@ -24,4 +24,8 @@ export class MutationTypes {
   public static GET_CORPORA = 'GET_CORPORA';
 
   public static STRIPE_A1 = 'STRIPE_A1';
+
+  public static GET_CLIENT_NAME_REQUEST = 'GET_CLIENT_NAME_REQUEST';
+
+  public static CREATE_CORPUS_REQUEST = 'CREATE_CORPUS_REQUEST';
 }
