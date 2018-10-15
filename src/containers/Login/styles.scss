@@ -15,10 +15,15 @@
   border-radius: 10px;
 }
 .login {
+  .login-header {
+    padding-top: 60px !important;
+    width: inherit;
+  }
   .invalid-feedback {
     display: block;
   }
   .brand b {
+    font-size: 32px;
     color: #327FA3;
   }
   .btn-login {
