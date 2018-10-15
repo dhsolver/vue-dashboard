@@ -31,6 +31,10 @@ export class RegisterContainer extends Vue {
   code: string = '';
   codeValidated: boolean = true;
 
+  termsWindow: any = null;
+  dataPolicyWindow: any = null;
+  cookieUseWindow: any = null;
+
   userRegister() {
     this.firstnameValidated = this.firstname ? true : false;
     this.lastnameValidated = this.lastname ? true : false;
@@ -60,6 +64,33 @@ export class RegisterContainer extends Vue {
 
   changeStep() {
     this.step = 1;
+  }
+
+  openWindow(windowName) {
+    switch(windowName) {
+      case 'TERMS':
+        if (!this.termsWindow || this.termsWindow.closed) {
+          this.termsWindow = window.open('https://wrench.ai/terms/');
+        } else {
+          this.termsWindow.focus();
+        }
+        break;
+      case 'DATA_POLICY':
+        if (!this.dataPolicyWindow || this.dataPolicyWindow.closed) {
+          this.dataPolicyWindow = window.open('https://wrench.ai/privacy-statement');
+        } else {
+          this.dataPolicyWindow.focus();
+        }
+        break;
+      case 'COOKIE_USE':
+        if (!this.cookieUseWindow || this.cookieUseWindow.closed) {
+          this.cookieUseWindow = window.open('https://wrench.ai/privacy-statement');
+        } else {
+          this.cookieUseWindow.focus();
+        }
+        break;
+      default:
+    }
   }
 
 }
