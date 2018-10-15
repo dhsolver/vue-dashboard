@@ -1,7 +1,43 @@
 import axios from 'axios'
 
+declare var localStorage;
+declare function  initializeStorage ();
 
 let baseUrl = 'https://rw3gl2g6ff.execute-api.us-east-1.amazonaws.com/dev';
+let config = {
+  address: baseUrl,
+  port: '',
+  basePath: '',
+  axiosConfig: {
+    baseURL: baseUrl,
+    headers: {},
+    withCredentials: false,
+    crossDomain: true,
+  },
+  getEndpointUrl () {
+    return this.address + (this.basePath ? this.basePath : '')
+  }
+}
+let $http = axios.create(config.axiosConfig)
+
+$http.interceptors.request.use((config) => {
+  if (localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens')) {
+    const tokenInfo = JSON.parse(localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens'));
+    config.headers['authorization'] = 'Bearer ' +  tokenInfo['IdToken']['jwtToken'];
+  }
+  return config;
+}, (error) => {
+    return Promise.reject(error);
+});
+
+$http.interceptors.response.use((response) => {
+  return response;
+}, (error) => {
+  localStorage.clear();
+  initializeStorage();
+  window.location.href = '/';
+  return Promise.reject(error);
+});
 
 let convertObjectToFormData = (items) => {
   const formData = new FormData();
@@ -21,35 +57,7 @@ let convertObjectToUrlData = (items) => {
   return params
 }
 
-let config = {
-  address: baseUrl,
-  port: '',
-  basePath: '',
-  axiosConfig: {
-    baseURL: baseUrl,
-    headers: {},
-    withCredentials: false,
-    crossDomain: true,
-  },
-  getEndpointUrl () {
-    return this.address + (this.basePath ? this.basePath : '')
-  }
-}
-
-let setConfig = () => {
-  if (localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens')) {
-    const tokenInfo = JSON.parse(localStorage.getItem('sessionTokens') || sessionStorage.getItem('sessionTokens'))
-    config.axiosConfig.headers['authorization'] = 'Bearer ' +  tokenInfo['IdToken']['jwtToken'];
-  }
-}
-
-setConfig()
-let $http = axios.create(config.axiosConfig)
-
-
 let sendPostForm = (url, payload, headers = null) => {
-  setConfig()
-  $http = axios.create(config.axiosConfig)
   return new Promise((resolve, reject) => {
     $http.post(url, convertObjectToFormData(payload))
       .then((handleSuccess) => {
@@ -62,8 +70,6 @@ let sendPostForm = (url, payload, headers = null) => {
 }
 
 let sendPost = (url, payload, headers = null) => {
-  setConfig()
-  $http = axios.create(config.axiosConfig)
   return new Promise((resolve, reject) => {
     $http.post(url, payload)
       .then((handleSuccess) => {
@@ -76,9 +82,6 @@ let sendPost = (url, payload, headers = null) => {
 }
 
 let sendPatchForm = (url, payload, headers = null) => {
-  setConfig()
-  $http = axios.create(config.axiosConfig)
-
   return new Promise((resolve, reject) => {
     $http.patch(url, convertObjectToUrlData(payload), headers)
       .then((handleSuccess) => {
@@ -91,9 +94,6 @@ let sendPatchForm = (url, payload, headers = null) => {
 }
 
 let sendPatch = (url, payload, headers = null) => {
-  setConfig()
-  let $http = axios.create(config.axiosConfig)
-
   return new Promise((resolve, reject) => {
     $http.patch(url, payload, headers)
       .then((handleSuccess) => {
@@ -106,9 +106,6 @@ let sendPatch = (url, payload, headers = null) => {
 }
 
 let sendPut = (url, payload, headers = null) => {
-  setConfig()
-  $http = axios.create(config.axiosConfig)
-
   return new Promise((resolve, reject) => {
     $http.put(url, payload, headers)
       .then((handleSuccess) => {
@@ -122,9 +119,6 @@ let sendPut = (url, payload, headers = null) => {
 
 let sendGet = (url, headers = null) => {
   let pageCount = null
-  setConfig()
-  console.log(config);
-  $http = axios.create(config.axiosConfig)
   return new Promise((resolve, reject) => {
     $http.get(url, config.axiosConfig)
       .then((handleSuccess) => {
@@ -151,8 +145,6 @@ let sendGet = (url, headers = null) => {
 export default config
 
 export { config }
-
-export { setConfig }
 
 export { sendPost }
 
