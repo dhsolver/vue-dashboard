@@ -41,6 +41,11 @@ export class CreateCampaignContainer extends Vue {
         this.status = res.status;
         if (res.status === 'ok') {
           this.message = 'Campaign has been successfully created.';
+          this.campaignName = '';
+          this.description = '';
+          setTimeout(() => {
+            this.status = '';
+          }, 1000);
         } else {
           this.error = res.msg;
         }
