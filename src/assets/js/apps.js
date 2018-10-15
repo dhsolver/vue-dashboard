@@ -91,13 +91,13 @@ var handleSidebarMenu = function() {
     var expandTime = ($('.sidebar').attr('data-disable-slide-animation')) ? 0 : 250;
     $('.sidebar .nav > .has-sub > a').click(function() {
         var target = $(this).next('.sub-menu');
-        var otherMenu = $('.sidebar .nav > li.has-sub > .sub-menu').not(target);
+        // var otherMenu = $('.sidebar .nav > li.has-sub > .sub-menu').not(target);
     
         if ($('.page-sidebar-minified').length === 0) {
-        	$(otherMenu).closest('li').addClass('closing');
-            $(otherMenu).slideUp(expandTime, function() {
-                $(otherMenu).closest('li').addClass('closed').removeClass('expand closing');
-            });
+        	// $(otherMenu).closest('li').addClass('closing');
+            // $(otherMenu).slideUp(expandTime, function() {
+            //     $(otherMenu).closest('li').addClass('closed').removeClass('expand closing');
+            // });
             if ($(target).is(':visible')) {
             	$(target).closest('li').addClass('closing').removeClass('expand');
             } else {
@@ -137,6 +137,7 @@ var handleSidebarMenu = function() {
             });
         }
     });
+    $('.sidebar .nav > .has-sub > a').trigger('click');
 };
 
 

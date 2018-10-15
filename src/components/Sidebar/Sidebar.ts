@@ -3,6 +3,8 @@ import { Component, Watch } from 'vue-property-decorator';
 // import { Link } from './Link';
 import { Logger } from '../../utils/log';
 
+declare function handleSidebarMenu(): any;
+
 @Component({
   template: require('./Sidebar.html')
 })
@@ -31,5 +33,6 @@ export class Sidebar extends Vue {
   mounted() {
     if (!this.logger) this.logger = new Logger();
     this.$nextTick(() => this.logger.info(this.object.default));
+    handleSidebarMenu();
   }
 }
