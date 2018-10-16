@@ -122,7 +122,7 @@ function loginUser(email, pwd) {
 }
 
 
-function refreshAWSCredentials() {
+function refreshAWSCredentials(callback) {
 
   var userPoolId = localStorage.getItem('userPoolId');
   var clientId = localStorage.getItem('clientId');
@@ -154,7 +154,7 @@ function refreshAWSCredentials() {
                           RefreshToken: result.getRefreshToken()
                         };
                         localStorage.setItem("sessionTokens", JSON.stringify(sessionTokens));
-
+                        if (typeof callback === 'function') callback();
                     }
                 });
 
