@@ -16,7 +16,7 @@
       <!-- end register-header -->
       <!-- begin register-content -->
       <div class="register-content">
-        <form action="/" method="POST" class="margin-bottom-0">
+        <form action="/" method="POST" class="margin-bottom-0" @submit="submitRegisterForm">
           <div class="wd-wrap" v-if="step==0">
             <div class="wd-form__wrapper">
                 <div class="wd-form__wrp">
@@ -27,6 +27,10 @@
                 </div>
                 <div class="wd-form__wrp">
                   <input type="text" name="username" placeholder="Email address*" v-model="email" @change="emailValidated=true" :class="`wd-form__input ${emailValidated?'':'input-error'}`"/>
+                </div>
+                <div class="wd-form__wrp">
+                  <input type="text" name="company" placeholder="Company*" v-model="company" max="50" @change="companyValidated=true" :class="`wd-form__input ${companyValidated?'':'input-error'}`"
+                  />
                 </div>
                 <div class="wd-form__wrp">
                   <input type="password" name="password" placeholder="Your password*" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
