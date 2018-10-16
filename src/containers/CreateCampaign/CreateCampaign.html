@@ -7,12 +7,14 @@
       <div class="wd-wrap">
         <div class="wd-form__wrapper">
           <legend class="wd-form__header">Create Campaign</legend>
-          <div class="alert alert-success" v-if="status === 'ok'">
-            {{ message }}
-          </div>
-          <div class="alert alert-danger" v-if="status === 'error'">
-            {{ error }}
-          </div>
+          <transition name="fade">
+            <div class="alert alert-success" v-if="status === 'ok'">
+              {{ message }}
+            </div>
+            <div class="alert alert-danger" v-if="status === 'error'">
+              {{ error }}
+            </div>
+          </transition>
           <div class="form-group">
             <label>Client Name</label>
             <input type="text" class="form-control" readonly v-model="clientName" />
@@ -36,6 +38,7 @@
         </div>
         <nav class="wd-form__footer text-center">
           <button type="submit" class="btn btn-primary btn-dark width-150">Create</button>
+          <router-link tag="button" class="btn btn-default btn-dark width-150" to="/form">Next</router-link>
         </nav>
       </div>
       <!-- end col-8 -->
