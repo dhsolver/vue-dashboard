@@ -30,7 +30,13 @@ export class LoginContainer extends Vue {
 
   @Watch('loggedIn') loggedInChanged(value, oldValue) {
     if (value && !oldValue) {
-      router.push('form');
+      if (sessionStorage.getItem('firstLogin') == null) {
+        router.push('/create-campaign');
+        sessionStorage.setItem('firstLogin', 'no');
+      }
+      else {
+        router.push('dashboard');
+      }
     }
   }
   @Watch('loginError') loginErrorChanged(value, oldValue) {
