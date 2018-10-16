@@ -216,6 +216,18 @@ const actions: ActionTree<State, State> = {
       });
   },
 
+  [MutationTypes.CREATE_ACCOUNT]: ({ commit }, {payload, callback}) => {
+    sendPost('/create_account', payload)
+      .then((res: any) => {
+        callback(res.data);
+      })
+      .catch((error: any) => {
+        callback({
+          status: 'error',
+          msg: 'Failed to create account'
+        });
+      });
+  }
 
 };
 

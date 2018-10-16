@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator'
+import { MutationTypes } from '../../store/mutation-types';
 import router from '../../router';
+import store from '../../store';
 
 import './styles.scss';
 
 declare function registeringWithCode (code);
-declare function registeringRequest (email, pw, fname, lname);
+declare function registeringRequest (email, pw, fname, lname, company);
 
 @Component({
   template: require('./register.html'),
@@ -20,6 +22,8 @@ export class RegisterContainer extends Vue {
   lastnameValidated: boolean = true;
   email: string = '';
   emailValidated: boolean = true;
+  company = '';
+  companyValidated: boolean = true;
   password: string = '';
   passwordConfirm: string = '';
   passwordValidated: boolean = true;
@@ -39,10 +43,11 @@ export class RegisterContainer extends Vue {
     this.firstnameValidated = this.firstname ? true : false;
     this.lastnameValidated = this.lastname ? true : false;
     this.emailValidated = this.email ? true : false;
+    this.companyValidated = this.company ? true : false;
     this.passwordValidated = (this.passwordConfirm === this.password) && (this.password !== '');
     this.agreeError = this.agree ? '' : 'Please confirm that you agreed to our Terms and Policy';
-    if (this.firstnameValidated && this.lastnameValidated && this.emailValidated && this.passwordValidated && this.agree) {
-      registeringRequest(this.email, this.password, this.firstname, this.lastname);
+    if (this.firstnameValidated && this.lastnameValidated && this.emailValidated && this.companyValidated && this.passwordValidated && this.agree) {
+      registeringRequest(this.email, this.password, this.firstname, this.lastname, this.company);
     }
   }
 
@@ -50,8 +55,21 @@ export class RegisterContainer extends Vue {
     this.step = 1;
   }
 
+  submitRegisterForm(event) {
+    return false;
+    event.preventDefault();
+
+  }
+
   confirmCode() {
     registeringWithCode(this.code).then(() => {
+      let accountInfo = {
+        firstName: this.firstname,
+        lastName: this.lastname,
+        email: this.email,
+        company: this.company
+      }
+      localStorage.setItem('accountInfo', JSON.stringify(accountInfo));
       router.push('login');
     }).catch(err => {
       this.codeError = err;

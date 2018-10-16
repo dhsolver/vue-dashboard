@@ -28,4 +28,6 @@ export class MutationTypes {
   public static GET_CLIENT_NAME_REQUEST = 'GET_CLIENT_NAME_REQUEST';
 
   public static CREATE_CORPUS_REQUEST = 'CREATE_CORPUS_REQUEST';
+
+  public static CREATE_ACCOUNT = 'CREATE_ACCOUNT';
 }

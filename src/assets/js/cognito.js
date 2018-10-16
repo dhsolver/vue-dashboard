@@ -228,7 +228,7 @@ function getSubjectId() {
   }
 }
 
-function registeringRequest (email, pw, fname, lname) {
+function registeringRequest (email, pw, fname, lname, company) {
   event.preventDefault();
 
   var poolData = {
@@ -254,13 +254,20 @@ function registeringRequest (email, pw, fname, lname) {
     Value : lname
   };
 
+  var dataCompany = {
+    Name: 'middle_name',
+    Value: company
+  }
+
   var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
   var attributeFirstName = new AmazonCognitoIdentity.CognitoUserAttribute(dataFirstName);
   var attributeLastName = new AmazonCognitoIdentity.CognitoUserAttribute(dataLastName);
+  var attributeCompany = new AmazonCognitoIdentity.CognitoUserAttribute(dataCompany);
 
   attributeList.push(attributeEmail);
   attributeList.push(attributeFirstName);
   attributeList.push(attributeLastName);
+  attributeList.push(attributeCompany);
 
   userPool.signUp(email, pw, attributeList, null, function(err, result){
       if (err) {
