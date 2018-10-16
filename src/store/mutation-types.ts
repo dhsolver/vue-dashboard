@@ -30,4 +30,6 @@ export class MutationTypes {
   public static CREATE_CORPUS_REQUEST = 'CREATE_CORPUS_REQUEST';
 
   public static CREATE_ACCOUNT = 'CREATE_ACCOUNT';
+
+  public static GET_TOP_LINE = 'GET_TOP_LINE';
 }
