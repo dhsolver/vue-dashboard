@@ -17,7 +17,9 @@ const mutations: MutationTree<State> = {
     console.log('loginChanged', state.loginStorage)
   },
   [MutationTypes.LOGOUT_USER]: (state: State) => {
+    const firstLogin = localStorage.getItem('firstLogin');
     localStorage.clear();
+    if (firstLogin === 'no') localStorage.setItem('firstLogin', 'no');
     initializeStorage();
     state.loggedIn = false;
     state.loginStorage = localStorage;
