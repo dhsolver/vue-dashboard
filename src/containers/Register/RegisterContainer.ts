@@ -53,7 +53,6 @@ export class RegisterContainer extends Vue {
 
   registeringRequestSent () {
     this.step = 1;
-    this.create_account();
   }
 
   submitRegisterForm(event) {
@@ -64,6 +63,13 @@ export class RegisterContainer extends Vue {
 
   confirmCode() {
     registeringWithCode(this.code).then(() => {
+      let accountInfo = {
+        firstName: this.firstname,
+        lastName: this.lastname,
+        email: this.email,
+        company: this.company
+      }
+      localStorage.setItem('accountInfo', JSON.stringify(accountInfo));
       router.push('login');
     }).catch(err => {
       this.codeError = err;
@@ -76,28 +82,6 @@ export class RegisterContainer extends Vue {
 
   changeStep() {
     this.step = 1;
-  }
-
-  create_account() {
-    let accountInfo = {
-      firstName: this.firstname,
-      lastName: this.lastname,
-      email: this.email,
-      company: this.company
-    };
-
-    const that = this;
-    this.$store.dispatch(MutationTypes.CREATE_ACCOUNT, {payload: accountInfo, callback: (res) => {
-      if (res.status === 'ok') {
-        console.log('success!')
-      }
-      else {
-        console.log('account creation failed.  msg: ' + res.msg)
-        this.create_account();
-      }
-      console.log(res);
-      that.step = 1;
-    }});
   }
 
   openWindow(windowName) {
