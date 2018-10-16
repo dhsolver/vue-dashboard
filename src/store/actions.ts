@@ -227,7 +227,34 @@ const actions: ActionTree<State, State> = {
           msg: 'Failed to create account'
         });
       });
+  },
+
+  [MutationTypes.GET_TOP_LINE]: ({ commit }, { payload, callback }) => {
+    sendPost('/top_line', payload)
+      .then((res: any) => {
+        if (callback) {
+          if (res.data === undefined) {
+            callback({
+              status: 'error',
+              data: {},
+            });
+          }
+          else {
+            callback({
+              status: 'success',
+              data: res.data.payload,
+            });
+          }
+        }
+      })
+      .catch((error: any) => {
+        callback({
+          status: 'error',
+          msg: 'Failed to get'
+        });
+      });
   }
+
 
 };
 

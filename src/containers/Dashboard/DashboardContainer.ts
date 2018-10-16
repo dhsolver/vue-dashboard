@@ -5,6 +5,7 @@ import {library} from '@fortawesome/fontawesome-svg-core'
 import {faCheck} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {MutationTypes} from '../../store/mutation-types';
+import store from '../../store';
 
 library.add(faCheck);
 
@@ -111,5 +112,24 @@ export class DashboardContainer extends Vue {
   @Watch('influencers_y')
   influencersYChanged(newValue) {
     localStorage.setItem('influencers_y', newValue)
+  }
+
+  mounted() {
+    // this.getTopLine();
+  }
+
+
+  getTopLine() {
+    this.$store.dispatch(MutationTypes.GET_TOP_LINE, { payload: {}, callback: (res) => {
+      if (res.status === 'ok') {
+        this.contacts = res.data.contacts;
+        this.companies = res.data.companies;
+        this.equivalent = res.data.equivalent;
+        this.modeledInsights = res.data.modeledInsights;
+      }
+      else {
+        console.log(res.msg);
+      }
+    }});
   }
 }

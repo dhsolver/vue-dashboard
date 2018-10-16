@@ -58,7 +58,7 @@ export class LoginContainer extends Vue {
   createAccount() {
     const accountInfo = JSON.parse(localStorage.getItem('accountInfo'));
     this.$store.dispatch(MutationTypes.CREATE_ACCOUNT, { payload: accountInfo, callback: (res) => {
-      if (res.status == 'ok') {
+      if (res.status === 'ok') {
         console.log('Account has been created successfully.');
       }
       else {
