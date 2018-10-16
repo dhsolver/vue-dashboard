@@ -30,10 +30,10 @@ export class LoginContainer extends Vue {
 
   @Watch('loggedIn') loggedInChanged(value, oldValue) {
     if (value && !oldValue) {
-      if (sessionStorage.getItem('firstLogin') == null) {
+      if (localStorage.getItem('firstLogin') == null) {
         this.createAccount();
         router.push('/create-campaign');
-        sessionStorage.setItem('firstLogin', 'no');
+        localStorage.setItem('firstLogin', 'no');
       }
       else {
         router.push('dashboard');

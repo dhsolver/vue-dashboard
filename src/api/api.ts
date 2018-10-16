@@ -38,15 +38,15 @@ $http.interceptors.response.use((response) => {
   // if (error.response && error.response.status == 401) {
   if (typeof error.response === 'undefined') {
     if (originalRequest._retry) {
+      const firstLogin = localStorage.getItem('firstLogin');
       localStorage.clear();
+      if (firstLogin === 'no') localStorage.setItem('firstLogin', 'no');
       initializeStorage();
       window.location.href = '/';
     } else {
       originalRequest._retry = true;
       let sessionTokens = JSON.parse(localStorage.getItem('sessionTokens'));
       if (!sessionTokens) {
-        localStorage.clear();
-        initializeStorage();
         window.location.href = '/';
       }
       const idTokenExp = sessionTokens['IdToken']['payload']['exp'];
