@@ -53,13 +53,13 @@ export class RegisterContainer extends Vue {
 
   registeringRequestSent () {
     this.step = 1;
-    // this.create_account();
+    this.create_account();
   }
 
   submitRegisterForm(event) {
     return false;
     event.preventDefault();
-    
+
   }
 
   confirmCode() {
@@ -84,18 +84,19 @@ export class RegisterContainer extends Vue {
       lastName: this.lastname,
       email: this.email,
       company: this.company
-    }
+    };
 
-    // const that = this;
+    const that = this;
     this.$store.dispatch(MutationTypes.CREATE_ACCOUNT, {payload: accountInfo, callback: (res) => {
-      // if (res.status == 'ok') {
-
-      // }
-      // else {
-
-      // }
-      // console.log(res);
-      // that.step = 1;
+      if (res.status === 'ok') {
+        console.log('success!')
+      }
+      else {
+        console.log('account creation failed.  msg: ' + res.msg)
+        this.create_account();
+      }
+      console.log(res);
+      that.step = 1;
     }});
   }
 
