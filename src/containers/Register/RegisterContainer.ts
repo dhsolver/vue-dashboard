@@ -87,6 +87,7 @@ export class RegisterContainer extends Vue {
   }
 
   changeStep() {
+    this.codeError = '';
     this.step = 1;
   }
 
