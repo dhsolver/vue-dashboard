@@ -47,7 +47,7 @@ export class RegisterContainer extends Vue {
     this.passwordValidated = (this.passwordConfirm === this.password) && (this.password !== '');
     this.agreeError = this.agree ? '' : 'Please confirm that you agreed to our Terms and Policy';
     if (this.passwordConfirm && this.password && this.passwordConfirm !== this.password) {
-      this.codeError = 'Password is not matched';
+      this.codeError = 'Passwords do not match';
     }
     if (this.firstnameValidated && this.lastnameValidated && this.emailValidated && this.companyValidated && this.passwordValidated && this.agree) {
       this.codeError = '';
