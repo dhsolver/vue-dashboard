@@ -46,13 +46,19 @@ export class RegisterContainer extends Vue {
     this.companyValidated = this.company ? true : false;
     this.passwordValidated = (this.passwordConfirm === this.password) && (this.password !== '');
     this.agreeError = this.agree ? '' : 'Please confirm that you agreed to our Terms and Policy';
-    if (this.firstnameValidated && this.lastnameValidated && this.emailValidated && this.companyValidated && this.passwordValidated && this.agree) {
-      registeringRequest(this.email, this.password, this.firstname, this.lastname, this.company);
+    if (this.passwordConfirm && this.password && this.passwordConfirm !== this.password) {
+      this.codeError = 'Passwords do not match';
     }
-  }
-
-  registeringRequestSent () {
-    this.step = 1;
+    if (this.firstnameValidated && this.lastnameValidated && this.emailValidated && this.companyValidated && this.passwordValidated && this.agree) {
+      this.codeError = '';
+      registeringRequest(this.email, this.password, this.firstname, this.lastname, this.company).then(() => {
+        this.step = 1;
+      }).catch(err => {
+        console.log(err);
+        const msgs = err.message.split(':');
+        this.codeError = msgs[msgs.length - 1];
+      });
+    }
   }
 
   submitRegisterForm(event) {
@@ -81,6 +87,7 @@ export class RegisterContainer extends Vue {
   }
 
   changeStep() {
+    this.codeError = '';
     this.step = 1;
   }
 
