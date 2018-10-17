@@ -9,13 +9,14 @@
         <!-- begin step-2 -->
         <div v-show="step==2">
           <fieldset>
-            <div class="wd-form__load">
+            <div class="wd-form__load" id="contact_upload_form_wizard">
               <!-- <label>File
                 <input type="file" accept=".csv" id="file" ref="file" @change="handleFileUpload($event.target.files)"/>
               </label> -->
               <div class="wd-form__load--center">
                 <p class="wd-form__load--title">Drop files here or click to upload.</p>
                 <p class="wd-form__load--subtitle">(.csv files only)</p>
+                <p class="wd-form__load--subtitle message">Please name columns with email addresses, phone numbers, or twitter accounts as Email, Email2, Phone, Phone2, and Twitter</p>
               </div>
               <input type="file" class="wd-form__load-input" accept=".csv" id="file" @change="handleFileUpload($event.target.files)" />
             </div>
