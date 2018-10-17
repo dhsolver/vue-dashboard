@@ -22,14 +22,7 @@ export class CreateCampaignContainer extends Vue {
   error: string = '';
 
   mounted() {
-    this.$store.dispatch(MutationTypes.GET_CLIENT_NAME_REQUEST, {payload: {}, callback: (res) => {
-      if (res.status === 'ok') {
-        this.clientName = res.msg;
-      } else {
-        this.status = 'error';
-        this.error = res.msg;
-      }
-    }});
+    this.clientName = sessionStorage.getItem('clientName');
   }
 
   createCampaign() {
