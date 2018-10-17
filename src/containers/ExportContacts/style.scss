@@ -1,0 +1,15 @@
+.no-padding {
+  padding: 0;
+}
+
+.panel.panel-inverse.no-padding {
+  border: 1px solid #D9E0E7;
+}
+
+.buttons-copy, .buttons-excel, .buttons-pdf, .buttons-print {
+  display: none !important;
+}
+
+.buttons-csv {
+  border: 1px solid #c5ced4 !important;
+}

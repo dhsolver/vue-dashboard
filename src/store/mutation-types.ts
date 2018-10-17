@@ -32,4 +32,6 @@ export class MutationTypes {
   public static CREATE_ACCOUNT = 'CREATE_ACCOUNT';
 
   public static GET_TOP_LINE = 'GET_TOP_LINE';
+
+  public static EXPORT_CONTACTS = 'EXPORT_CONTACTS';
 }

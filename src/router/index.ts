@@ -10,6 +10,7 @@ import { RegisterContainer } from '../containers/Register';
 import { LoginContainer } from '../containers/Login';
 import { ForgotPasswordContainer } from '../containers/ForgotPassword';
 import { CreateCampaignContainer } from '../containers/CreateCampaign';
+import { ExportContactsContainer } from '../containers/ExportContacts';
 
 
 // register the plugin
@@ -43,6 +44,11 @@ const router = new VueRouter({
           component: CreateCampaignContainer,
           name: 'create-campaign',
           path: '/create-campaign',
+          meta: { requiresAuth: true }
+        }, {
+          component: ExportContactsContainer,
+          name: 'export',
+          path: '/export',
           meta: { requiresAuth: true }
         }
       ]
