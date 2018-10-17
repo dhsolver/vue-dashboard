@@ -242,6 +242,32 @@ const actions: ActionTree<State, State> = {
           else {
             callback({
               status: 'success',
+              contactInfo: res.data.payload,
+            });
+          }
+        }
+      })
+      .catch((error: any) => {
+        callback({
+          status: 'error',
+          msg: 'Failed to get'
+        });
+      });
+  },
+
+  [MutationTypes.EXPORT_CONTACTS]: ({ commit }, { payload, callback }) => {
+    sendPost('/export_contacts', payload)
+      .then((res: any) => {
+        if (callback) {
+          if (res.data === undefined) {
+            callback({
+              status: 'error',
+              data: {},
+            });
+          }
+          else {
+            callback({
+              status: 'success',
               data: res.data.payload,
             });
           }
@@ -254,8 +280,6 @@ const actions: ActionTree<State, State> = {
         });
       });
   }
-
-
 };
 
 export default actions;
