@@ -269,18 +269,18 @@ function registeringRequest (email, pw, fname, lname, company) {
   attributeList.push(attributeLastName);
   attributeList.push(attributeCompany);
 
-  userPool.signUp(email, pw, attributeList, null, function(err, result){
+  return new Promise((resolve, reject) => {
+    userPool.signUp(email, pw, attributeList, null, function(err, result){
       if (err) {
-          alert(err.message);
-          return;
+        reject(err);
+      } else {
+        cognitoUser = result.user;
+        console.log(cognitoUser);
+        localStorage.setItem('email', email);
+        resolve();
       }
-      cognitoUser = result.user;
-      console.log(cognitoUser);
-      localStorage.setItem('email', email);
-      document.getElementById('registering_request_sent').click();
-  });
-
-
+    });
+  })
 }
 
 function registeringWithCode(confirmCode){
