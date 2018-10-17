@@ -229,7 +229,6 @@ function getSubjectId() {
 }
 
 function registeringRequest (email, pw, fname, lname, company) {
-  event.preventDefault();
 
   var poolData = {
     UserPoolId : cognitoUserPoolId,
@@ -286,8 +285,6 @@ function registeringRequest (email, pw, fname, lname, company) {
 function registeringWithCode(confirmCode){
   return new Promise((resolve, reject) => {
     console.log('start registeringWithCode()')
-
-    event.preventDefault();
 
     var poolData = {
       UserPoolId : cognitoUserPoolId,
