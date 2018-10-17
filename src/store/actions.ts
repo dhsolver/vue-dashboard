@@ -242,7 +242,7 @@ const actions: ActionTree<State, State> = {
           else {
             callback({
               status: 'success',
-              data: res.data.payload,
+              data: res.data,
             });
           }
         }
