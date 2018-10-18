@@ -1,0 +1,11 @@
+.profile-header .profile-header-tab {
+  padding-left: 50px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}

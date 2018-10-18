@@ -38,7 +38,7 @@ export class CreateCampaignContainer extends Vue {
           this.description = '';
           setTimeout(() => {
             this.status = '';
-          }, 1000);
+          }, 2000);
         } else {
           this.error = res.msg;
         }
