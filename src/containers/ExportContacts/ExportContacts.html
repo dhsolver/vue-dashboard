@@ -1,0 +1,48 @@
+<div class="content">
+  <div class="panel panel-inverse no-padding">
+    <!-- begin panel-heading -->
+    <div class="panel-heading">
+      <div class="panel-heading-btn">
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+      </div>
+      <h4 class="panel-title">Export Contacts</h4>
+    </div>
+    <!-- end panel-heading -->
+    <!-- begin panel-body -->
+    <div class="panel-body">
+      <table id="data-table-combine" class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th width="1%"></th>
+            <th class="text-nowrap">Name</th>
+            <th class="text-nowrap">Position</th>
+            <th class="text-nowrap">Email</th>
+            <th class="text-nowrap">Employer</th>
+            <th class="text-nowrap">Linkedin URL</th>
+            <th class="text-nowrap">Influencer</th>
+            <th class="text-nowrap">Custom Fit Scores</th>
+            <th class="text-nowrap">Lead Two Persuasion Angle</th>
+            <th class="text-nowrap">Top 3 Lead Channels</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(contact, index) in contacts" :class="index % 2 ? 'odd gradeX' : 'even gradeC'" :key="index">
+            <td width="1%" class="f-s-600 text-inverse">{{ index++ }}</td>
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.position }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.employer }}</td>
+            <td>{{ contact.linkedinURL }}</td>
+            <td>{{ contact.influencer }}</td>
+            <td>{{ contact.customFitScores }}</td>
+            <td>{{ contact.persuasionAngle }}</td>
+            <td>{{ contact.leadChannels }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
