@@ -7,6 +7,8 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {MutationTypes} from '../../store/mutation-types';
 import store from '../../store';
 
+import './style.scss';
+
 library.add(faCheck);
 
 declare function getSubjectId();
