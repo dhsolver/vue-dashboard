@@ -10,6 +10,7 @@ import { RegisterContainer } from '../containers/Register';
 import { LoginContainer } from '../containers/Login';
 import { ForgotPasswordContainer } from '../containers/ForgotPassword';
 import { CreateCampaignContainer } from '../containers/CreateCampaign';
+import { BillingContainer } from '../containers/Billing';
 
 
 // register the plugin
@@ -29,20 +30,29 @@ const router = new VueRouter({
           path: '/dashboard',
           alias: '/',
           meta: { requiresAuth: true }
-        }, {
+        },
+        {
           component: FormContainer,
           name: 'form',
           path: '/form',
           meta: { requiresAuth: true }
-        }, {
+        },
+        {
           component: AdminContainer,
           name: 'settings',
           path: '/settings',
           meta: { requiresAuth: true }
-        }, {
+        },
+        {
           component: CreateCampaignContainer,
           name: 'create-campaign',
           path: '/create-campaign',
+          meta: { requiresAuth: true }
+        },
+        {
+          component: BillingContainer,
+          name: 'billing',
+          path: '/billing',
           meta: { requiresAuth: true }
         }
       ]
@@ -61,6 +71,10 @@ const router = new VueRouter({
       component: ForgotPasswordContainer,
       name: 'forgot-password',
       path: '/forgot-password',
+    },
+    {
+      path: '*',
+      redirect: '/',
     },
   ],
 });

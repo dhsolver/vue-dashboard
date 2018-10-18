@@ -17,6 +17,9 @@
 					<span>Upload</span>
 				</a>
 				<ul class="sub-menu">
+					<router-link tag="li" :class="{'active': $route.path === '/create-campaign'}" to="/create-campaign">
+						<a>Campaign</a>
+					</router-link>
 					<router-link tag="li" :class="$route.path=='/form' ? 'active' : ''" to="/form">
 						<a>Contacts</a>
 					</router-link>
@@ -29,9 +32,6 @@
 					<span>Campaigns</span>
 				</a>
 				<ul class="sub-menu">
-					<li>
-						<router-link :class="{'active': $route.path === '/create-campaign'}" to="/create-campaign">Create Campaign</router-link>
-					</li>
 					<li>
 						<a href="https://app.smartsheet.com/b/publish?EQBCT=36554fdcafaa4d4ba8bfdd97899d97de" target="_blank">Product Launch</a>
 					</li>
@@ -78,13 +78,21 @@
 			<!--</li>-->
 			<!--</ul>-->
 			<!--</li>-->
-
-			<router-link tag="li" :class="$route.path=='/settings' ? 'active' : ''" to="/settings">
-				<a>
+			<li class="has-sub">
+				<a href="javascript:;">
+					<b class="caret"></b>
 					<i class="fas fa-user-cog"></i>
 					<span>Settings</span>
 				</a>
-			</router-link>
+				<ul class="sub-menu">
+					<router-link tag="li" :class="{'active': $route.path === '/settings'}" to="/settings">
+						<a>User Account</a>
+					</router-link>
+					<router-link tag="li" :class="{'active': $route.path === '/billing'}" to="/billing">
+						<a>Billing</a>
+					</router-link>
+				</ul>
+			</li>
 
 			<!--<li>-->
 			<!--<a href="#">-->
