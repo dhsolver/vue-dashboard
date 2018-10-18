@@ -31,12 +31,17 @@ export class LoginContainer extends Vue {
   @Watch('loggedIn') loggedInChanged(value, oldValue) {
     if (value && !oldValue) {
       if (localStorage.getItem('firstLogin') == null) {
-        this.createAccount();
-        router.push('/create-campaign');
+        if (localStorage.getItem('accountInfo') != null) {
+          this.createAccount();
+        }
+        else {
+          this.getClientName('/dashboard');
+        }
         localStorage.setItem('firstLogin', 'no');
       }
       else {
-        router.push('dashboard');
+        this.getClientName('/dashboard');
+        localStorage.setItem('firstLogin', 'no');
       }
     }
   }
@@ -60,10 +65,24 @@ export class LoginContainer extends Vue {
     this.$store.dispatch(MutationTypes.CREATE_ACCOUNT, { payload: accountInfo, callback: (res) => {
       if (res.status === 'ok') {
         console.log('Account has been created successfully.');
+        this.getClientName('/create-campaign');
       }
       else {
         console.log(res.msg);
       }
     }});
+  }
+
+  getClientName(routeName) {
+    this.$store.dispatch(MutationTypes.GET_CLIENT_NAME_REQUEST, {
+      payload: {}, callback: (res) => {
+        if (res.status === 'ok') {
+          sessionStorage.setItem('clientName', res.msg);
+          router.push(routeName);
+        } else {
+          this.error = res.msg;
+        }
+      }
+    });
   }
 }
