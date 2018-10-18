@@ -23,6 +23,7 @@ export class Navbar extends Vue {
     new Link('List', '/list')
   ];
   username = '';
+  clientName = '';
 
   @Getter('loggedIn', {}) loggedIn!: any;
   @Getter('loginStorage', {}) loginStorage!: any;
@@ -45,7 +46,8 @@ export class Navbar extends Vue {
   mounted() {
     if (!this.logger) this.logger = new Logger();
     this.$nextTick(() => this.logger.info(this.object.default));
-    this.username = sessionStorage.getItem('clientName');
+    this.username = localStorage.getItem('email');
+    this.clientName = localStorage.getItem('clientName');
   }
 
   tempStripeAction() {

@@ -22,7 +22,7 @@ export class CreateCampaignContainer extends Vue {
   error: string = '';
 
   mounted() {
-    this.clientName = sessionStorage.getItem('clientName');
+    this.clientName = localStorage.getItem('clientName');
   }
 
   createCampaign() {

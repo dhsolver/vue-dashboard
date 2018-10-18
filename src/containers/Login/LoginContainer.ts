@@ -77,7 +77,7 @@ export class LoginContainer extends Vue {
     this.$store.dispatch(MutationTypes.GET_CLIENT_NAME_REQUEST, {
       payload: {}, callback: (res) => {
         if (res.status === 'ok') {
-          sessionStorage.setItem('clientName', res.msg);
+          localStorage.setItem('clientName', res.msg);
           router.push(routeName);
         } else {
           this.error = res.msg;
