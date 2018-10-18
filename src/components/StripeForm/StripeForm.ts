@@ -41,7 +41,7 @@ export class StripeForm extends Vue {
       console.log('Something is wrong:', error);
     } else {
       console.log('Success!', token);
-      this.$store.dispatch(MutationTypes.STRIPE_A1, {client_name:'Wrench.AI', token: token, amount: this.amount});
+      this.$store.dispatch(MutationTypes.STRIPE_A1, { client_name: 'Wrench.AI', token: token, amount: this.amount });
     }
   }
 }
