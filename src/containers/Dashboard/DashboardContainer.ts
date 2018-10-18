@@ -89,10 +89,10 @@ declare function getSubjectId();
 
 
 export class DashboardContainer extends Vue {
-  contacts = '2,832,177';
-  companies = '832,177';
-  equivalent = '5,664,354';
-  modeledInsights = '2,832,177';
+  contacts = '';
+  companies = '';
+  equivalent = '';
+  modeledInsights = '';
 
   @Watch('adopt_curve_x')
   adoptCurveXChanged(newValue) {
@@ -115,13 +115,13 @@ export class DashboardContainer extends Vue {
   }
 
   mounted() {
-    // this.getTopLine();
+    this.getTopLine();
   }
 
 
   getTopLine() {
     this.$store.dispatch(MutationTypes.GET_TOP_LINE, { payload: {}, callback: (res) => {
-      if (res.status === 'ok') {
+      if (res.status === 'success') {
         this.contacts = res.data.contacts;
         this.companies = res.data.companies;
         this.equivalent = res.data.equivalent;
