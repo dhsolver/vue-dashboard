@@ -56,7 +56,7 @@ $http.interceptors.response.use((response) => {
         // return refreshAWSCredentials(() => {
         //   return $http(originalRequest);
         // });
-        initializeStorage();
+        localStorage.clear();
       }
     }
   }
