@@ -23,27 +23,27 @@ let $http = axios.create(config.axiosConfig)
 
 $http.interceptors.request.use((config) => {
   const sessionTokens = JSON.parse(localStorage.getItem('sessionTokens'));
-  if (!sessionTokens) {
-    window.location.href = '/';
+  if (sessionTokens) {
+    const idTokenExp = sessionTokens['IdToken']['payload']['exp'];
+    const currentTime = new Date().valueOf();
+    // Check if token is expired, refresh token
+    if (currentTime / 1000 > idTokenExp) {
+      const firstLogin = localStorage.getItem('firstLogin');
+      localStorage.clear();
+      if (firstLogin === 'no') localStorage.setItem('firstLogin', 'no');
+      initializeStorage();
+      window.location.href = '/';
+      return;
+    }
+    config.headers['authorization'] = 'Bearer ' +  sessionTokens['IdToken']['jwtToken'];
   }
-  const idTokenExp = sessionTokens['IdToken']['payload']['exp'];
-  const currentTime = new Date().valueOf();
-  // Check if token is expired, refresh token
-  if (currentTime / 1000 > idTokenExp) {
-    const firstLogin = localStorage.getItem('firstLogin');
-    localStorage.clear();
-    if (firstLogin === 'no') localStorage.setItem('firstLogin', 'no');
-    initializeStorage();
-    window.location.href = '/';
-    return;
-  }
-  config.headers['authorization'] = 'Bearer ' +  sessionTokens['IdToken']['jwtToken'];
   return config;
 }, (error) => {
     return Promise.reject(error);
 });
 
 $http.interceptors.response.use((response) => {
+  refreshAWSCredentials(() => {});
   return response;
 }, (error) => {
   refreshAWSCredentials(() => {});
