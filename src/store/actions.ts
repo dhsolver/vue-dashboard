@@ -258,25 +258,15 @@ const actions: ActionTree<State, State> = {
   [MutationTypes.EXPORT_CONTACTS]: ({ commit }, { payload, callback }) => {
     sendPost('/export_contacts', payload)
       .then((res: any) => {
-        if (callback) {
-          if (res.data === undefined) {
-            callback({
-              status: 'error',
-              data: {},
-            });
-          }
-          else {
-            callback({
-              status: 'success',
-              contactInfo: res.data.payload,
-            });
-          }
-        }
+        callback({
+          status: 'ok',
+          data: res.data
+        });
       })
       .catch((error: any) => {
         callback({
           status: 'error',
-          msg: 'Failed to get'
+          msg: 'Failed to get contacts'
         });
       });
   },
