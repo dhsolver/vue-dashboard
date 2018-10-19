@@ -269,6 +269,22 @@ const actions: ActionTree<State, State> = {
           msg: 'Failed to get contacts'
         });
       });
+  },
+
+  [MutationTypes.GET_BILLING_INFO]: ({ commit }, { payload, callback }) => {
+    sendPost('/billing', payload)
+      .then((res: any) => {
+        callback({
+          status: 'ok',
+          data: res.data
+        });
+      })
+      .catch((error: any) => {
+        callback({
+          status: 'error',
+          msg: 'Failed to get billing information.'
+        });
+      });
   }
 };
 
