@@ -17,10 +17,6 @@ export class BillingContainer extends Vue {
   billingInfo: any = {};
   error: string = '';
 
-  get total() {
-    return ((this.billingInfo.enrich_line_total || 0) + (this.billingInfo.match_score_line_total || 0))
-  }
-
   mounted() {
     this.$store.dispatch(MutationTypes.GET_BILLING_INFO, {
       payload: {},
@@ -39,9 +35,21 @@ export class BillingContainer extends Vue {
     this.$checkout.open({
       name: `Wrench Monthly Billing!`,
       currency: 'USD',
-      amount: this.total * 100,
+      amount: this.billingInfo.total_numeric,
       token: (token) => {
-        // token.id
+        this.$store.dispatch(MutationTypes.STRIPE_CHECKOUT, {
+          payload: {
+            invoice_number: this.billingInfo.invoice_number,
+            token,
+          },
+          callback: (res) => {
+            if (res.status === 'ok') {
+              this.error = '';
+            } else {
+              this.error = res.error;
+            }
+          }
+        });
       }
     })
   }

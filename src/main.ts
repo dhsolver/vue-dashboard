@@ -7,7 +7,7 @@ import store from './store';
 import './styles/main.scss';
 
 Vue.use(VueStripeCheckout, {
-  key: 'pk_live_BDO4fvf6STzU68wx7Tx43aG6',
+  key: 'pk_test_wXbXkFvn5o3ijJvCCWD1iiLW',
   locale: 'auto',
   currency: 'USD',
   panelLabel: 'Pay {{amount}}',
