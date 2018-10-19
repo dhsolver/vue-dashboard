@@ -53,9 +53,10 @@ $http.interceptors.response.use((response) => {
       const currentTime = new Date().valueOf();
       // Check if token is expired, refresh token
       if (currentTime / 1000 > idTokenExp) {
-        return refreshAWSCredentials(() => {
-          return $http(originalRequest);
-        });
+        // return refreshAWSCredentials(() => {
+        //   return $http(originalRequest);
+        // });
+        initializeStorage();
       }
     }
   }
