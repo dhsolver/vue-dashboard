@@ -61,16 +61,16 @@
             <tr>
               <td>Enrichment and Psychographics</td>
               <td class="text-center">{{ billingInfo.enrich_rate_qty }}</td>
-              <td class="text-center">$ {{ billingInfo.enrich_rate }}</td>
+              <td class="text-center">{{ billingInfo.enrich_rate }}</td>
               <td class="text-center">{{ billingInfo.num_contacts }}</td>
-              <td class="text-right">$ {{ billingInfo.enrich_line_total }}</td>
+              <td class="text-right">{{ billingInfo.enrich_line_total }}</td>
             </tr>
             <tr>
               <td>Custom Match Scores</td>
               <td class="text-center">{{ billingInfo.match_score_qty }}</td>
-              <td class="text-center">$ {{ billingInfo.match_score_rate }}</td>
+              <td class="text-center">{{ billingInfo.match_score_rate }}</td>
               <td class="text-center">{{ billingInfo.num_contacts }}</td>
-              <td class="text-right">$ {{ billingInfo.match_score_line_total }}</td>
+              <td class="text-right">{{ billingInfo.match_score_line_total }}</td>
             </tr>
           </tbody>
         </table>
@@ -81,7 +81,7 @@
         <div class="invoice-price-left">
         </div>
         <div class="invoice-price-right">
-          <small>TOTAL</small> <span class="f-w-600">$ {{ total }}</span>
+          <small>TOTAL</small> <span class="f-w-600">{{ billingInfo.total }}</span>
         </div>
       </div>
       <!-- end invoice-price -->
