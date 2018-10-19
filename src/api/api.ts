@@ -22,10 +22,22 @@ let config = {
 let $http = axios.create(config.axiosConfig)
 
 $http.interceptors.request.use((config) => {
-  if (localStorage.getItem('sessionTokens')) {
-    const tokenInfo = JSON.parse(localStorage.getItem('sessionTokens'));
-    config.headers['authorization'] = 'Bearer ' +  tokenInfo['IdToken']['jwtToken'];
+  const sessionTokens = JSON.parse(localStorage.getItem('sessionTokens'));
+  if (!sessionTokens) {
+    window.location.href = '/';
   }
+  const idTokenExp = sessionTokens['IdToken']['payload']['exp'];
+  const currentTime = new Date().valueOf();
+  // Check if token is expired, refresh token
+  if (currentTime / 1000 > idTokenExp) {
+    const firstLogin = localStorage.getItem('firstLogin');
+    localStorage.clear();
+    if (firstLogin === 'no') localStorage.setItem('firstLogin', 'no');
+    initializeStorage();
+    window.location.href = '/';
+    return;
+  }
+  config.headers['authorization'] = 'Bearer ' +  sessionTokens['IdToken']['jwtToken'];
   return config;
 }, (error) => {
     return Promise.reject(error);
@@ -34,32 +46,7 @@ $http.interceptors.request.use((config) => {
 $http.interceptors.response.use((response) => {
   return response;
 }, (error) => {
-  const originalRequest = error.config;
-  // if (error.response && error.response.status == 401) {
-  if (typeof error.response === 'undefined') {
-    if (originalRequest._retry) {
-      const firstLogin = localStorage.getItem('firstLogin');
-      localStorage.clear();
-      if (firstLogin === 'no') localStorage.setItem('firstLogin', 'no');
-      initializeStorage();
-      window.location.href = '/';
-    } else {
-      originalRequest._retry = true;
-      let sessionTokens = JSON.parse(localStorage.getItem('sessionTokens'));
-      if (!sessionTokens) {
-        window.location.href = '/';
-      }
-      const idTokenExp = sessionTokens['IdToken']['payload']['exp'];
-      const currentTime = new Date().valueOf();
-      // Check if token is expired, refresh token
-      if (currentTime / 1000 > idTokenExp) {
-        // return refreshAWSCredentials(() => {
-        //   return $http(originalRequest);
-        // });
-        localStorage.clear();
-      }
-    }
-  }
+  refreshAWSCredentials(() => {});
   return Promise.reject(error);
 });
 
