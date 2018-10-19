@@ -285,6 +285,22 @@ const actions: ActionTree<State, State> = {
           msg: 'Failed to get billing information.'
         });
       });
+  },
+
+  [MutationTypes.STRIPE_CHECKOUT]: ({ commit }, { payload, callback }) => {
+    sendPost('/stripe', payload)
+      .then((res: any) => {
+        callback({
+          status: 'ok',
+          data: res.data
+        });
+      })
+      .catch((error: any) => {
+        callback({
+          status: 'error',
+          msg: 'Failed to checkout.'
+        });
+      });
   }
 };
 
