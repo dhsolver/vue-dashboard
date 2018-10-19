@@ -140,12 +140,12 @@ const actions: ActionTree<State, State> = {
         if (error.response && error.response.data) {
           callback({
             status: 'error',
-            msg: 'failed to fetch personal data',
+            msg: 'Failed to fetch personal data',
           });
         } else {
           callback({
             status: 'error',
-            msg: 'failed to fetch personal data',
+            msg: 'Failed to fetch personal data',
           });
         }
       })
