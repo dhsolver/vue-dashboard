@@ -27,17 +27,18 @@
       <div class="invoice-to">
         <small>to</small>
         <address class="m-t-5 m-b-5">
-          <strong class="text-inverse">Company Name</strong><br />
-          Street Address<br />
-          City, Zip Code<br />
-          Phone: (123) 456-7890<br />
+          <strong class="text-inverse">{{ billingInfo.client_name }}</strong><br />
+          <span v-if="billingInfo.client_address_1">{{ billingInfo.client_address_1 }}</span><br />
+          <span v-if="billingInfo.client_address_2">{{ billingInfo.client_address_2 }}</span><br />
+          <span v-if="billingInfo.client_city">{{ billingInfo.client_city }}, {{ billingInfo.client_state }} {{ billingInfo.client_zip }}</span><br />
+          <span v-if="billingInfo.client_phone">Phone: {{ billingInfo.client_phone }}</span><br />
         </address>
       </div>
       <div class="invoice-date">
         <small>Invoice / October period</small>
-        <div class="date text-inverse m-t-5">{{ invoiceDate }}</div>
+        <div class="date text-inverse m-t-5">{{ billingInfo.invoice_date }}</div>
         <div class="invoice-detail">
-          #0000123DSS<br />
+          {{ billingInfo.invoice_number }}
         </div>
       </div>
     </div>
@@ -59,17 +60,17 @@
           <tbody>
             <tr>
               <td>Enrichment and Psychographics</td>
-              <td class="text-center">0</td>
-              <td class="text-center">$0.02</td>
-              <td class="text-center">4,000</td>
-              <td class="text-right">$80</td>
+              <td class="text-center">{{ billingInfo.enrich_rate_qty }}</td>
+              <td class="text-center">{{ billingInfo.enrich_rate }}</td>
+              <td class="text-center">{{ billingInfo.num_contacts }}</td>
+              <td class="text-right">{{ billingInfo.enrich_line_total }}</td>
             </tr>
             <tr>
               <td>Custom Match Scores</td>
-              <td class="text-center">0</td>
-              <td class="text-center">$0.10</td>
-              <td class="text-center">4,000</td>
-              <td class="text-right">$400</td>
+              <td class="text-center">{{ billingInfo.match_score_qty }}</td>
+              <td class="text-center">{{ billingInfo.match_score_rate }}</td>
+              <td class="text-center">{{ billingInfo.num_contacts }}</td>
+              <td class="text-right">{{ billingInfo.match_score_line_total }}</td>
             </tr>
           </tbody>
         </table>
@@ -80,7 +81,7 @@
         <div class="invoice-price-left">
         </div>
         <div class="invoice-price-right">
-          <small>TOTAL</small> <span class="f-w-600">$ 480</span>
+          <small>TOTAL</small> <span class="f-w-600">{{ billingInfo.total }}</span>
         </div>
       </div>
       <!-- end invoice-price -->

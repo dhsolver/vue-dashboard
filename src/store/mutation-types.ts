@@ -34,4 +34,8 @@ export class MutationTypes {
   public static GET_TOP_LINE = 'GET_TOP_LINE';
 
   public static EXPORT_CONTACTS = 'EXPORT_CONTACTS';
+
+  public static GET_BILLING_INFO = 'GET_BILLING_INFO';
+
+  public static STRIPE_CHECKOUT = 'STRIPE_CHECKOUT';
 }
