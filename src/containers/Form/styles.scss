@@ -14,3 +14,11 @@
 #contact_upload_form_wizard .wd-form__load--center {
   width: 700px;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}

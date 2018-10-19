@@ -1,6 +1,11 @@
 <!-- begin #content -->
 <div id="content" class="content">
   <!-- begin wizard-form -->
+  <transition name="fade">
+    <div class="alert alert-danger" v-if="error !== ''">
+      {{ error }}
+    </div>
+  </transition>
   <form action="/" method="POST" class="form-control-with-bg">
     <!-- begin wizard -->
     <div class="form-wizard">
