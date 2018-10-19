@@ -43,6 +43,7 @@ $http.interceptors.request.use((config) => {
 });
 
 $http.interceptors.response.use((response) => {
+  refreshAWSCredentials(() => {});
   return response;
 }, (error) => {
   refreshAWSCredentials(() => {});
