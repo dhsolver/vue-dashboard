@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
+import { ExportToCsv } from 'export-to-csv';
 import { MutationTypes } from '../../store/mutation-types';
 import { DataTable } from '../../components/DataTable'
 
@@ -35,5 +36,22 @@ export class ExportContactsContainer extends Vue {
         this.error = res.msg;
       }
     }});
+  }
+
+  onDownloadAsCSV() {
+    if (this.contactData.length === 0) return;
+    const options = {
+      filename: 'Contacts',
+      showLabels: true,
+      headers: this.contactColumns.map(column => column.label),
+    };
+    const fields = this.contactColumns.map(column => column.field);
+    const csvData = this.contactData.map((contact) => {
+      const row = [];
+      fields.forEach(field => row.push(contact[field] || ''));
+      return row;
+    });
+    const csvExporter = new ExportToCsv(options);
+    csvExporter.generateCsv(csvData);
   }
 }
