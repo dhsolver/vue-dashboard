@@ -3,13 +3,16 @@
 }
 
 .login.login-with-news-feed .news-image {
-  background-position-x: -450px;
+  // background-position-x: -450px;
   background-color: black;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .login.login-with-news-feed .right-content {
   position: absolute;
-  top: 90px;
   right: 150px;
   background-color: white;
   border-radius: 10px;
@@ -33,4 +36,9 @@
     margin: 0 auto;
     color: #707478;
   }
+}
+
+.login.login-with-news-feed, .register.register-with-news-feed {
+  position: relative;
+  height: 100vh;
 }
