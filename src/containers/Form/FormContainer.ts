@@ -229,22 +229,21 @@ export class FormContainer extends Vue {
   }
   handleFileUpload (fileList) {
     this.error = '';
-    console.log('fileList.length: ' + (fileList.length));
     if (!fileList.length)
       return;
-    console.log('fileList[0].type): ' + (fileList[0].type));
-    console.log('fileList[0].type.indexOf(\'csv\'): ' + (fileList[0].type.indexOf('csv')));
-    console.log('uploading file');
-    
+    if (fileList[0].type.indexOf('csv') === -1) {
+      this.error = 'Only .csv files can be submitted.';
+      return;
+    }    
     const reader = new FileReader();
     reader.onload = e => {
       const csvContent = e.target.result;
       const firstLine = csvContent.split(/\r\n|\n/)[0];
-      if (firstLine.search('Email') !== -1 || firstLine.search('Email2') !== -1 || firstLine.search('Phone') !== -1 || firstLine.search('Phone2') !== -1 || firstLine.search('Twitter') !== -1) {
+      if (firstLine.search('Email') !== -1 || firstLine.search('Email2') !== -1 || firstLine.search('Phone') !== -1 || firstLine.search('Twitter') !== -1 || firstLine.search('Linkedin') !== -1) {
         this.uploadFile(fileList[0]);
       }
       else {
-        this.error = 'Your file must have at least one column named Email, Email2, Phone, Phone2, or Twitter.';
+        this.error = 'Your file must have at least one column named Email, Email2, Phone, Twitter, or Linkedin.';
       }
     };
     reader.readAsText(fileList[0]);
