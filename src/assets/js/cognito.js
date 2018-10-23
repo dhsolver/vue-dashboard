@@ -179,7 +179,7 @@ function uploadFile(file) {
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     var cognitoUser = userPool.getCurrentUser();
 
-    let tokenInfo = {};
+    var tokenInfo = {};
     if (localStorage.getItem('sessionTokens')) {
       tokenInfo = JSON.parse(localStorage.getItem('sessionTokens'))
     }
