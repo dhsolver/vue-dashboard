@@ -66,7 +66,7 @@ function initializeStorage() {
 }
 
 function loginUser(email, pwd) {
-  return new Promise((resolve, reject) => {
+  return new Promise(function(resolve, reject) {
     var userPoolId = localStorage.getItem('userPoolId');
     var clientId = localStorage.getItem('clientId');
     var identityPoolId = localStorage.getItem('identityPoolId');
@@ -166,7 +166,7 @@ function refreshAWSCredentials(callback) {
 }
 
 function uploadFile(file) {
-  return new Promise((resolve, reject) => {
+  return new Promise(function(resolve, reject) {
     var userPoolId = localStorage.getItem('userPoolId');
     var clientId = localStorage.getItem('clientId');
     var identityPoolId = localStorage.getItem('identityPoolId');
@@ -205,8 +205,8 @@ function uploadFile(file) {
           Body: file,
           ContentType: file.type
         };
-        s3bucket.upload(obj).on('httpUploadProgress', (evt) => {
-        }).send((err, data) => {
+        s3bucket.upload(obj).on('httpUploadProgress', function(evt) {
+        }).send(function(err, data) {
           if (err) {
             reject(err);
           }
@@ -268,7 +268,7 @@ function registeringRequest (email, pw, fname, lname, company) {
   attributeList.push(attributeLastName);
   attributeList.push(attributeCompany);
 
-  return new Promise((resolve, reject) => {
+  return new Promise(function(resolve, reject) {
     userPool.signUp(email, pw, attributeList, null, function(err, result){
       if (err) {
         reject(err);
@@ -283,7 +283,7 @@ function registeringRequest (email, pw, fname, lname, company) {
 }
 
 function registeringWithCode(confirmCode){
-  return new Promise((resolve, reject) => {
+  return new Promise(function(resolve, reject) {
     console.log('start registeringWithCode()')
 
     var poolData = {
@@ -313,7 +313,7 @@ function registeringWithCode(confirmCode){
 }
 
 function forgotPassword (username) {
-  return new Promise((resolve, reject) => {
+  return new Promise(function(resolve, reject) {
     var userPoolId = localStorage.getItem('userPoolId');
     var clientId = localStorage.getItem('clientId');
 
@@ -331,7 +331,7 @@ function forgotPassword (username) {
       onFailure: function(err) {
         reject(err);
       },
-      inputVerificationCode() {
+      inputVerificationCode: function() {
         resolve();
       }
     });
@@ -339,7 +339,7 @@ function forgotPassword (username) {
 }
 
 function confirmPassword (username, code, newPassword) {
-  return new Promise((resolve, reject) => {
+  return new Promise(function(resolve, reject) {
     var userPoolId = localStorage.getItem('userPoolId');
     var clientId = localStorage.getItem('clientId');
 

@@ -61,12 +61,6 @@ export class RegisterContainer extends Vue {
     }
   }
 
-  submitRegisterForm(event) {
-    return false;
-    event.preventDefault();
-
-  }
-
   confirmCode() {
     registeringWithCode(this.code).then(() => {
       let accountInfo = {
