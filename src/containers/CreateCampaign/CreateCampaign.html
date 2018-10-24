@@ -33,7 +33,9 @@
           </div>
           <div class="form-group" :class="{'has-error': !descriptionValidated}">
             <label>Description</label>
-            <div class="helper-text">Provide a detailed description below. Include information about your products, services, competitors, and unique traits. The more category-specific language you use, the better.</div>
+            <div class="helper-text">Provide a detailed description below. Include information about your products, services, competitors, and unique
+              traits. The more category-specific language you use, the better.</div>
+            <a href="#campaign_information_modal" class="information-link" data-toggle="modal">What information should I add?</a>
             <textarea class="form-control" v-model="description" rows="8" @change="descriptionValidated=true"></textarea>
           </div>
         </div>
@@ -46,5 +48,49 @@
     </div>
     <!-- end row -->
   </form>
+
+  <!-- Information modal -->
+  <div class="modal" id="campaign_information_modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Campaign Information</h4>
+          <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body">
+          <ul class="information-list">
+            <li>
+              A campaign is a promotional activity that promotes a product or service. To begin setting one up for success, we recommend
+              you create two custom matches to kickoff your campaign process.
+            </li>
+            <li>
+              Create a product match: this match type identifies leads on your list who are likely to highly correlate with you product,
+              so you have a prioritized list of people to target. In the description provide some or all of the following:
+            </li>
+            <li>
+              <ul class="information-sub-list">
+                <li>Product description, including the value proposition and benefits</li>
+                <li>Competitor products</li>
+              </ul>
+            </li>
+            <li>Create a people match: this match type allows us to get to know your leads, to begin forming a "sticky" messaging
+              strategy. In the description provide some or all of the following for approximately 20 customers:</li>
+            <li>
+              <ul class="information-sub-list">
+                <li>Current customer job titles</li>
+                <li>Current customer industries</li>
+                <li>Current customer job functions</li>
+                <li>Current customer LinkedIn in profile links</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <a href="javascript:;" class="btn btn-white" data-dismiss="modal">Close</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End information modal -->
 </div>
 <!-- end #content -->
