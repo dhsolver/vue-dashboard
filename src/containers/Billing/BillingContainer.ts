@@ -26,6 +26,7 @@ export class BillingContainer extends Vue {
           this.error = '';
         } else {
           this.error = res.error;
+          this.billingInfo = {}
         }
       }
     });
