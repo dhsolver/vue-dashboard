@@ -18,6 +18,9 @@ export class AdminContainer extends Vue {
   email = '';
   isFetching = false;
   errorMsg = '';
+  firstNameValidated: boolean = true;
+  lastNameValidated: boolean = true;
+
   mounted() {
     this.isFetching = true;
     this.getPersonInfo();
@@ -42,5 +45,27 @@ export class AdminContainer extends Vue {
         this.errorMsg = '';
       }, 2000);
     }});
+  }
+
+  updateUserInfo() {
+    this.firstNameValidated = !!this.firstName;
+    this.lastNameValidated = !!this.lastName;
+    if (this.firstNameValidated && this.lastNameValidated) {
+      const personData = {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        phone: this.phone,
+        client_id: this.clientId,
+        company: this.company
+      };
+      console.log(personData);
+      // this.$store.dispatch(MutationTypes.UPDATE_PERSON_INFO, { payload: personData, callback: (res) => {
+      //   if (res.status === 'ok') {
+          
+      //   } else {
+          
+      //   }
+      // }});
+    }
   }
 }
