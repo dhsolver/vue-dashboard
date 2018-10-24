@@ -8,13 +8,18 @@ declare function  initializeStorage ();
 
 
 const mutations: MutationTree<State> = {
-
+  [MutationTypes.LOGIN_REQUESTED]: (state: State) => {
+    state.loggedIn = false;
+    state.loginError = '';
+  },
   [MutationTypes.LOGIN_SUCCEEDED]: (state: State) => {
     state.loginStorage = localStorage;
-    const configString = localStorage.getItem('awsConfig');
-    const config = JSON.parse(configString);
+    const config = JSON.parse(localStorage.getItem('awsConfig'));
     state.loggedIn = config != null;
     console.log('loginChanged', state.loginStorage)
+  },
+  [MutationTypes.LOGIN_FAILED]: (state: State, payload) => {
+    state.loginError = payload;
   },
   [MutationTypes.LOGOUT_USER]: (state: State) => {
     const firstLogin = localStorage.getItem('firstLogin');
@@ -31,12 +36,6 @@ const mutations: MutationTree<State> = {
   [MutationTypes.UPLOAD_FILE]: (state: State) => {
     console.log('uploaded file');
     state.uploadedFile = true;
-  },
-  [MutationTypes.LOGIN_REQUESTED]: (state: State) => {
-    state.loginError = '';
-  },
-  [MutationTypes.LOGIN_FAILED]: (state: State, payload) => {
-    state.loginError = payload;
   },
   // FORGOT_PASSWORD
   [MutationTypes.FORGOT_PASSWORD_REQUEST]: (state: State) => {
