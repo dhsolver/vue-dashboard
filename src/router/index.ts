@@ -54,7 +54,9 @@ const router = new VueRouter({
           component: BillingContainer,
           name: 'billing',
           path: '/billing',
-        }, {
+          meta: { requiresAuth: true }
+        },
+        {
           component: ExportContactsContainer,
           name: 'export',
           path: '/export',
@@ -85,14 +87,11 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!localStorage.getItem('awsConfig')) {
-      next({
-        path: '/login',
-      });
-    } else {
-      next();
-    }
+  const awsConfig = localStorage.getItem('awsConfig');
+  if (to.matched.some(record => record.meta.requiresAuth) && !awsConfig) {
+    next({ path: '/login' });
+  } if (to.matched.some(record => !record.meta.requiresAuth) && awsConfig) {
+    next({ path: '/dashboard' });
   } else {
     next();
   }

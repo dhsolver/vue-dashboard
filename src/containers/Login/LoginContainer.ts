@@ -10,6 +10,8 @@ import store from '../../store';
 
 import './styles.scss';
 
+declare function initializeStorage ();
+
 library.add(faCheck)
 
 @Component({
@@ -68,7 +70,9 @@ export class LoginContainer extends Vue {
         this.getClientName('/create-campaign');
       }
       else {
-        console.log(res.msg);
+        this.error = res.msg;
+        localStorage.clear();
+        initializeStorage();
       }
     }});
   }
@@ -81,6 +85,8 @@ export class LoginContainer extends Vue {
           router.push(routeName);
         } else {
           this.error = res.msg;
+          localStorage.clear();
+          initializeStorage();
         }
       }
     });
