@@ -5,15 +5,15 @@
 .login.login-with-news-feed .news-image {
   // background-position-x: -450px;
   background-color: black;
-  -moz-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
+  // -moz-transform: scaleX(-1);
+  // -o-transform: scaleX(-1);
+  // -webkit-transform: scaleX(-1);
+  // transform: scaleX(-1);
 }
 
 .login.login-with-news-feed .right-content {
   position: absolute;
-  right: 150px;
+  right: 110px;
   background-color: white;
   border-radius: 10px;
 }
@@ -40,5 +40,5 @@
 
 .login.login-with-news-feed, .register.register-with-news-feed {
   position: relative;
-  height: 100vh;
+  height: 95vh;
 }
