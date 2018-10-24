@@ -274,10 +274,17 @@ const actions: ActionTree<State, State> = {
   [MutationTypes.GET_BILLING_INFO]: ({ commit }, { payload, callback }) => {
     sendPost('/billing', payload)
       .then((res: any) => {
-        callback({
-          status: 'ok',
-          data: res.data
-        });
+        if (res.data.status === 'ok') {
+          callback({
+            status: 'ok',
+            data: res.data
+          });
+        } else {
+          callback({
+            status: 'error',
+            msg: 'Failed to get billing information.'
+          });
+        }
       })
       .catch((error: any) => {
         callback({
