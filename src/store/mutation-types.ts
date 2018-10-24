@@ -20,6 +20,7 @@ export class MutationTypes {
 
   public static UPLOAD_FILE = 'UPLOAD_FILE';
   public static GET_PERSON_INFO = 'GET_PERSON_INFO';
+  public static UPDATE_PERSON_INFO = 'UPDATE_PERSON_INFO';
 
   public static GET_CORPORA = 'GET_CORPORA';
 

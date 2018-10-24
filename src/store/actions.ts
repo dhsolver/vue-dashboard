@@ -308,6 +308,21 @@ const actions: ActionTree<State, State> = {
           msg: 'Failed to checkout.'
         });
       });
+  },
+
+  [MutationTypes.UPDATE_PERSON_INFO]: ({ commit }, { payload, callback}) => {
+    sendPost('/update_person_info', payload)
+      .then((res: any) => {
+        callback({
+          status: 'ok',
+        });
+      })
+      .catch((error: any) => {
+        callback({
+          status: 'error',
+          msg: 'Failed to update.'
+        });
+      });
   }
 };
 
