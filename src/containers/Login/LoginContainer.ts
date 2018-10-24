@@ -43,6 +43,7 @@ export class LoginContainer extends Vue {
         this.getClientName('/dashboard');
         localStorage.setItem('firstLogin', 'no');
       }
+      this.$router.push({ path: '/dashboard' });
     }
   }
   @Watch('loginError') loginErrorChanged(value, oldValue) {
