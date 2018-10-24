@@ -43,7 +43,6 @@ export class LoginContainer extends Vue {
         this.getClientName('/dashboard');
         localStorage.setItem('firstLogin', 'no');
       }
-      this.$router.push({ path: '/dashboard' });
     }
   }
   @Watch('loginError') loginErrorChanged(value, oldValue) {
@@ -69,7 +68,7 @@ export class LoginContainer extends Vue {
         this.getClientName('/create-campaign');
       }
       else {
-        console.log(res.msg);
+        this.error = res.msg;
       }
     }});
   }
