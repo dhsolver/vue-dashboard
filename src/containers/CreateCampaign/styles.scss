@@ -9,3 +9,25 @@
 .helper-text {
   opacity: .7;
 }
+
+.modal-header {
+  display: block;
+}
+
+.modal-header .close {
+  margin-top: 0;
+  line-height: 0px;
+}
+
+.information-list {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.information-list li {
+  padding-bottom: 10px;
+}
+
+.information-list .information-sub-list li {
+  padding-bottom: 5px;
+}
