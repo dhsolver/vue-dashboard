@@ -55,7 +55,7 @@ const actions: ActionTree<State, State> = {
           .then(() => {
             resolve({ status: 'ok' });
           }).catch(err => {
-            resolve({ status: 'error', msg: err.message });
+            resolve({ status: 'error', msg: err });
           });
       });
     }
