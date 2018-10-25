@@ -73,7 +73,7 @@ export class RegisterContainer extends Vue {
   async confirmCode() {
     // Form Validation
     this.error = {};
-    if (!this.code) this.error.code = 'Please input the confirmation code.';
+    if (!this.code) this.error.code = 'Please enter your confirmation code.';
     if (!_.isEmpty(this.error)) return;
 
     // Confirm user
