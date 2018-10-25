@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import { Component, Watch } from 'vue-property-decorator';
-// import { Link } from './Link';
 import { Logger } from '../../utils/log';
-import {MutationTypes} from '../../store/mutation-types';
+import { Getter } from 'vuex-class';
+
+import './style.scss';
 
 @Component({
   template: require('./Footbar.html')
@@ -16,11 +17,7 @@ export class Footbar extends Vue {
 
   object: { default: string } = { default: 'Default object property!' }; // objects as default values don't need to be wrapped into functions
 
-  // links: Link[] = [
-  //   new Link('Home', '/'),
-  //   new Link('Counter', '/counter'),
-  //   new Link('List', '/list')
-  // ];
+  @Getter('loggedIn', {}) loggedIn!: any;
 
   @Watch('$route.path')
   pathChanged() {

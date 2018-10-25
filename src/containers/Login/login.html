@@ -1,84 +1,87 @@
-<div class="login login-with-news-feed">
-  <!-- begin news-feed -->
-  <div class="news-feed">
-      <div class="news-image" style="background-image: url(../../assets/images/bg.jpg)"></div>
-  </div>
-  <!-- end news-feed -->
-  <!-- begin right-content -->
-  <div class="right-content">
-    <!-- begin login-header -->
-    <div class="login-header text-center">
-      <div class="brand">
-        <b>Log In</b>
-      </div>
+<div>
+  <div class="login login-with-news-feed">
+    <!-- begin news-feed -->
+    <div class="news-feed">
+        <div class="news-image" style="background-image: url(../../assets/images/bg.jpg)"></div>
     </div>
-    <!-- end login-header -->
-    <!-- begin login-content -->
-    <div class="login-content">
-      <form action="/" method="POST" class="form-control-with-bg" @submit.prevent="userLogin()">
-        <!-- begin wizard -->
-        <div class="form-wizard">
-          <fieldset>
-            <div class="row">
-              <div class="wd-wrap">
-                <div class="wd-form__wrapper">
-                  <div class="alert alert-danger" v-if="error">
-                    {{ error }}
-                  </div>
-                  <div class="wd-form__wrp">
-                    <input
-                      type="text"
-                      name="username"
-                      placeholder="Username*"
-                      v-model="userName"
-                      @change="userNameValidated=true"
-                      class="wd-form__input"
-                      :class="{'input-error': !userNameValidated}"
-                    />
-                  </div>
-                  <div class="wd-form__wrp">
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="Password*"
-                      v-model="password"
-                      @change="passwordValidated=true"
-                      class="wd-form__input"
-                      :class="{'input-error': !passwordValidated}"
-                    />
-                  </div>
-                  <div class="wd-form__wrp m-b-10">
-                    <button type="submit" class="btn btn-default btn-login sw-btn-next wd-btn-next">Login</button>
-                  </div>
-                </div>
-              </div>
-              <div class="wd-wrap">
-                <div class="wd-form__wrp">
-                  <span class="center-desc">Don't have an account?
-                    <router-link to="/register">
-                      <a><span>Register</span></a>
-                    </router-link>
-                  </span>
-                </div>
-                <div class="wd-form__wrp">
-                  <span class="center-desc">
-                    Forgot password? Click
-                    <router-link to="/forgot-password">
-                      <a><span>here</span></a>
-                    </router-link>
-                    to reset.
-                  </span>
-                </div>
-              </div>
-            </div>
-          </fieldset>
+    <!-- end news-feed -->
+    <!-- begin right-content -->
+    <div class="right-content">
+      <!-- begin login-header -->
+      <div class="login-header text-center">
+        <div class="brand">
+          <b>Log In</b>
         </div>
-      </form>
+      </div>
+      <!-- end login-header -->
+      <!-- begin login-content -->
+      <div class="login-content">
+        <form action="/" method="POST" class="form-control-with-bg" @submit.prevent="userLogin()">
+          <!-- begin wizard -->
+          <div class="form-wizard">
+            <fieldset>
+              <div class="row">
+                <div class="wd-wrap">
+                  <div class="wd-form__wrapper">
+                    <div class="alert alert-danger" v-if="error">
+                      {{ error }}
+                    </div>
+                    <div class="wd-form__wrp">
+                      <input
+                        type="text"
+                        name="username"
+                        placeholder="Username*"
+                        v-model="userName"
+                        @change="userNameValidated=true"
+                        class="wd-form__input"
+                        :class="{'input-error': !userNameValidated}"
+                      />
+                    </div>
+                    <div class="wd-form__wrp">
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="Password*"
+                        v-model="password"
+                        @change="passwordValidated=true"
+                        class="wd-form__input"
+                        :class="{'input-error': !passwordValidated}"
+                      />
+                    </div>
+                    <div class="wd-form__wrp m-b-10">
+                      <button type="submit" class="btn btn-default btn-login sw-btn-next wd-btn-next">Login</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="wd-wrap">
+                  <div class="wd-form__wrp">
+                    <span class="center-desc">Don't have an account?
+                      <router-link to="/register">
+                        <a><span>Register</span></a>
+                      </router-link>
+                    </span>
+                  </div>
+                  <div class="wd-form__wrp">
+                    <span class="center-desc">
+                      Forgot password? Click
+                      <router-link to="/forgot-password">
+                        <a><span>here</span></a>
+                      </router-link>
+                      to reset.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </form>
+      </div>
+      <!-- end login-content -->
     </div>
-    <!-- end login-content -->
+    <!-- end right-container -->
   </div>
-  <!-- end right-container -->
+  <!-- end login -->
+  <!-- Footer -->
+  <mainfooter></mainfooter>
+  <!-- End Footer -->
 </div>
-<!-- end login -->
-
-
