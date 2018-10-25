@@ -205,17 +205,15 @@ export class FormContainer extends Vue {
 
   private uploadFile(file: File) {
     this.uploading = true;
-    this.$store.dispatch(MutationTypes.UPLOAD_FILE_REQUEST, {
-      file: file, callback: (res) => {
-        if (res.status === 'ok') {
-
-        }
-        else {
-
-        }
-        this.uploading = false;
+    this.$store.dispatch(MutationTypes.UPLOAD_FILE_REQUEST, { file: file, callback: (res) => {
+      this.uploading = false;
+      if (res.status === 'ok') {
+        this.message = 'File was uploaded successfully.';
       }
-    });
+      else {
+        this.error = res.msg;
+      }
+    }});
   }
   success_handler(response) {
     console.log(response, 'slfjlksjdfljsfdlkj');
@@ -223,6 +221,7 @@ export class FormContainer extends Vue {
   }
   handleFileUpload (fileList) {
     this.error = '';
+    this.message = '';
     if (!fileList.length)
       return;
     if (fileList[0].type.indexOf('csv') === -1) {
