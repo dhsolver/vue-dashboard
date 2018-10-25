@@ -1,15 +1,11 @@
 import Vue from 'vue';
 import {MutationTypes} from '../../store/mutation-types';
 import { Component, Prop, Watch } from 'vue-property-decorator'
-import { StripeForm } from '../../components/StripeForm';
 
 import './styles.scss';
 
 @Component({
   template: require('./billing.html'),
-  components: {
-    StripeForm
-  }
 })
 
 export class BillingContainer extends Vue {
@@ -18,7 +14,7 @@ export class BillingContainer extends Vue {
   error: string = '';
 
   mounted() {
-    this.$store.dispatch(MutationTypes.GET_BILLING_INFO, {
+    this.$store.dispatch(MutationTypes.GET_BILLING_INFO_REQUEST, {
       payload: {},
       callback: (res) => {
         if (res.status === 'ok') {
@@ -38,7 +34,7 @@ export class BillingContainer extends Vue {
       currency: 'USD',
       amount: this.billingInfo.total_numeric,
       token: (token) => {
-        this.$store.dispatch(MutationTypes.STRIPE_CHECKOUT, {
+        this.$store.dispatch(MutationTypes.STRIPE_CHECKOUT_REQUEST, {
           payload: {
             invoice_number: this.billingInfo.invoice_number,
             token,

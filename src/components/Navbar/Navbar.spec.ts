@@ -5,6 +5,7 @@ import { spy, assert } from 'sinon';
 import { expect } from 'chai';
 import { ComponentTest, MockLogger } from '../../utils/component-test';
 import { Navbar } from './Navbar';
+import { Logger } from '../../utils/log';
 
 let loggerSpy = spy();
 
@@ -12,6 +13,8 @@ let loggerSpy = spy();
   template: require('./navbar.html')
 })
 class MockNavbarComponent extends Navbar {
+  protected logger: Logger;
+
   constructor() {
     super();
     this.logger = new MockLogger(loggerSpy);
