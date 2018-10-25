@@ -1,10 +1,10 @@
 <div>
-<div class="register register-with-news-feed">
+  <div class="register register-with-news-feed">
     <!-- begin news-feed -->
     <div class="news-feed">
         <div class="news-image" style="background-image: url(../../assets/images/bg.png)"></div>
     </div>
-    <!-- end news-feed -->
+    <!-- end register-header -->
     <!-- begin right-content -->
     <div class="right-content">
       <!-- begin register-header -->
@@ -17,92 +17,107 @@
       <!-- end register-header -->
       <!-- begin register-content -->
       <div class="register-content">
-        <form action="/" method="POST" class="margin-bottom-0" @submit.prevent="userRegister">
-          <div class="wd-wrap" v-if="step==0">
+        <div class="alert alert-danger" v-if="!!error.response">
+          {{ error.response }}
+        </div>
+        <form action="/" @submit.prevent="registerUser" v-if="step === 0">
+          <div class="wd-wrap">
             <div class="wd-form__wrapper">
                 <div class="wd-form__wrp">
                   <input
                     type="text"
-                    name="firstname"
                     placeholder="First name*"
-                    v-model="firstname"
-                    @change="firstnameValidated=true"
+                    v-model="userData.firstName"
+                    @keydown="error.firstName = false"
                     class="wd-form__input"
-                    :class="{'input-error': !firstnameValidated}"
+                    :class="{'input-error m-b-5': !!error.firstName}"
                     />
                 </div>
+                <p class="invalid-feedback m-b-20 m-l-20" v-if="error.firstName">
+                  {{ error.firstName }}
+                </p>
                 <div class="wd-form__wrp">
                   <input
                     type="text"
-                    name="lastname"
                     placeholder="Last name*"
-                    v-model="lastname"
-                    @change="lastnameValidated=true"
+                    v-model="userData.lastName"
+                    @keydown="error.lastName = false"
                     class="wd-form__input"
-                    :class="{'input-error': !lastnameValidated}"
+                    :class="{'input-error m-b-5': !!error.lastName}"
                     />
                 </div>
+                <p class="invalid-feedback m-b-20 m-l-20" v-if="error.lastName">
+                  {{ error.lastName }}
+                </p>
                 <div class="wd-form__wrp">
                   <input
                     type="text"
-                    name="username"
                     placeholder="Email address*"
-                    v-model="email"
-                    @change="emailValidated=true"
+                    v-model="userData.email"
+                    @keydown="error.email = false"
                     class="wd-form__input"
-                    :class="{'input-error': !emailValidated}"
+                    :class="{'input-error m-b-5': !!error.email}"
                     />
                 </div>
+                <p class="invalid-feedback m-b-20 m-l-20" v-if="error.email">
+                  {{ error.email }}
+                </p>
                 <div class="wd-form__wrp">
                   <input
                     type="text"
-                    name="company"
                     placeholder="Company*"
-                    v-model="company"
+                    v-model="userData.company"
                     max="50"
-                    @change="companyValidated=true"
+                    @keydown="error.company = false"
                     class="wd-form__input"
-                    :class="{'input-error': !companyValidated}"
+                    :class="{'input-error m-b-5': !!error.company}"
                   />
                 </div>
+                <p class="invalid-feedback m-b-20 m-l-20" v-if="error.company">
+                  {{ error.company }}
+                </p>
                 <div class="wd-form__wrp">
                   <input
                     type="password"
-                    name="password"
-                    placeholder="Your password*"
-                    v-model="password"
-                    @change="passwordValidated=true"
+                    placeholder="Password*"
+                    v-model="userData.password"
+                    @keydown="error.password = false"
                     class="wd-form__input"
-                    :class="{'input-error': !passwordValidated}"
+                    :class="{'input-error m-b-5': !!error.password}"
                     />
                 </div>
-                <div class="wd-form__wrp m-b-10">
+                <p class="invalid-feedback m-b-20 m-l-20" v-if="error.password">
+                  {{ error.password }}
+                </p>
+                <div class="wd-form__wrp">
                   <input
                     type="password"
-                    name="password_confirm"
-                    placeholder="Re-enter your password*"
-                    v-model="passwordConfirm"
-                    @change="passwordValidated=true"
+                    placeholder="Confirm password*"
+                    v-model="userData.confirmPassword"
+                    @keydown="error.confirmPassword = false"
                     class="wd-form__input"
-                    :class="{'input-error': !passwordValidated}"
+                    :class="{'input-error m-b-5': !!error.confirmPassword}"
                     />
                 </div>
-                <div class="invalid-feedback m-b-10">
-                  {{codeError}}
-                </div>
-                <div class="wd-form__wrp m-b-10">
-                  <input type="checkbox" class="mr-2" id="agree" @change="agreeError=''" v-model="agree" />
+                <p class="invalid-feedback m-b-20 m-l-20" v-if="error.confirmPassword">
+                  {{ error.confirmPassword }}
+                </p>
+                <div class="wd-form__wrp" :class="{ 'm-b-5': error.agree, 'm-b-20': !error.agree }">
+                  <input type="checkbox" class="mr-2" id="agree" @click="error.agree = false" v-model="userData.agree" />
                   <label for="agree" class="agree-desc">
                     By clicking Sign Up, you agree to our <a href="#" @click.prevent="openWindow('TERMS')">Terms</a>
                     and that you have read our <a href="#" @click.prevent="openWindow('DATA_POLICY')">Data Policy</a>,
                     including our <a href="#" @click.prevent="openWindow('COOKIE_USE')">Cookie Use</a>.
                   </label>
                 </div>
-                <div class="invalid-feedback">
-                  {{agreeError}}
-                </div>
+                <p class="invalid-feedback m-b-20 m-l-20" v-if="error.agree">
+                  {{ error.agree }}
+                </p>
                 <div class="wd-form__wrp m-b-10">
-                  <button type="submit" class="btn btn-default btn-register sw-btn-next wd-btn-next">Register</button>
+                  <button type="submit" class="btn btn-default btn-register sw-btn-next wd-btn-next" :disabled="isBusy">
+                    Register
+                    <i class="fa fa-spinner fa-spin" v-if="isBusy"></i>
+                  </button>
                 </div>
               </div>
               <div class="wd-wrap m-b-30">
@@ -122,26 +137,31 @@
                 </div>
               </div>
           </div>
+        </form>
+
+        <form action="/" @submit.prevent="confirmCode" v-if="step === 1">
           <div class="wd-form__wrapper" v-if="step==1">
-            <div class="wd-form__wrp">
-              <label class="wd-form__label">Confirm Code<span>*</span></label>
-              <input type="text" name="confirmCode" placeholder="000000" v-model="code" @change="emailValidated=true" class="wd-form__input" :class="{'input-error': !codeValidated}"/>
+            <div class="wd-form__wrp m-b-10">
+              <input
+                type="text"
+                placeholder="Confirmation Code"
+                v-model="code"
+                @keydown="error.code = false"
+                class="wd-form__input"
+                :class="{'input-error m-b-5': !!error.code}"
+                />
             </div>
-            <div class="invalid-feedback">
-              {{codeError}}
-            </div>
+            <p class="invalid-feedback m-b-20 m-l-20" v-if="error.code">
+              {{ error.code }}
+            </p>
             <div class="wd-form__wrapper">
               <legend class="wd-form__header" style="font-size: 16px;">Thanks! Check your email for a confirmation code. It may take a few minutes to arrive.</legend>
             </div>
-            <div class="btn-group navbar-btn sw-btn-group pull-right confirm-button" role="group">
-              <a class="btn btn-default sw-btn-next" @click="confirmCode">Confirm</a>
-            </div>
-          </div>
-
-          <div class="wd-form__wrapper"  v-if="step==2">
-            <div class="wd-form__wrp"><div>Success!</div></div>
-            <div class="btn-group navbar-btn sw-btn-group pull-right" role="group">
-              <a class="btn btn-default sw-btn-next" @click="gotoLogin">Goto Login</a>
+            <div class="wd-form__wrp m-b-10">
+              <button type="submit" class="btn btn-default btn-register sw-btn-next wd-btn-next" :disabled="isBusy">
+                Confirm
+                <i class="fa fa-spinner fa-spin" v-if="isBusy"></i>
+              </button>
             </div>
           </div>
         </form>
@@ -156,4 +176,3 @@
   <mainfooter></mainfooter>
   <!-- End footer -->
 </div>
-
