@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import router from '../../router';
 import store from '../../store';
 
+import { Footbar } from '../../components/Footbar';
+
 import './styles.scss';
 
 declare function initializeStorage ();
@@ -17,7 +19,8 @@ library.add(faCheck)
 @Component({
   template: require('./login.html'),
   components: {
-    FontAwesomeIcon
+    FontAwesomeIcon,
+    'mainfooter': Footbar
   }
 })
 export class LoginContainer extends Vue {
