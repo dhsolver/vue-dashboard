@@ -17,27 +17,75 @@
       <!-- end register-header -->
       <!-- begin register-content -->
       <div class="register-content">
-        <form action="/" method="POST" class="margin-bottom-0" @submit="submitRegisterForm">
+        <form action="/" method="POST" class="margin-bottom-0" @submit.prevent="userRegister">
           <div class="wd-wrap" v-if="step==0">
             <div class="wd-form__wrapper">
                 <div class="wd-form__wrp">
-                  <input type="text" name="firstname" placeholder="First name*" v-model="firstname" @change="firstnameValidated=true" :class="`wd-form__input ${firstnameValidated?'':'input-error'}`"/>
+                  <input
+                    type="text"
+                    name="firstname"
+                    placeholder="First name*"
+                    v-model="firstname"
+                    @change="firstnameValidated=true"
+                    class="wd-form__input"
+                    :class="{'input-error': !firstnameValidated}"
+                    />
                 </div>
                 <div class="wd-form__wrp">
-                  <input type="text" name="lastname" placeholder="Last name*" v-model="lastname" @change="lastnameValidated=true" :class="`wd-form__input ${lastnameValidated?'':'input-error'}`"/>
+                  <input
+                    type="text"
+                    name="lastname"
+                    placeholder="Last name*"
+                    v-model="lastname"
+                    @change="lastnameValidated=true"
+                    class="wd-form__input"
+                    :class="{'input-error': !lastnameValidated}"
+                    />
                 </div>
                 <div class="wd-form__wrp">
-                  <input type="text" name="username" placeholder="Email address*" v-model="email" @change="emailValidated=true" :class="`wd-form__input ${emailValidated?'':'input-error'}`"/>
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Email address*"
+                    v-model="email"
+                    @change="emailValidated=true"
+                    class="wd-form__input"
+                    :class="{'input-error': !emailValidated}"
+                    />
                 </div>
                 <div class="wd-form__wrp">
-                  <input type="text" name="company" placeholder="Company*" v-model="company" max="50" @change="companyValidated=true" :class="`wd-form__input ${companyValidated?'':'input-error'}`"
+                  <input
+                    type="text"
+                    name="company"
+                    placeholder="Company*"
+                    v-model="company"
+                    max="50"
+                    @change="companyValidated=true"
+                    class="wd-form__input"
+                    :class="{'input-error': !companyValidated}"
                   />
                 </div>
                 <div class="wd-form__wrp">
-                  <input type="password" name="password" placeholder="Your password*" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Your password*"
+                    v-model="password"
+                    @change="passwordValidated=true"
+                    class="wd-form__input"
+                    :class="{'input-error': !passwordValidated}"
+                    />
                 </div>
                 <div class="wd-form__wrp m-b-10">
-                  <input type="password" name="password_confirm" placeholder="Re-enter your password*" v-model="passwordConfirm" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"/>
+                  <input
+                    type="password"
+                    name="password_confirm"
+                    placeholder="Re-enter your password*"
+                    v-model="passwordConfirm"
+                    @change="passwordValidated=true"
+                    class="wd-form__input"
+                    :class="{'input-error': !passwordValidated}"
+                    />
                 </div>
                 <div class="invalid-feedback m-b-10">
                   {{codeError}}
@@ -54,7 +102,7 @@
                   {{agreeError}}
                 </div>
                 <div class="wd-form__wrp m-b-10">
-                  <a class="btn btn-default btn-register sw-btn-next wd-btn-next" @click="userRegister()">Register</a>
+                  <button type="submit" class="btn btn-default btn-register sw-btn-next wd-btn-next">Register</button>
                 </div>
               </div>
               <div class="wd-wrap m-b-30">
@@ -77,7 +125,7 @@
           <div class="wd-form__wrapper" v-if="step==1">
             <div class="wd-form__wrp">
               <label class="wd-form__label">Confirm Code<span>*</span></label>
-              <input type="text" name="confirmCode" placeholder="000000" v-model="code" @change="emailValidated=true" :class="`wd-form__input ${codeValidated?'':'input-error'}`"/>
+              <input type="text" name="confirmCode" placeholder="000000" v-model="code" @change="emailValidated=true" class="wd-form__input" :class="{'input-error': !codeValidated}"/>
             </div>
             <div class="invalid-feedback">
               {{codeError}}
