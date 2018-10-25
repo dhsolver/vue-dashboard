@@ -178,6 +178,22 @@ const actions: ActionTree<State, State> = {
       })
   },
 
+  [MutationTypes.GET_CLIENT_FILE_FILTERS]: ({ commit }, {payload, callback}) => {
+    sendPost('/client_file_filters', {})
+      .then((res: any) => {
+        callback({
+          status: 'ok',
+          data: res.data.payload
+        });
+      })
+      .catch((error: any) => {
+        callback({
+          status: 'error',
+          msg: 'Failed to fetch filters'
+        });
+      });
+  },
+
   [MutationTypes.UPLOAD_FILE]: ({commit}, file) => {
     console.log('********* file upload action ********');
     uploadFile(file).then(data => {

@@ -87,6 +87,12 @@
                 {{ option.text }}
               </option>
             </select>
+            <select v-model="adopt_curve_limit">
+              <option disabled value="">Please select one</option>
+              <option v-for="option in adopt_curve_limit_options" v-bind:value="option.value">
+                {{ option.text }}
+              </option>
+            </select>
           </div>
         </div>
       </div>
@@ -133,6 +139,13 @@
             <select v-model="influencers_x" >
               <option disabled value="">Please select one</option>
               <option v-for="option in influencers_x_options" v-bind:value="option.value">
+                {{ option.text }}
+              </option>
+            </select>
+
+            <select v-model="influencers_limit">
+              <option disabled value="">Please select one</option>
+              <option v-for="option in influencers_limit_options" v-bind:value="option.value">
                 {{ option.text }}
               </option>
             </select>
