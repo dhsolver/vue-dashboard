@@ -1,24 +1,25 @@
 defaultOptions =
   # How long should it take for the bar to animate to a new
   # point after receiving it
-  catchupTime: 500
+  catchupTime: 100
 
   # How quickly should the bar be moving before it has any progress
   # info from a new source in %/ms
   initialRate: .03
 
   # What is the minimum amount of time the bar should be on the
-  # screen
-  minTime: 500
+  # screen.  Irrespective of this number, the bar will always be on screen for
+  # 33 * (100 / maxProgressPerFrame) + ghostTime ms.
+  minTime: 250
 
   # What is the minimum amount of time the bar should sit after the last
   # update before disappearing
-  ghostTime: 500
+  ghostTime: 100
 
   # Its easy for a bunch of the bar to be eaten in the first few frames
   # before we know how much there is to load.  This limits how much of
   # the bar can be used per frame
-  maxProgressPerFrame: 10
+  maxProgressPerFrame: 20
 
   # This tweaks the animation easing
   easeFactor: 1.25
@@ -173,7 +174,8 @@ class Evented
         else
           i++
 
-window.Pace ?= {}
+Pace = window.Pace or {}
+window.Pace = Pace
 
 extend Pace, Evented::
 
@@ -201,14 +203,15 @@ class Bar
       @el.className = "pace pace-active"
 
       document.body.className = document.body.className.replace /pace-done/g, ''
-      document.body.className += ' pace-running'
+      if not /pace-running/.test document.body.className
+        document.body.className += ' pace-running'
 
-      # @el.innerHTML = '''
-      # <div class="pace-progress">
-      #   <div class="pace-progress-inner"></div>
-      # </div>
-      # <div class="pace-activity"></div>
-      # '''
+      @el.innerHTML = '''
+      <div class="pace-progress">
+        <div class="pace-progress-inner"></div>
+      </div>
+      <div class="pace-activity"></div>
+      '''
       if targetElement.firstChild?
         targetElement.insertBefore @el, targetElement.firstChild
       else
@@ -243,7 +246,9 @@ class Bar
 
     el = @getElement()
 
-    el.children[0].style.width = "#{ @progress }%"
+    transform = "translate3d(#{ @progress }%, 0, 0)"
+    for key in ['webkitTransform', 'msTransform', 'transform']
+      el.children[0].style[key] = transform
 
     if not @lastRenderedProgress or @lastRenderedProgress|0 != @progress|0
       # The whole-part of the number has changed
@@ -284,10 +289,16 @@ _WebSocket = window.WebSocket
 extendNative = (to, from) ->
   for key of from::
     try
-      val = from::[key]
-
-      if not to[key]? and typeof val isnt 'function'
-        to[key] = val
+      if not to[key]? and typeof from[key] isnt 'function'
+        if typeof Object.defineProperty is 'function'
+          Object.defineProperty(to, key, {
+             get: ->
+                 return from::[key];
+              ,
+              configurable: true,
+              enumerable: true })
+        else
+          to[key] = from::[key]
     catch e
 
 ignoreStack = []
@@ -307,7 +318,7 @@ Pace.track = (fn, args...) ->
 shouldTrack = (method='GET') ->
   if ignoreStack[0] is 'track'
     return 'force'
-  
+
   if not ignoreStack.length and options.ajax
     if method is 'socket' and options.ajax.trackWebSockets
       return true
@@ -445,10 +456,12 @@ class XHRRequestTracker
           # response, all we can do is increment the progress with backoff such that we
           # never hit 100% until it's done.
           @progress = @progress + (100 - @progress) / 2
+      , false
 
       for event in ['load', 'abort', 'timeout', 'error']
         request.addEventListener event, =>
           @progress = 100
+        , false
 
     else
       _onreadystatechange = request.onreadystatechange
@@ -467,6 +480,7 @@ class SocketRequestTracker
     for event in ['error', 'open']
       request.addEventListener event, =>
         @progress = 100
+      , false
 
 class ElementMonitor
   constructor: (options={}) ->
@@ -732,7 +746,7 @@ Pace.start = (_options) ->
 
 if typeof define is 'function' and define.amd
   # AMD
-  define -> Pace
+  define ['pace'], -> Pace
 else if typeof exports is 'object'
   # CommonJS
   module.exports = Pace

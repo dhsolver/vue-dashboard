@@ -4,6 +4,8 @@ import { MutationTypes } from '../../store/mutation-types';
 import router from '../../router';
 import store from '../../store';
 
+import { Footbar } from '../../components/Footbar';
+
 import './styles.scss';
 
 declare function registeringWithCode (code);
@@ -12,8 +14,8 @@ declare function registeringRequest (email, pw, fname, lname, company);
 @Component({
   template: require('./register.html'),
   components: {
+    'mainfooter': Footbar
   }
-
 })
 export class RegisterContainer extends Vue {
   firstname: string = '';
@@ -59,12 +61,6 @@ export class RegisterContainer extends Vue {
         this.codeError = msgs[msgs.length - 1];
       });
     }
-  }
-
-  submitRegisterForm(event) {
-    return false;
-    event.preventDefault();
-
   }
 
   confirmCode() {

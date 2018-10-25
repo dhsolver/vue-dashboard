@@ -23,12 +23,16 @@ declare function getSubjectId();
        subjectId: getSubjectId(),
        adopt_curve_x: '',
        adopt_curve_y: '',
+       adopt_curve_limit: '',
        adopt_curve_x_options: [],
        adopt_curve_y_options: [],
+       adopt_curve_limit_options: [],
        influencers_x: '',
        influencers_y: '',
+       influencers_limit: '',
        influencers_x_options: [],
        influencers_y_options: [],
+       influencers_limit_options: []
      };
   },
 
@@ -53,6 +57,11 @@ declare function getSubjectId();
       this.$data.adopt_curve_y = adopCurveLocalY;
     }
 
+    const adoptCurveLocalLimit = localStorage.getItem('adopt_curve_limit');
+    if (adoptCurveLocalLimit) {
+      this.$data.adopt_curve_limit = adoptCurveLocalLimit;
+    }
+
     const influencersLocalX = localStorage.getItem('influencers_x');
     if (influencersLocalX) {
       this.$data.influencers_x = influencersLocalX;
@@ -60,6 +69,11 @@ declare function getSubjectId();
     const influencersLocalY = localStorage.getItem('influencers_y');
     if (influencersLocalY) {
       this.$data.influencers_y = influencersLocalY;
+    }
+
+    const influencersLocalLimit = localStorage.getItem('influencers_limit');
+    if (influencersLocalLimit) {
+      this.$data.influencers_limit = influencersLocalLimit;
     }
 
     this.$store.dispatch(MutationTypes.GET_CORPORA, { payload: {}, callback: res => {
@@ -85,7 +99,20 @@ declare function getSubjectId();
       }
     }});
 
+    this.$store.dispatch(MutationTypes.GET_CLIENT_FILE_FILTERS, { payload: {}, callback: res => {
+      const filters = res.data;
+      const dropdownValues = formatOptions(filters);
 
+      this.$data.adopt_curve_limit_options = dropdownValues;
+      if (this.$data.adopt_curve_limit === undefined || this.$data.adopt_curve_limit === 'undefined') {
+        this.$data.adopt_curve_limit = dropdownValues[0].value;
+      }
+
+      this.$data.influencers_limit_options = dropdownValues;
+      if (this.$data.influencers_limit === undefined || this.$data.influencers_limit === 'undefined') {
+        this.$data.influencers_limit = dropdownValues[0].value;
+      }
+    }});
   }
 })
 
@@ -106,6 +133,11 @@ export class DashboardContainer extends Vue {
     localStorage.setItem('adopt_curve_y', newValue)
   }
 
+  @Watch('adopt_curve_limit')
+  adoptCurveLimitChanged(newValue) {
+    localStorage.setItem('adopt_curve_limit', newValue)
+  }
+
   @Watch('influencers_x')
   influencersXChanged(newValue) {
     localStorage.setItem('influencers_x', newValue)
@@ -114,6 +146,11 @@ export class DashboardContainer extends Vue {
   @Watch('influencers_y')
   influencersYChanged(newValue) {
     localStorage.setItem('influencers_y', newValue)
+  }
+
+  @Watch('influencers_limit')
+  influencersLimitChanged(newValue) {
+    localStorage.setItem('influencers_limit', newValue)
   }
 
   mounted() {
