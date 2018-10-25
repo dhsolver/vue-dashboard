@@ -27,12 +27,12 @@ export class RegisterContainer extends Vue {
   async registerUser() {
     // Form Validation
     this.error = {};
-    if (!this.userData.firstName) this.error.firstName = 'Please input your first name.';
-    if (!this.userData.lastName) this.error.lastName = 'Please input your last name.';
-    if (!this.userData.email) this.error.email = 'Please input your email address.';
-    if (!this.userData.company) this.error.company = 'Please input your company name.';
-    if (!this.userData.password) this.error.password = 'Please input the password.';
-    if (this.userData.password !== this.userData.confirmPassword) this.error.confirmPassword = 'Password does not match.';
+    if (!this.userData.firstName) this.error.firstName = 'Please enter your first name.';
+    if (!this.userData.lastName) this.error.lastName = 'Please enter your last name.';
+    if (!this.userData.email) this.error.email = 'Please enter your email address.';
+    if (!this.userData.company) this.error.company = 'Please enter your company name or ID.';
+    if (!this.userData.password) this.error.password = 'Please enter a password.';
+    if (this.userData.password !== this.userData.confirmPassword) this.error.confirmPassword = 'Passwords do not match.';
     if (!this.userData.agree) this.error.agree = 'Please confirm that you agreed to our Terms and Policy.';
     if (!_.isEmpty(this.error)) return;
     // Check if company name is used
@@ -74,7 +74,7 @@ export class RegisterContainer extends Vue {
   async confirmCode() {
     // Form Validation
     this.error = {};
-    if (!this.code) this.error.code = 'Please input the confirmation code.';
+    if (!this.code) this.error.code = 'Please enter your confirmation code.';
     if (!_.isEmpty(this.error)) return;
 
     // Confirm user
