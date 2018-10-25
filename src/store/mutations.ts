@@ -1,27 +1,17 @@
 import Vue from 'vue';
-import {MutationTree} from 'vuex';
-import {MutationTypes} from './mutation-types';
-import {State} from './state';
+import { MutationTree } from 'vuex';
+import { MutationTypes } from './mutation-types';
+import { State } from './state';
 
-declare var localStorage;
-declare function  initializeStorage ();
-
+declare function initializeStorage();
 
 const mutations: MutationTree<State> = {
-  [MutationTypes.LOGIN_REQUESTED]: (state: State) => {
-    state.loggedIn = false;
-    state.loginError = '';
+  // LOGIN_USER
+  [MutationTypes.LOGIN_USER_SUCCESS]: (state: State) => {
+    state.isLoggedIn = true;
   },
-  [MutationTypes.LOGIN_SUCCEEDED]: (state: State) => {
-    state.loginStorage = localStorage;
-    const config = JSON.parse(localStorage.getItem('awsConfig'));
-    state.loggedIn = config != null;
-    console.log('loginChanged', state.loginStorage)
-  },
-  [MutationTypes.LOGIN_FAILED]: (state: State, payload) => {
-    state.loginError = payload;
-  },
-  [MutationTypes.LOGOUT_USER]: (state: State) => {
+  // LOGOUT_USER
+  [MutationTypes.LOGOUT_USER_REQUEST]: (state: State) => {
     const firstLogin = localStorage.getItem('firstLogin');
 
     // Keep X,Y values whenever localstorage is cleared.
@@ -42,40 +32,15 @@ const mutations: MutationTree<State> = {
     if (influencers_limit) localStorage.setItem('influencers_y', influencers_limit);
     
     initializeStorage();
-    state.loggedIn = false;
-    state.loginStorage = localStorage;
-    console.log('logout user', state.loginStorage)
+    state.isLoggedIn = false;
   },
-  [MutationTypes.SUBMIT_CONTACT_INFO]: (state: State) => {
+  // SUBMIT_CONTACT_INFO
+  [MutationTypes.SUBMIT_CONTACT_INFO_REQUEST]: (state: State) => {
     state.submittedContactInfo = true;
   },
-  [MutationTypes.UPLOAD_FILE]: (state: State) => {
-    console.log('uploaded file');
+  // UPLOAD_FILE
+  [MutationTypes.UPLOAD_FILE_REQUEST]: (state: State) => {
     state.uploadedFile = true;
-  },
-  // FORGOT_PASSWORD
-  [MutationTypes.FORGOT_PASSWORD_REQUEST]: (state: State) => {
-    state.forgotPasswordStatus = 'REQUESTED';
-    state.forgotPasswordError = '';
-  },
-  [MutationTypes.FORGOT_PASSWORD_SUCCEEDED]: (state: State) => {
-    state.forgotPasswordStatus = 'SUCCEEDED';
-  },
-  [MutationTypes.FORGOT_PASSWORD_FAILED]: (state: State, payload) => {
-    state.forgotPasswordStatus = 'FAILED';
-    state.forgotPasswordError = payload;
-  },
-  // CONFIRM_PASSWORD
-  [MutationTypes.CONFIRM_PASSWORD_REQUEST]: (state: State) => {
-    state.confirmPasswordStatus = 'REQUESTED';
-    state.confirmPasswordError = '';
-  },
-  [MutationTypes.CONFIRM_PASSWORD_SUCCEEDED]: (state: State) => {
-    state.confirmPasswordStatus = 'SUCCEEDED';
-  },
-  [MutationTypes.CONFIRM_PASSWORD_FAILED]: (state: State, payload) => {
-    state.confirmPasswordStatus = 'FAILED';
-    state.confirmPasswordError = payload;
   },
 };
 

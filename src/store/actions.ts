@@ -4,84 +4,114 @@ import {State} from './state';
 import { sendPost } from '../api/api';
 
 declare function loginUser(email, pwd): any;
+declare function registeringRequest (email, password, firstName, lastName, company);
+declare function registeringWithCode (code);
 declare function forgotPassword(username): any;
 declare function confirmPassword(username, code, newPassword): any;
 declare function uploadFile(file);
-declare var localStorage;
 
 
 const actions: ActionTree<State, State> = {
-
-  [MutationTypes.LOGIN_SUCCEEDED]: ({commit}) => {
-    commit(MutationTypes.LOGIN_SUCCEEDED);
+  // LOGIN_USER
+  [MutationTypes.LOGIN_USER_REQUEST]: ({ commit }, payload) => {
+    const awsConfig = JSON.parse(localStorage.getItem('awsConfig'));
+    if (awsConfig === null) {
+      return new Promise((resolve) => {
+        loginUser(payload.username, payload.password)
+          .then(() => {
+            commit(MutationTypes.LOGIN_USER_SUCCESS);
+            resolve({ status: 'ok' });
+          }).catch(err => {
+            resolve({ status: 'error', msg: err.message })
+          });
+      });
+    }
   },
-
-
-  [MutationTypes.STRIPE_A1]: ({commit}, stripeData) => {
-
-    sendPost('/stripe', stripeData,
-      {
-      'Content-Type': 'application/json',
-      'Access-Control-Request-Method': 'POST',
-      'Access-Control-Request-Headers': 'origin, x-requested',
-      'Access-Control-Request-Origin': 'https://foo.bar.org' })
-    .then((res: any) => {
-      console.log(res)
-    })
-    .catch((error: any) => {
-      if (error.response && error.response.data) {
-        console.log(error.response.data)
-      } else {
-        console.log(error.message)
-      }
-    })
-
+  // LOGOUT_USER
+  [MutationTypes.LOGOUT_USER_REQUEST]: ({ commit }) => {
+    commit(MutationTypes.LOGOUT_USER_REQUEST);
   },
-
-  [MutationTypes.LOGIN_USER]: ({commit}, loginData) => {
-    const configString = localStorage.getItem('awsConfig');
-    const config = JSON.parse(configString);
-    if (config == null) {
-      commit(MutationTypes.LOGIN_REQUESTED);
-      loginUser(loginData.username, loginData.password).then(() => {
-        commit(MutationTypes.LOGIN_SUCCEEDED);
-      }).catch(err => {
-        commit(MutationTypes.LOGIN_FAILED, err.message);
+  // REGISTER_UESR
+  [MutationTypes.REGISTER_USER_REQUEST]: ({ commit }, payload) => {
+    const awsConfig = JSON.parse(localStorage.getItem('awsConfig'));
+    if (awsConfig === null) {
+      return new Promise((resolve) => {
+        registeringRequest(payload.email, payload.password, payload.firstName, payload.lastName, payload.company)
+          .then(() => {
+            resolve({ status: 'ok' });
+          }).catch(err => {
+            const msgs = err.message.split(':');
+            resolve({ status: 'error', msg: msgs[msgs.length - 1] });
+          });
+      });
+    }
+  },
+  // CONFIRM_USER
+  [MutationTypes.CONFIRM_USER_REQUEST]: ({ commit }, payload) => {
+    const awsConfig = JSON.parse(localStorage.getItem('awsConfig'));
+    if (awsConfig === null) {
+      return new Promise((resolve) => {
+        registeringWithCode(payload.code)
+          .then(() => {
+            resolve({ status: 'ok' });
+          }).catch(err => {
+            resolve({ status: 'error', msg: err.message });
+          });
+      });
+    }
+  },
+  // GET_COMPANY_NAME
+  [MutationTypes.GET_COMPANY_NAME_REQUEST]: ({ commit }, payload) => {
+    return new Promise((resolve) => {
+      sendPost('/get_company_name', payload)
+        .then((res: any) => {
+          resolve(res.data);
+        }).catch((err: any) => {
+          resolve({ status: 'error', msg: err.message });
+        });
+    });
+  },
+  // CREATE_ACCOUNT
+  [MutationTypes.CREATE_ACCOUNT_REQUEST]: ({ commit }, payload) => {
+    return new Promise((resolve) => {
+      sendPost('/create_account', payload)
+        .then((res: any) => {
+          resolve(res.data);
+        }).catch((err: any) => {
+          resolve({ status: 'error', msg: err.message });
+        });
+    });
+  },
+  // FORGOT_PASSWORD
+  [MutationTypes.FORGOT_PASSWORD_REQUEST]: ({ commit }, payload) => {
+    const awsConfig = JSON.parse(localStorage.getItem('awsConfig'));
+    if (awsConfig === null) {
+      return new Promise((resolve) => {
+        forgotPassword(payload.username)
+          .then(() => {
+            resolve({ status: 'ok' });
+          }).catch(err => {
+            resolve({ status: 'error', msg: err.message });
+          });
+      });
+    }
+  },
+  // CONFIRM_PASSWORD
+  [MutationTypes.CONFIRM_PASSWORD_REQUEST]: ({ commit }, payload) => {
+    const awsConfig = JSON.parse(localStorage.getItem('awsConfig'));
+    if (awsConfig === null) {
+      return new Promise((resolve) => {
+        confirmPassword(payload.username, payload.code, payload.newPassword)
+          .then(() => {
+            resolve({ status: 'ok' });
+          }).catch(err => {
+            resolve({ status: 'error', msg: err.message });
+          });
       });
     }
   },
 
-  [MutationTypes.LOGOUT_USER]: ({commit}) => {
-    commit(MutationTypes.LOGOUT_USER);
-  },
-
-  [MutationTypes.FORGOT_PASSWORD_REQUEST]: ({commit}, userData) => {
-    const configString = localStorage.getItem('awsConfig');
-    const config = JSON.parse(configString);
-    if (config == null) {
-      commit(MutationTypes.FORGOT_PASSWORD_REQUEST);
-      forgotPassword(userData.username).then(() => {
-        commit(MutationTypes.FORGOT_PASSWORD_SUCCEEDED);
-      }).catch(err => {
-        commit(MutationTypes.FORGOT_PASSWORD_FAILED, err.message);
-      });
-    }
-  },
-
-  [MutationTypes.CONFIRM_PASSWORD_REQUEST]: ({commit}, userData) => {
-    const configString = localStorage.getItem('awsConfig');
-    const config = JSON.parse(configString);
-    if (config == null) {
-      commit(MutationTypes.CONFIRM_PASSWORD_REQUEST);
-      confirmPassword(userData.username, userData.code, userData.newPassword).then(() => {
-        commit(MutationTypes.CONFIRM_PASSWORD_SUCCEEDED);
-      }).catch(err => {
-        commit(MutationTypes.CONFIRM_PASSWORD_FAILED, err.message);
-      });
-    }
-  },
-
-  [MutationTypes.SUBMIT_CONTACT_INFO]: ({commit}, contactInfo) => {
+  [MutationTypes.SUBMIT_CONTACT_INFO_REQUEST]: ({commit}, contactInfo) => {
     // contactInfo = {"first_name": "Dave", "last_name": "Smith", "company_name": "Wrench.AI Test sssss 1", "phone_number": "888-555-1212", "email": "kevin@wrench.ai", "street_1": "555 Main St.", "street_2": "Apt 2B", "city": "Los Angeles", "state": "CA", "zip": "91203", "year": "1970", "month": "01", "day": "21"};
     sendPost('/contact_info', contactInfo,
       {
@@ -91,7 +121,7 @@ const actions: ActionTree<State, State> = {
       'Access-Control-Request-Origin': 'https://foo.bar.org' })
     .then((res: any) => {
       console.log(res)
-      commit(MutationTypes.SUBMIT_CONTACT_INFO);
+      commit(MutationTypes.SUBMIT_CONTACT_INFO_REQUEST);
     })
     .catch((error: any) => {
       if (error.response && error.response.data) {
@@ -102,7 +132,7 @@ const actions: ActionTree<State, State> = {
     })
   },
 
-  [MutationTypes.GET_CONTACT_INFO]: ({ commit }, {callback}) => {
+  [MutationTypes.GET_CONTACT_INFO_REQUEST]: ({ commit }, {callback}) => {
     // contactInfo = {"first_name": "Dave", "last_name": "Smith", "company_name": "Wrench.AI Test sssss 1", "phone_number": "888-555-1212", "email": "kevin@wrench.ai", "street_1": "555 Main St.", "street_2": "Apt 2B", "city": "Los Angeles", "state": "CA", "zip": "91203", "year": "1970", "month": "01", "day": "21"};
     sendPost('/get_contact_info', {},
       {
@@ -125,7 +155,7 @@ const actions: ActionTree<State, State> = {
       })
   },
 
-  [MutationTypes.GET_PERSON_INFO]: ({ commit }, {payload, callback}) => {
+  [MutationTypes.GET_PERSON_INFO_REQUEST]: ({ commit }, {payload, callback}) => {
     // contactInfo = {"first_name": "Dave", "last_name": "Smith", "company_name": "Wrench.AI Test sssss 1", "phone_number": "888-555-1212", "email": "kevin@wrench.ai", "street_1": "555 Main St.", "street_2": "Apt 2B", "city": "Los Angeles", "state": "CA", "zip": "91203", "year": "1970", "month": "01", "day": "21"};
     sendPost('/get_person_info', payload)
       .then((res: any) => {
@@ -152,7 +182,7 @@ const actions: ActionTree<State, State> = {
   },
 
 
-  [MutationTypes.GET_CORPORA]: ({ commit }, {payload, callback}) => {
+  [MutationTypes.GET_CORPORA_REQUEST]: ({ commit }, {payload, callback}) => {
     sendPost('/get_corpora', {})
       .then((res: any) => {
         if (callback) {
@@ -178,7 +208,7 @@ const actions: ActionTree<State, State> = {
       })
   },
 
-  [MutationTypes.GET_CLIENT_FILE_FILTERS]: ({ commit }, {payload, callback}) => {
+  [MutationTypes.GET_CLIENT_FILE_FILTERS_REQUEST]: ({ commit }, {payload, callback}) => {
     sendPost('/client_file_filters', {})
       .then((res: any) => {
         callback({
@@ -194,11 +224,11 @@ const actions: ActionTree<State, State> = {
       });
   },
 
-  [MutationTypes.UPLOAD_FILE]: ({commit}, file) => {
+  [MutationTypes.UPLOAD_FILE_REQUEST]: ({commit}, file) => {
     console.log('********* file upload action ********');
     uploadFile(file).then(data => {
       console.log('*** done ***', data);
-      commit(MutationTypes.UPLOAD_FILE);
+      commit(MutationTypes.UPLOAD_FILE_REQUEST);
     }).catch(error => {
       console.log('*** error ***', error);
     });
@@ -232,20 +262,7 @@ const actions: ActionTree<State, State> = {
       });
   },
 
-  [MutationTypes.CREATE_ACCOUNT]: ({ commit }, {payload, callback}) => {
-    sendPost('/create_account', payload)
-      .then((res: any) => {
-        callback(res.data);
-      })
-      .catch((error: any) => {
-        callback({
-          status: 'error',
-          msg: 'Failed to create account'
-        });
-      });
-  },
-
-  [MutationTypes.GET_TOP_LINE]: ({ commit }, { payload, callback }) => {
+  [MutationTypes.GET_TOP_LINE_REQUEST]: ({ commit }, { payload, callback }) => {
     sendPost('/top_line', payload)
       .then((res: any) => {
         if (callback) {
@@ -271,7 +288,7 @@ const actions: ActionTree<State, State> = {
       });
   },
 
-  [MutationTypes.EXPORT_CONTACTS]: ({ commit }, { payload, callback }) => {
+  [MutationTypes.EXPORT_CONTACTS_REQUEST]: ({ commit }, { payload, callback }) => {
     sendPost('/export_contacts', payload)
       .then((res: any) => {
         callback({
@@ -287,7 +304,7 @@ const actions: ActionTree<State, State> = {
       });
   },
 
-  [MutationTypes.GET_BILLING_INFO]: ({ commit }, { payload, callback }) => {
+  [MutationTypes.GET_BILLING_INFO_REQUEST]: ({ commit }, { payload, callback }) => {
     sendPost('/billing', payload)
       .then((res: any) => {
         if (res.data.status === 'ok') {
@@ -310,7 +327,7 @@ const actions: ActionTree<State, State> = {
       });
   },
 
-  [MutationTypes.STRIPE_CHECKOUT]: ({ commit }, { payload, callback }) => {
+  [MutationTypes.STRIPE_CHECKOUT_REQUEST]: ({ commit }, { payload, callback }) => {
     sendPost('/stripe', payload)
       .then((res: any) => {
         callback({
@@ -326,7 +343,7 @@ const actions: ActionTree<State, State> = {
       });
   },
 
-  [MutationTypes.UPDATE_PERSON_INFO]: ({ commit }, { payload, callback}) => {
+  [MutationTypes.UPDATE_PERSON_INFO_REQUEST]: ({ commit }, { payload, callback}) => {
     sendPost('/update_person_info', payload)
       .then((res: any) => {
         callback({
