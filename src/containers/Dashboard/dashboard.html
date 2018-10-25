@@ -74,22 +74,27 @@
             </div>
           </div>
           <div class="panel-body panel-body--chart">
-            <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=adoption_curve&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y"></iframe>
+            <iframe
+              style="width: 100%; height: 500px;"
+              frameborder="0"
+              scrolling="no"
+              :src="'https://go.wrench.ai/chart=adoption_curve&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit">
+            </iframe>
             <select v-model="adopt_curve_y" >
               <option disabled value="">Please select one</option>
-              <option v-for="option in adopt_curve_y_options" v-bind:value="option.value">
+              <option v-for="option in adopt_curve_y_options" :value="option.value">
                 {{ option.text }}
               </option>
             </select>
             <select v-model="adopt_curve_x" >
               <option disabled value="">Please select one</option>
-              <option v-for="option in adopt_curve_x_options" v-bind:value="option.value">
+              <option v-for="option in adopt_curve_x_options" :value="option.value">
                 {{ option.text }}
               </option>
             </select>
             <select v-model="adopt_curve_limit">
               <option disabled value="">Please select one</option>
-              <option v-for="option in adopt_curve_limit_options" v-bind:value="option.value">
+              <option v-for="option in adopt_curve_limit_options" :value="option.value">
                 {{ option.text }}
               </option>
             </select>
@@ -108,7 +113,7 @@
             </div>
           </div>
           <div class="panel-body panel-body--chart">
-            <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=channel_strategy&s=' + subjectId"></iframe>
+            <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" :src="'https://go.wrench.ai/chart=channel_strategy&s=' + subjectId"></iframe>
           </div>
         </div>
       </div>
@@ -127,25 +132,30 @@
             </div>
           </div>
           <div class="panel-body panel-body--chart">
-            <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=influencers&s=' + subjectId + '&x=' + influencers_x + '&y=' + influencers_y"></iframe>
+            <iframe
+              style="width: 100%; height: 500px;"
+              frameborder="0"
+              scrolling="no"
+              :src="'https://go.wrench.ai/chart=influencers&s=' + subjectId + '&x=' + influencers_x + '&y=' + influencers_y + '&filter=' + influencers_limit">
+            </iframe>
 
             <select v-model="influencers_y" >
               <option disabled value="">Please select one</option>
-              <option v-for="option in influencers_y_options" v-bind:value="option.value">
+              <option v-for="option in influencers_y_options" :value="option.value">
                 {{ option.text }}
               </option>
             </select>
 
             <select v-model="influencers_x" >
               <option disabled value="">Please select one</option>
-              <option v-for="option in influencers_x_options" v-bind:value="option.value">
+              <option v-for="option in influencers_x_options" :value="option.value">
                 {{ option.text }}
               </option>
             </select>
 
             <select v-model="influencers_limit">
               <option disabled value="">Please select one</option>
-              <option v-for="option in influencers_limit_options" v-bind:value="option.value">
+              <option v-for="option in influencers_limit_options" :value="option.value">
                 {{ option.text }}
               </option>
             </select>
@@ -164,7 +174,7 @@
           </div>
 
           <div class="panel-body panel-body--chart">
-            <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=persuasion&s=' + subjectId"></iframe>
+            <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" :src="'https://go.wrench.ai/chart=persuasion&s=' + subjectId"></iframe>
           </div>
         </div>
       </div>
@@ -184,7 +194,7 @@
           </div>
 
           <div class="panel-body panel-body--chart">
-            <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=ocean&s=' + subjectId"></iframe>
+            <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" :src="'https://go.wrench.ai/chart=ocean&s=' + subjectId"></iframe>
           </div>
         </div>
       </div>
