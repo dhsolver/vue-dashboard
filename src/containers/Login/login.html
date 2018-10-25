@@ -15,7 +15,7 @@
     <!-- end login-header -->
     <!-- begin login-content -->
     <div class="login-content">
-      <form action="/" method="POST" class="form-control-with-bg">
+      <form action="/" method="POST" class="form-control-with-bg" @submit.prevent="userLogin()">
         <!-- begin wizard -->
         <div class="form-wizard">
           <fieldset>
@@ -26,15 +26,29 @@
                     {{ error }}
                   </div>
                   <div class="wd-form__wrp">
-                    <input type="text" name="username" placeholder="Username*" v-model="userName" @change="userNameValidated=true" :class="`wd-form__input ${userNameValidated?'':'input-error'}`"
+                    <input
+                      type="text"
+                      name="username"
+                      placeholder="Username*"
+                      v-model="userName"
+                      @change="userNameValidated=true"
+                      class="wd-form__input"
+                      :class="{'input-error': !userNameValidated}"
                     />
                   </div>
                   <div class="wd-form__wrp">
-                    <input type="password" name="password" placeholder="Password*" v-model="password" @change="passwordValidated=true" :class="`wd-form__input ${passwordValidated?'':'input-error'}`"
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="Password*"
+                      v-model="password"
+                      @change="passwordValidated=true"
+                      class="wd-form__input"
+                      :class="{'input-error': !passwordValidated}"
                     />
                   </div>
                   <div class="wd-form__wrp m-b-10">
-                    <a class="btn btn-default btn-login sw-btn-next wd-btn-next" @click="userLogin()">Login</a>
+                    <button type="submit" class="btn btn-default btn-login sw-btn-next wd-btn-next">Login</button>
                   </div>
                 </div>
               </div>
