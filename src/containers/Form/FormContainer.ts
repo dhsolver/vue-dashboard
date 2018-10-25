@@ -60,8 +60,7 @@ export class FormContainer extends Vue {
   message = '';
   uploading: boolean = false;
 
-  @Getter('loginStorage', {}) loginStorage!: any;
-  @Getter('loggedIn', {}) loggedIn!: any;
+  @Getter('isLoggedIn', {}) isLoggedIn!: any;
   @Getter('submittedContactInfo', {}) submittedContactInfo: any;
   @Getter('uploadedFile', {}) uploadedFile: any;
 
@@ -85,27 +84,12 @@ export class FormContainer extends Vue {
     this.getContactInfo();
   }
 
-  // Login
-  userLogin() {
-    this.userNameValidated = this.userName !== '';
-    this.passwordValidated = this.password !== '';
-    if (this.userNameValidated && this.passwordValidated) {
-      console.log('sending request...');
-      const loginInfo = { username: this.userName, password: this.password };
-      this.$store.dispatch(MutationTypes.LOGIN_USER, loginInfo);
-    }
-  }
-
-  userLogout() {
-    this.$store.dispatch(MutationTypes.LOGOUT_USER);
-  }
-
   // COMMON
   getClassNameForTab(tab) {
 
     let class1 = `wd-step ${this.step === tab ? 'active' : ''}`;
     if (tab === 0) {
-      return `${class1} ${this.loggedIn ? 'done ' : ''}`
+      return `${class1} ${this.isLoggedIn ? 'done ' : ''}`
 
     } else if (tab === 1) {
       return `${class1} ${this.submittedContactInfo ? 'done ' : ''}`
@@ -137,7 +121,7 @@ export class FormContainer extends Vue {
 
   setStep(tab) {
     console.log(tab);
-    if (this.loggedIn && tab < 3) {
+    if (this.isLoggedIn && tab < 3) {
       this.step = tab;
     }
   }
@@ -158,7 +142,7 @@ export class FormContainer extends Vue {
   validateStep(tab) {
     switch (tab) {
       case 0:
-        this.formValidated[0] = this.loggedIn;
+        this.formValidated[0] = this.isLoggedIn;
         return this.formValidated[0];
       case 1:
         this.firstNameValidated = this.firstName !== '';
@@ -188,8 +172,8 @@ export class FormContainer extends Vue {
   }
 
   private getContactInfo() {
-    this.$store.dispatch(MutationTypes.GET_CONTACT_INFO, { callback: contact_info => {
-      if (this.loggedIn) {
+    this.$store.dispatch(MutationTypes.GET_CONTACT_INFO_REQUEST, { callback: contact_info => {
+      if (this.isLoggedIn) {
         this.firstName = contact_info.first_name;
         this.lastName = contact_info.last_name;
         this.email = contact_info.email;
@@ -219,12 +203,12 @@ export class FormContainer extends Vue {
       'month': '01',
       'day': '21'
     };
-    this.$store.dispatch(MutationTypes.SUBMIT_CONTACT_INFO, contactInfo);
+    this.$store.dispatch(MutationTypes.SUBMIT_CONTACT_INFO_REQUEST, contactInfo);
   }
 
   private uploadFile(file: File) {
     this.uploading = true;
-    this.$store.dispatch(MutationTypes.UPLOAD_FILE, file);
+    this.$store.dispatch(MutationTypes.UPLOAD_FILE_REQUEST, file);
   }
   success_handler(response) {
     console.log(response, 'slfjlksjdfljsfdlkj');

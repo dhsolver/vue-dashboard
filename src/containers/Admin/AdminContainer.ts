@@ -27,7 +27,7 @@ export class AdminContainer extends Vue {
   }
 
   private getPersonInfo() {
-    this.$store.dispatch(MutationTypes.GET_PERSON_INFO, { payload: {}, callback: res => {
+    this.$store.dispatch(MutationTypes.GET_PERSON_INFO_REQUEST, { payload: {}, callback: res => {
       this.isFetching = false;
       if (res.status === 'success') {
         this.firstName = res.data.first_name;
@@ -59,7 +59,7 @@ export class AdminContainer extends Vue {
         company: this.company
       };
       console.log(personData);
-      // this.$store.dispatch(MutationTypes.UPDATE_PERSON_INFO, { payload: personData, callback: (res) => {
+      // this.$store.dispatch(MutationTypes.UPDATE_PERSON_INFO_REQUEST, { payload: personData, callback: (res) => {
       //   if (res.status === 'ok') {
           
       //   } else {

@@ -76,7 +76,7 @@ declare function getSubjectId();
       this.$data.influencers_limit = influencersLocalLimit;
     }
 
-    this.$store.dispatch(MutationTypes.GET_CORPORA, { payload: {}, callback: res => {
+    this.$store.dispatch(MutationTypes.GET_CORPORA_REQUEST, { payload: {}, callback: res => {
       const corpora = res.data['client_corpora'].concat(res.data['wrench_corpora'], res.data['common_corpora']);
       const dropdownValues = formatOptions(corpora);
 
@@ -99,7 +99,7 @@ declare function getSubjectId();
       }
     }});
 
-    this.$store.dispatch(MutationTypes.GET_CLIENT_FILE_FILTERS, { payload: {}, callback: res => {
+    this.$store.dispatch(MutationTypes.GET_CLIENT_FILE_FILTERS_REQUEST, { payload: {}, callback: res => {
       const filters = res.data;
       const dropdownValues = formatOptions(filters);
 
@@ -159,7 +159,7 @@ export class DashboardContainer extends Vue {
 
 
   getTopLine() {
-    this.$store.dispatch(MutationTypes.GET_TOP_LINE, { payload: {}, callback: (res) => {
+    this.$store.dispatch(MutationTypes.GET_TOP_LINE_REQUEST, { payload: {}, callback: (res) => {
       if (res.status === 'success') {
         this.contacts = res.data.contacts;
         this.companies = res.data.companies;
