@@ -23,13 +23,13 @@ declare function getSubjectId();
        subjectId: getSubjectId(),
        adopt_curve_x: '',
        adopt_curve_y: '',
-       adopt_curve_limit: '',
+       adopt_curve_limit: 'top_1000',
        adopt_curve_x_options: [],
        adopt_curve_y_options: [],
        adopt_curve_limit_options: [],
        influencers_x: '',
        influencers_y: '',
-       influencers_limit: '',
+       influencers_limit: 'top_1000',
        influencers_x_options: [],
        influencers_y_options: [],
        influencers_limit_options: []
@@ -79,39 +79,17 @@ declare function getSubjectId();
     this.$store.dispatch(MutationTypes.GET_CORPORA, { payload: {}, callback: res => {
       const corpora = res.data['client_corpora'].concat(res.data['wrench_corpora'], res.data['common_corpora']);
       const dropdownValues = formatOptions(corpora);
-
       this.$data.adopt_curve_x_options = dropdownValues;
       this.$data.adopt_curve_y_options = dropdownValues;
-      if (this.$data.adopt_curve_x === undefined || this.$data.adopt_curve_x === 'undefined') {
-        this.$data.adopt_curve_x = dropdownValues[0].value;
-      }
-      if (this.$data.adopt_curve_y === undefined || this.$data.adopt_curve_y === 'undefined') {
-        this.$data.adopt_curve_y = dropdownValues[0].value;
-      }
-
       this.$data.influencers_x_options = dropdownValues;
       this.$data.influencers_y_options = dropdownValues;
-      if (this.$data.influencers_x === undefined || this.$data.influencers_x === 'undefined') {
-        this.$data.influencers_x = dropdownValues[0].value;
-      }
-      if (this.$data.influencers_y === undefined || this.$data.influencers_y === 'undefined') {
-        this.$data.influencers_y = dropdownValues[0].value;
-      }
     }});
 
     this.$store.dispatch(MutationTypes.GET_CLIENT_FILE_FILTERS, { payload: {}, callback: res => {
       const filters = res.data;
       const dropdownValues = formatOptions(filters);
-
       this.$data.adopt_curve_limit_options = dropdownValues;
-      if (this.$data.adopt_curve_limit === undefined || this.$data.adopt_curve_limit === 'undefined') {
-        this.$data.adopt_curve_limit = dropdownValues[0].value;
-      }
-
       this.$data.influencers_limit_options = dropdownValues;
-      if (this.$data.influencers_limit === undefined || this.$data.influencers_limit === 'undefined') {
-        this.$data.influencers_limit = dropdownValues[0].value;
-      }
     }});
   }
 })
