@@ -1,5 +1,8 @@
 <!-- begin #content -->
 <div id="content" class="content">
+  <div class="spinner-area" v-if="uploading===true">
+    <i class="fas fa-spinner fa-spin fa-4x"></i>
+  </div>
   <!-- begin wizard-form -->
   <transition name="fade">
     <div class="alert alert-danger" v-if="error !== ''">
@@ -12,7 +15,7 @@
       <!-- begin wizard-content -->
       <div>
         <!-- begin step-2 -->
-        <div v-show="step==2">
+        <div>
           <fieldset>
             <div class="wd-form__load" id="contact_upload_form_wizard">
               <!-- <label>File
@@ -21,7 +24,7 @@
               <div class="wd-form__load--center">
                 <p class="wd-form__load--title">Drop files here or click to upload.</p>
                 <p class="wd-form__load--subtitle">(.csv files only)</p>
-                <p class="wd-form__load--subtitle message">Please use column titles: "Email", "Email2", "Phone", and "Twitter" and "Linkedin" (case sensitive) for best results.</p>
+                <p class="wd-form__load--subtitle message">Please use column titles: "Email", "Email2", "Phone", and "Phone2" and "Twitter" (case sensitive) for best results.</p>
               </div>
               <input type="file" class="wd-form__load-input" accept=".csv" id="file" @change="handleFileUpload($event.target.files)" />
             </div>
@@ -29,13 +32,13 @@
         </div>
         <!-- end step-2 -->
 
-        <div v-show="fileUpLoadValidated" class="wd-form__wrapper success-message">
+        <!-- <div v-show="fileUpLoadValidated" class="wd-form__wrapper success-message">
           <div class="wd-form__header">File was uploaded successfully. It will take several minutes to process. Go to dashboard by clicking 
             <router-link tag="a" to="/dashboard">
               <span>here</span>
             </router-link>.
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- end wizard-content -->
     </div>

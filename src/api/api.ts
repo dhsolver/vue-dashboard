@@ -2,7 +2,7 @@ import axios from 'axios'
 
 declare var localStorage;
 declare function initializeStorage ();
-declare function refreshAWSCredentials(callback): any;
+declare function refreshAWSCredentials(callback?): any;
 
 let baseUrl = 'https://rw3gl2g6ff.execute-api.us-east-1.amazonaws.com/dev';
 let config = {
@@ -43,10 +43,10 @@ $http.interceptors.request.use((config) => {
 });
 
 $http.interceptors.response.use((response) => {
-  refreshAWSCredentials(() => {});
+  setTimeout(refreshAWSCredentials, 0);
   return response;
 }, (error) => {
-  refreshAWSCredentials(() => {});
+  setTimeout(refreshAWSCredentials, 0);
   return Promise.reject(error);
 });
 

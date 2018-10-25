@@ -57,6 +57,8 @@ export class FormContainer extends Vue {
   birthdayValidated = true;
   fileUpLoadValidated = false;
   error = '';
+  message = '';
+  uploading: boolean = false;
 
   @Getter('loginStorage', {}) loginStorage!: any;
   @Getter('loggedIn', {}) loggedIn!: any;
@@ -74,6 +76,7 @@ export class FormContainer extends Vue {
     if (this.uploadedFile) {
       if (this.step === 2) this.step = 3;
       this.fileUpLoadValidated = true;
+      this.uploading = false;
       router.push('form');
     }
   }
@@ -220,22 +223,21 @@ export class FormContainer extends Vue {
   }
 
   private uploadFile(file: File) {
+    this.uploading = true;
     this.$store.dispatch(MutationTypes.UPLOAD_FILE, file);
   }
   success_handler(response) {
     console.log(response, 'slfjlksjdfljsfdlkj');
     this.fileUpLoadValidated = false;
-
   }
   handleFileUpload (fileList) {
     this.error = '';
-    console.log('fileList.length: ' + (fileList.length));
     if (!fileList.length)
       return;
-    console.log('fileList[0].type): ' + (fileList[0].type));
-    console.log('fileList[0].type.indexOf(\'csv\'): ' + (fileList[0].type.indexOf('csv')));
-    console.log('uploading file');
-    
+    if (fileList[0].type.indexOf('csv') === -1) {
+      this.error = 'Only .csv files can be submitted.';
+      return;
+    }    
     const reader = new FileReader();
     reader.onload = e => {
       const csvContent = e.target.result;
