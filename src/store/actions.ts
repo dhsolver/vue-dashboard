@@ -82,6 +82,17 @@ const actions: ActionTree<State, State> = {
         });
     });
   },
+  // GET_CLIENT_NAME
+  [MutationTypes.GET_CLIENT_NAME_REQUEST]: ({ commit }, payload) => {
+    return new Promise((resolve) => {
+      sendPost('/get_client_name', payload)
+        .then((res: any) => {
+          resolve(res.data);
+        }).catch((err: any) => {
+          resolve({ status: 'error', msg: err.message });
+        });
+    });
+  },
   // FORGOT_PASSWORD
   [MutationTypes.FORGOT_PASSWORD_REQUEST]: ({ commit }, payload) => {
     const awsConfig = JSON.parse(localStorage.getItem('awsConfig'));
@@ -232,20 +243,6 @@ const actions: ActionTree<State, State> = {
     }).catch(error => {
       console.log('*** error ***', error);
     });
-  },
-
-
-  [MutationTypes.GET_CLIENT_NAME_REQUEST]: ({ commit }, {payload, callback}) => {
-    sendPost('/get_client_name', payload)
-      .then((res: any) => {
-        callback(res.data);
-      })
-      .catch((error: any) => {
-        callback({
-          status: 'error',
-          msg: 'Failed to fetch client name.',
-        });
-      });
   },
 
 
