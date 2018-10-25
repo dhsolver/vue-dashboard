@@ -9,6 +9,9 @@
       {{ error }}
     </div>
   </transition>
+  <div class="alert alert-success" v-if="message !== ''">
+    {{ message }}
+  </div>
   <form action="/" method="POST" class="form-control-with-bg">
     <!-- begin wizard -->
     <div class="form-wizard">

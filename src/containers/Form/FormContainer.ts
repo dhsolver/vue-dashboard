@@ -23,8 +23,6 @@ library.add(faCheck)
     Datepicker,
     FontAwesomeIcon
   }
-
-
 })
 
 
@@ -72,10 +70,9 @@ export class FormContainer extends Vue {
   }
 
   @Watch('uploadedFile') uploadedFileChanged(value, oldValue) {
+    console.log(this.uploadedFile);
     if (this.uploadedFile) {
-      if (this.step === 2) this.step = 3;
       this.fileUpLoadValidated = true;
-      this.uploading = false;
       router.push('form');
     }
   }
@@ -208,7 +205,15 @@ export class FormContainer extends Vue {
 
   private uploadFile(file: File) {
     this.uploading = true;
-    this.$store.dispatch(MutationTypes.UPLOAD_FILE_REQUEST, file);
+    this.$store.dispatch(MutationTypes.UPLOAD_FILE_REQUEST, { file: file, callback: (res) => {
+      this.uploading = false;
+      if (res.status === 'ok') {
+        this.message = 'Your file was uploaded successfully. Would you like to upload another?';
+      }
+      else {
+        this.error = res.msg;
+      }
+    }});
   }
   success_handler(response) {
     console.log(response, 'slfjlksjdfljsfdlkj');
@@ -216,6 +221,7 @@ export class FormContainer extends Vue {
   }
   handleFileUpload (fileList) {
     this.error = '';
+    this.message = '';
     if (!fileList.length)
       return;
     if (fileList[0].type.indexOf('csv') === -1) {
