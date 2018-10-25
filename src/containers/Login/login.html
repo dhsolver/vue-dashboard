@@ -16,63 +16,63 @@
       <!-- end login-header -->
       <!-- begin login-content -->
       <div class="login-content">
-        <form action="/" method="POST" class="form-control-with-bg" @submit.prevent="userLogin()">
-          <!-- begin wizard -->
-          <div class="form-wizard">
-            <fieldset>
-              <div class="row">
-                <div class="wd-wrap">
-                  <div class="wd-form__wrapper">
-                    <div class="alert alert-danger" v-if="error">
-                      {{ error }}
-                    </div>
-                    <div class="wd-form__wrp">
-                      <input
-                        type="text"
-                        name="username"
-                        placeholder="Username*"
-                        v-model="userName"
-                        @change="userNameValidated=true"
-                        class="wd-form__input"
-                        :class="{'input-error': !userNameValidated}"
-                      />
-                    </div>
-                    <div class="wd-form__wrp">
-                      <input
-                        type="password"
-                        name="password"
-                        placeholder="Password*"
-                        v-model="password"
-                        @change="passwordValidated=true"
-                        class="wd-form__input"
-                        :class="{'input-error': !passwordValidated}"
-                      />
-                    </div>
-                    <div class="wd-form__wrp m-b-10">
-                      <button type="submit" class="btn btn-default btn-login sw-btn-next wd-btn-next">Login</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="wd-wrap">
-                  <div class="wd-form__wrp">
-                    <span class="center-desc">Don't have an account?
-                      <router-link to="/register">
-                        <a><span>Register</span></a>
-                      </router-link>
-                    </span>
-                  </div>
-                  <div class="wd-form__wrp">
-                    <span class="center-desc">
-                      Forgot password? Click
-                      <router-link to="/forgot-password">
-                        <a><span>here</span></a>
-                      </router-link>
-                      to reset.
-                    </span>
-                  </div>
-                </div>
+        <div class="alert alert-danger" v-if="!!error.response">
+          {{ error.response }}
+        </div>
+        <form action="/" @submit.prevent="login">
+          <div class="wd-wrap">
+            <div class="wd-form__wrapper">
+              <div class="wd-form__wrp">
+                <input
+                  type="text"
+                  placeholder="Username*"
+                  v-model="userData.username"
+                  @keydown="error.username = false"
+                  class="wd-form__input"
+                  :class="{'input-error m-b-5': !!error.username}"
+                />
               </div>
-            </fieldset>
+              <p class="invalid-feedback m-b-20 m-l-20" v-if="error.username">
+                {{ error.username }}
+              </p>
+              <div class="wd-form__wrp">
+                <input
+                  type="password"
+                  placeholder="Password*"
+                  v-model="userData.password"
+                  @keydown="error.password = false"
+                  class="wd-form__input"
+                  :class="{'input-error m-b-5': !!error.password}"
+                />
+              </div>
+              <p class="invalid-feedback m-b-20 m-l-20" v-if="error.password">
+                {{ error.password }}
+              </p>
+              <div class="wd-form__wrp m-b-10">
+                <button type="submit" class="btn btn-default btn-login sw-btn-next wd-btn-next" :disabled="isBusy">
+                  Login
+                  <i class="fa fa-spinner fa-spin" v-if="isBusy"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="wd-wrap">
+            <div class="wd-form__wrp">
+              <span class="center-desc">Don't have an account?
+                <router-link to="/register">
+                  <a><span>Register</span></a>
+                </router-link>
+              </span>
+            </div>
+            <div class="wd-form__wrp">
+              <span class="center-desc">
+                Forgot password? Click
+                <router-link to="/forgot-password">
+                  <a><span>here</span></a>
+                </router-link>
+                to reset.
+              </span>
+            </div>
           </div>
         </form>
       </div>
@@ -81,6 +81,7 @@
     <!-- end right-container -->
   </div>
   <!-- end login -->
+  
   <!-- Footer -->
   <mainfooter></mainfooter>
   <!-- End Footer -->

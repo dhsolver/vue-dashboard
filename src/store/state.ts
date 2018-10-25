@@ -1,31 +1,14 @@
-declare var localStorage;
-
-
-
 export class State {
   /* form */
-  public loginStorage: any;
-  public loggedIn: boolean;
-  public loginError: string;
-  public forgotPasswordStatus: string;
-  public forgotPasswordError: string;
-  public confirmPasswordStatus: string;
-  public confirmPasswordError: string;
+  public isLoggedIn: boolean;
   public submittedContactInfo: boolean;
   public uploadedFile: boolean;
 
   constructor() {
-    this.loginStorage = localStorage;
-    const configString = localStorage.getItem('awsConfig');
-    const config = JSON.parse(configString);
-    this.loggedIn = config != null;
+    const awsConfig = JSON.parse(localStorage.getItem('awsConfig'));
+    this.isLoggedIn = awsConfig !== null;
     this.submittedContactInfo = false;
     this.uploadedFile = false;
-    this.loginError = '';
-    this.forgotPasswordStatus = 'INITIALIZED';
-    this.forgotPasswordError = '';
-    this.confirmPasswordStatus = 'INITIALIZED';
-    this.confirmPasswordError = '';
   }
 }
 

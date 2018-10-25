@@ -20,7 +20,7 @@ export class ExportContactsContainer extends Vue {
   error = '';
   
   mounted() {
-    this.$store.dispatch(MutationTypes.EXPORT_CONTACTS, {payload: {}, callback: (res) => {
+    this.$store.dispatch(MutationTypes.EXPORT_CONTACTS_REQUEST, {payload: {}, callback: (res) => {
       if (res.status === 'ok') {
         this.contactColumns = res.data.payload.columns_display.map(label => ({
           label,

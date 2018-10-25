@@ -1,15 +1,11 @@
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator'
+import { Component } from 'vue-property-decorator';
 import { MutationTypes } from '../../store/mutation-types';
-import router from '../../router';
-import store from '../../store';
+import _ from 'lodash';
 
 import { Footbar } from '../../components/Footbar';
 
 import './styles.scss';
-
-declare function registeringWithCode (code);
-declare function registeringRequest (email, pw, fname, lname, company);
 
 @Component({
   template: require('./register.html'),
@@ -18,72 +14,83 @@ declare function registeringRequest (email, pw, fname, lname, company);
   }
 })
 export class RegisterContainer extends Vue {
-  firstname: string = '';
-  firstnameValidated: boolean = true;
-  lastname: string = '';
-  lastnameValidated: boolean = true;
-  email: string = '';
-  emailValidated: boolean = true;
-  company = '';
-  companyValidated: boolean = true;
-  password: string = '';
-  passwordConfirm: string = '';
-  passwordValidated: boolean = true;
-  agree: boolean = false;
-  agreeError: string = '';
-  codeError: string = '';
-
   step: number = 0;
+  userData: any = {};
   code: string = '';
-  codeValidated: boolean = true;
+  error: any = {};
+  isBusy: boolean = false;
 
   termsWindow: any = null;
   dataPolicyWindow: any = null;
   cookieUseWindow: any = null;
 
-  userRegister() {
-    this.firstnameValidated = this.firstname ? true : false;
-    this.lastnameValidated = this.lastname ? true : false;
-    this.emailValidated = this.email ? true : false;
-    this.companyValidated = this.company ? true : false;
-    this.passwordValidated = (this.passwordConfirm === this.password) && (this.password !== '');
-    this.agreeError = this.agree ? '' : 'Please confirm that you agreed to our Terms and Policy';
-    if (this.passwordConfirm && this.password && this.passwordConfirm !== this.password) {
-      this.codeError = 'Passwords do not match';
+  async registerUser() {
+    // Form Validation
+    this.error = {};
+    if (!this.userData.firstName) this.error.firstName = 'Please enter your first name.';
+    if (!this.userData.lastName) this.error.lastName = 'Please enter your last name.';
+    if (!this.userData.email) this.error.email = 'Please enter your email address.';
+    if (!this.userData.company) this.error.company = 'Please enter your company name or ID.';
+    if (!this.userData.password) this.error.password = 'Please enter a password.';
+    if (this.userData.password !== this.userData.confirmPassword) this.error.confirmPassword = 'Passwords do not match.';
+    if (!this.userData.agree) this.error.agree = 'Please confirm that you agreed to our Terms and Policy.';
+    if (!_.isEmpty(this.error)) return;
+    // Check if company name is used
+    this.isBusy = true;
+    const getCompanyNameResponse = await this.$store.dispatch(MutationTypes.GET_COMPANY_NAME_REQUEST, { company_name: this.userData.company });
+    if (getCompanyNameResponse.status === 'error') {
+      this.error.response = getCompanyNameResponse.msg;
+      this.error = { ...this.error };
+      this.isBusy = false;
+      return;
     }
-    if (this.firstnameValidated && this.lastnameValidated && this.emailValidated && this.companyValidated && this.passwordValidated && this.agree) {
-      this.codeError = '';
-      registeringRequest(this.email, this.password, this.firstname, this.lastname, this.company).then(() => {
-        this.step = 1;
-      }).catch(err => {
-        console.log(err);
-        const msgs = err.message.split(':');
-        this.codeError = msgs[msgs.length - 1];
-      });
-    }
-  }
-
-  confirmCode() {
-    registeringWithCode(this.code).then(() => {
-      let accountInfo = {
-        firstName: this.firstname,
-        lastName: this.lastname,
-        email: this.email,
-        company: this.company
-      }
-      localStorage.setItem('accountInfo', JSON.stringify(accountInfo));
-      router.push('login');
-    }).catch(err => {
-      this.codeError = err;
+    // Register user to cognito
+    const registerUserResponse = await this.$store.dispatch(MutationTypes.REGISTER_USER_REQUEST, {
+      email: this.userData.email,
+      password: this.userData.password,
+      firstName: this.userData.firstName,
+      lastName: this.userData.lastName,
+      company: this.userData.company,
     });
+    if (registerUserResponse.status === 'error') {
+      this.error.response = registerUserResponse.msg;
+      this.error = { ...this.error };
+      this.isBusy = false;
+      return;
+    }
+    // Store user info to localStorage for creating account
+    const accountInfo = {
+      email: this.userData.email,
+      firstName: this.userData.firstName,
+      lastName: this.userData.lastName,
+      company: this.userData.company,
+    };
+    localStorage.setItem('accountInfo', JSON.stringify(accountInfo));
+    this.step = 1;
+    this.isBusy = false;
   }
 
-  registeringSuccess() {
-    this.step = 2;
+  async confirmCode() {
+    // Form Validation
+    this.error = {};
+    if (!this.code) this.error.code = 'Please enter your confirmation code.';
+    if (!_.isEmpty(this.error)) return;
+
+    // Confirm user
+    this.isBusy = true;
+    const confirmUserResponse = await this.$store.dispatch(MutationTypes.CONFIRM_USER_REQUEST, { code: this.code });
+    if (confirmUserResponse.status === 'error') {
+      this.error.response = confirmUserResponse.msg;
+      this.error = { ...this.error };
+      this.isBusy = false;
+      return;
+    }
+    this.$router.replace('/login');
+    this.isBusy = false;
   }
 
   changeStep() {
-    this.codeError = '';
+    this.error = {};
     this.step = 1;
   }
 
@@ -113,5 +120,4 @@ export class RegisterContainer extends Vue {
       default:
     }
   }
-
 }

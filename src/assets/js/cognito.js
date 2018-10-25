@@ -65,6 +65,29 @@ function initializeStorage() {
   localStorage.setItem('loginPrefix', loginPrefix);
 }
 
+function clearStorage() {
+  var firstLogin = localStorage.getItem('firstLogin');
+
+  // Keep X,Y values whenever localstorage is cleared.
+  var adopt_curve_x = localStorage.getItem('adopt_curve_x');
+  var adopt_curve_y = localStorage.getItem('adopt_curve_y');
+  var adopt_curve_limit = localStorage.getItem('adopt_curve_limit');
+  var influencers_x = localStorage.getItem('influencers_x');
+  var influencers_y = localStorage.getItem('influencers_y');
+  var influencers_limit = localStorage.getItem('influencers_limit');
+
+  localStorage.clear();
+  if (firstLogin === 'no') localStorage.setItem('firstLogin', 'no');
+  if (adopt_curve_x) localStorage.setItem('adopt_curve_x', adopt_curve_x);
+  if (adopt_curve_y) localStorage.setItem('adopt_curve_y', adopt_curve_y);
+  if (adopt_curve_limit) localStorage.setItem('adopt_curve_y', adopt_curve_limit);
+  if (influencers_x) localStorage.setItem('influencers_x', influencers_x);
+  if (influencers_y) localStorage.setItem('influencers_y', influencers_y);
+  if (influencers_limit) localStorage.setItem('influencers_y', influencers_limit);
+  
+  initializeStorage();
+}
+
 function loginUser(email, pwd) {
   return new Promise(function(resolve, reject) {
     var userPoolId = localStorage.getItem('userPoolId');
