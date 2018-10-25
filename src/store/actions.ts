@@ -235,13 +235,22 @@ const actions: ActionTree<State, State> = {
       });
   },
 
-  [MutationTypes.UPLOAD_FILE_REQUEST]: ({commit}, file) => {
+  [MutationTypes.UPLOAD_FILE_REQUEST]: ({commit}, { file, callback}) => {
     console.log('********* file upload action ********');
     uploadFile(file).then(data => {
       console.log('*** done ***', data);
       commit(MutationTypes.UPLOAD_FILE_REQUEST);
+      callback({
+        status: 'ok',
+        data: data
+      });
+      commit(MutationTypes.UPLOAD_FILE_REQUEST);
     }).catch(error => {
       console.log('*** error ***', error);
+      callback({
+        status: 'error',
+        msg: error
+      });
     });
   },
 
