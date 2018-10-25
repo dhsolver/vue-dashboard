@@ -59,6 +59,7 @@ export class RegisterContainer extends Vue {
       return;
     }
     // Store user info to localStorage for creating account
+    localStorage.removeItem('firstLogin');
     const accountInfo = {
       email: this.userData.email,
       firstName: this.userData.firstName,
