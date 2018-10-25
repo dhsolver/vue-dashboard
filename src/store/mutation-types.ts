@@ -39,4 +39,6 @@ export class MutationTypes {
   public static GET_BILLING_INFO = 'GET_BILLING_INFO';
 
   public static STRIPE_CHECKOUT = 'STRIPE_CHECKOUT';
+
+  public static GET_CLIENT_FILE_FILTERS = 'GET_CLIENT_FILE_FILTERS';
 }
