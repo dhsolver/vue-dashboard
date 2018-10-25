@@ -64,6 +64,6 @@ export class ExportContactsContainer extends Vue {
   }
 
   singlePerson(row) {
-    console.log(row);
+    this.$router.push('/single_entity/571e5b1a-2383-4bce-b6b6-1cecd23943b5');
   }
 }

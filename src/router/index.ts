@@ -77,7 +77,7 @@ const router = new VueRouter({
         {
           component: SinglePersonContainer,
           name: 'single-entity',
-          path: '/single_entity',
+          path: '/single_entity/:id',
           meta: { requiresAuth: true }
 >>>>>>> Single Person Page init
         }
