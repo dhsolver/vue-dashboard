@@ -62,4 +62,8 @@ export class ExportContactsContainer extends Vue {
     const csvExporter = new ExportToCsv(options);
     csvExporter.generateCsv(csvData);
   }
+
+  singlePerson(row) {
+    console.log(row);
+  }
 }

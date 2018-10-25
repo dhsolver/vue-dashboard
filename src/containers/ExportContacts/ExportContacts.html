@@ -15,7 +15,7 @@
     <!-- begin panel-body -->
     <div class="panel-body" v-else>
       <p class="alert alert-danger" v-if="error">{{ error }}</p>
-      <data-table :columns="contactColumns" :data="contactData" paginate filterable v-else></data-table>
+      <data-table :columns="contactColumns" :data="contactData" paginate filterable @onSelectRow="singlePerson" v-else></data-table>
     </div>
   </div>
 </div>
