@@ -6,10 +6,13 @@
   border: 1px solid #D9E0E7;
 }
 
-.buttons-copy, .buttons-excel, .buttons-pdf, .buttons-print {
-  display: none !important;
-}
-
-.buttons-csv {
-  border: 1px solid #c5ced4 !important;
+.panel-heading {
+  display: flex;
+  align-items: center;
+  .panel-title {
+    flex: 1;
+  }
+  .panel-heading-btns {
+    float: none;
+  }
 }
