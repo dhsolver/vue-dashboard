@@ -8,8 +8,8 @@ import { MutationTypes } from '../../store/mutation-types';
 })
 export class Navbar extends Vue {
   inverted: boolean = true;
-  username = '';
-  clientName = '';
+  userName = '';
+  companyName = '';
   links: Link[] = [
     new Link('Home', '/'),
     new Link('Counter', '/counter'),
@@ -17,8 +17,9 @@ export class Navbar extends Vue {
   ];
 
   mounted() {
-    this.username = localStorage.getItem('email');
-    this.clientName = localStorage.getItem('clientName');
+    const personInfo = JSON.parse(localStorage.getItem('personInfo'));
+    this.userName = `${personInfo.first_name} ${personInfo.last_name}`;
+    this.companyName = personInfo.company_name;
   }
 
   logout() {

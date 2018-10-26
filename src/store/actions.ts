@@ -165,31 +165,17 @@ const actions: ActionTree<State, State> = {
         }
       })
   },
-
-  [MutationTypes.GET_PERSON_INFO_REQUEST]: ({ commit }, {payload, callback}) => {
+  // GET_PERSON_INFO
+  [MutationTypes.GET_PERSON_INFO_REQUEST]: ({ commit }, payload) => {
     // contactInfo = {"first_name": "Dave", "last_name": "Smith", "company_name": "Wrench.AI Test sssss 1", "phone_number": "888-555-1212", "email": "kevin@wrench.ai", "street_1": "555 Main St.", "street_2": "Apt 2B", "city": "Los Angeles", "state": "CA", "zip": "91203", "year": "1970", "month": "01", "day": "21"};
-    sendPost('/get_person_info', payload)
-      .then((res: any) => {
-        if (callback) {
-          callback({
-            status: 'success',
-            data: res.data.payload,
-          });
-        }
-      })
-      .catch((error: any) => {
-        if (error.response && error.response.data) {
-          callback({
-            status: 'error',
-            msg: 'Failed to fetch personal data',
-          });
-        } else {
-          callback({
-            status: 'error',
-            msg: 'Failed to fetch personal data',
-          });
-        }
-      })
+    return new Promise((resolve) => {
+      sendPost('/get_person_info', payload)
+        .then((res: any) => {
+          resolve({ status: 'ok', data: res.data.payload });
+        }).catch((error: any) => {
+          resolve({ status: 'error', msg: error.message });
+        });
+    });
   },
 
 

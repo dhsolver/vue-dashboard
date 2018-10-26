@@ -22,29 +22,28 @@ export class AdminContainer extends Vue {
   lastNameValidated: boolean = true;
 
   mounted() {
-    this.isFetching = true;
     this.getPersonInfo();
   }
 
-  private getPersonInfo() {
-    this.$store.dispatch(MutationTypes.GET_PERSON_INFO_REQUEST, { payload: {}, callback: res => {
+  async getPersonInfo() {
+    this.isFetching = true;
+    const getPersonInfoResponse = await this.$store.dispatch(MutationTypes.GET_PERSON_INFO_REQUEST, {});
+    if (getPersonInfoResponse.status === 'error') {
+      this.errorMsg = getPersonInfoResponse.msg;
       this.isFetching = false;
-      if (res.status === 'success') {
-        this.firstName = res.data.first_name;
-        this.lastName = res.data.last_name;
-        this.company = res.data.company_name;
-        this.clientId = res.data.client_id;
-        this.phone = res.data.phone;
-        this.email = res.data.email;
-      }
-      else {
-        this.errorMsg = res.msg;
-      }
-
       setTimeout(() => {
         this.errorMsg = '';
       }, 2000);
-    }});
+      return;
+    }
+    const personInfo = getPersonInfoResponse.data;
+    this.firstName = personInfo.first_name;
+    this.lastName = personInfo.last_name;
+    this.company = personInfo.company_name;
+    this.clientId = personInfo.client_id;
+    this.phone = personInfo.phone;
+    this.email = personInfo.email;
+    this.isFetching = false;
   }
 
   updateUserInfo() {
