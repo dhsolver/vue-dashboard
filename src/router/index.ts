@@ -13,6 +13,7 @@ import { CreateCampaignContainer } from '../containers/CreateCampaign';
 import { BillingContainer } from '../containers/Billing';
 import { ExportContactsContainer } from '../containers/ExportContacts';
 import { CampaignRecommendationContainer } from '../containers/CampaignRecommendation';
+import { SinglePersonContainer } from '../containers/SinglePerson'
 
 
 // register the plugin
@@ -66,7 +67,13 @@ const router = new VueRouter({
           component: CampaignRecommendationContainer,
           name: 'campaign_recommendation',
           path: '/campaign_recommendation',
-          meta: { requireAuth: true }
+          meta: { requiresAuth: true }
+        },
+        {
+          component: SinglePersonContainer,
+          name: 'single-entity',
+          path: '/single_entity/:id',
+          meta: { requiresAuth: true }
         }
       ]
     },

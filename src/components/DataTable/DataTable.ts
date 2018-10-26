@@ -102,6 +102,6 @@ export class DataTable extends Vue {
     return 'Showing ' + startEntry + ' to ' + endEntry + ' of ' + totalEntry + ' entries';
   }
   onSelectRow(row) {
-    this.$parent.$emit('onSelectRow', row)
+    this.$emit('onSelectRow', row)
   }
 }
