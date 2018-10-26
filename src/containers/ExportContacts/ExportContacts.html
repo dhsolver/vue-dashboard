@@ -9,10 +9,13 @@
       <h4 class="panel-title">Export Contacts</h4>
     </div>
     <!-- end panel-heading -->
+
+    <loading-indicator v-if="isBusy"></loading-indicator>
+
     <!-- begin panel-body -->
-    <div class="panel-body">
+    <div class="panel-body" v-else>
       <p class="alert alert-danger" v-if="error">{{ error }}</p>
-      <data-table :columns="contactColumns" :data="contactData" paginate filterable v-if="contactColumns.length > 0"></data-table>
+      <data-table :columns="contactColumns" :data="contactData" paginate filterable v-else></data-table>
     </div>
   </div>
 </div>
