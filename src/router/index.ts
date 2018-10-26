@@ -67,7 +67,7 @@ const router = new VueRouter({
           component: CampaignRecommendationContainer,
           name: 'campaign_recommendation',
           path: '/campaign_recommendation',
-          meta: { requireAuth: true }
+          meta: { requiresAuth: true }
         },
         {
           component: SinglePersonContainer,
