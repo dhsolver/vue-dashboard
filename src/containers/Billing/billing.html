@@ -3,8 +3,11 @@
   <!-- begin page-header -->
   <h1 class="page-header hidden-print">Invoice</h1>
   <!-- end page-header -->
+
+  <loading-indicator v-if="isBusy"></loading-indicator>
+
   <!-- begin invoice -->
-  <div class="invoice">
+  <div class="invoice" v-else>
     <!-- begin invoice-company -->
     <div class="invoice-company text-inverse f-w-600 m-b-30">
       <span class="pull-right hidden-print">

@@ -279,60 +279,38 @@ const actions: ActionTree<State, State> = {
         });
       });
   },
-
-  [MutationTypes.EXPORT_CONTACTS_REQUEST]: ({ commit }, { payload, callback }) => {
-    sendPost('/export_contacts', payload)
-      .then((res: any) => {
-        callback({
-          status: 'ok',
-          data: res.data
+  // EXPORT_CONTACTS
+  [MutationTypes.EXPORT_CONTACTS_REQUEST]: ({ commit }, payload) => {
+    return new Promise((resolve) => {
+      sendPost('/export_contacts', payload)
+        .then((res: any) => {
+          resolve(res.data);
+        }).catch((error: any) => {
+          resolve({ status: 'error', msg: error.message });
         });
-      })
-      .catch((error: any) => {
-        callback({
-          status: 'error',
-          msg: 'Failed to get contacts'
-        });
-      });
+    });
   },
-
-  [MutationTypes.GET_BILLING_INFO_REQUEST]: ({ commit }, { payload, callback }) => {
-    sendPost('/billing', payload)
-      .then((res: any) => {
-        if (res.data.status === 'ok') {
-          callback({
-            status: 'ok',
-            data: res.data
-          });
-        } else {
-          callback({
-            status: 'error',
-            msg: 'Failed to get billing information.'
-          });
-        }
-      })
-      .catch((error: any) => {
-        callback({
-          status: 'error',
-          msg: 'Failed to get billing information.'
+  // GET_BILLING_INFO
+  [MutationTypes.GET_BILLING_INFO_REQUEST]: ({ commit }, payload) => {
+    return new Promise((resolve) => {
+      sendPost('/billing', payload)
+        .then((res: any) => {
+          resolve(res.data);
+        }).catch((error: any) => {
+          resolve({ status: 'error', msg: error.message });
         });
-      });
+    });
   },
-
-  [MutationTypes.STRIPE_CHECKOUT_REQUEST]: ({ commit }, { payload, callback }) => {
-    sendPost('/stripe', payload)
-      .then((res: any) => {
-        callback({
-          status: 'ok',
-          data: res.data
+  // STRIPE_CHECKOUT
+  [MutationTypes.STRIPE_CHECKOUT_REQUEST]: ({ commit }, payload) => {
+    return new Promise((resolve) => {
+      sendPost('/stripe', payload)
+        .then((res: any) => {
+          resolve(res.data);
+        }).catch((error: any) => {
+          resolve({ status: 'error', msg: error.message });
         });
-      })
-      .catch((error: any) => {
-        callback({
-          status: 'error',
-          msg: 'Failed to checkout.'
-        });
-      });
+    });
   },
 
   [MutationTypes.UPDATE_PERSON_INFO_REQUEST]: ({ commit }, { payload, callback}) => {
