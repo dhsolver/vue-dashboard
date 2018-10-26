@@ -63,7 +63,8 @@ export class ExportContactsContainer extends Vue {
     csvExporter.generateCsv(csvData);
   }
 
-  singlePerson(row) {
+  onSelectRow(row) {
+    // go to single person page when click row.
     this.$router.push('/single_entity/571e5b1a-2383-4bce-b6b6-1cecd23943b5');
   }
 }
