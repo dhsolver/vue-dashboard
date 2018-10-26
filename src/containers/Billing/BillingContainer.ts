@@ -12,20 +12,34 @@ export class BillingContainer extends Vue {
   mode: string = process.env.ENV;
   billingInfo: any = {};
   error: string = '';
+  isBusy: boolean = false;
 
-  mounted() {
-    this.$store.dispatch(MutationTypes.GET_BILLING_INFO_REQUEST, {
-      payload: {},
-      callback: (res) => {
-        if (res.status === 'ok') {
-          this.billingInfo = res.data.payload;
-          this.error = '';
-        } else {
-          this.error = res.error;
-          this.billingInfo = {}
-        }
-      }
+  async mounted() {
+    this.getBillingInfo();
+  }
+
+  async getBillingInfo() {
+    this.isBusy = true;
+    const getBillingInfoResponse = await this.$store.dispatch(MutationTypes.GET_BILLING_INFO_REQUEST, {});
+    if (getBillingInfoResponse.status === 'error') {
+      this.error = getBillingInfoResponse.msg;
+      this.isBusy = false;
+      return;
+    }
+    this.billingInfo = getBillingInfoResponse.payload;
+    this.isBusy = false;
+  }
+
+  async stripeCheckout(token) {
+    this.error = '';
+    const stripeCheckoutResponse = await this.$store.dispatch(MutationTypes.STRIPE_CHECKOUT_REQUEST, {
+      invoice_number: this.billingInfo.invoice_number,
+      token
     });
+    if (stripeCheckoutResponse.status === 'error') {
+      this.error = stripeCheckoutResponse.msg;
+      return;
+    }
   }
 
   payNow() {
@@ -33,21 +47,7 @@ export class BillingContainer extends Vue {
       name: `Wrench Monthly Billing!`,
       currency: 'USD',
       amount: this.billingInfo.total_numeric,
-      token: (token) => {
-        this.$store.dispatch(MutationTypes.STRIPE_CHECKOUT_REQUEST, {
-          payload: {
-            invoice_number: this.billingInfo.invoice_number,
-            token,
-          },
-          callback: (res) => {
-            if (res.status === 'ok') {
-              this.error = '';
-            } else {
-              this.error = res.error;
-            }
-          }
-        });
-      }
+      token: this.stripeCheckout
     })
   }
 }
