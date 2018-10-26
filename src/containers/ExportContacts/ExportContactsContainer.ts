@@ -2,40 +2,48 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { ExportToCsv } from 'export-to-csv';
 import { MutationTypes } from '../../store/mutation-types';
-import { DataTable } from '../../components/DataTable'
+import { DataTable } from '../../components/DataTable';
+import { LoadingIndicator } from '../../components/LoadingIndicator';
 
 import './style.scss';
 
 @Component({
   template: require('./ExportContacts.html'),
   components: {
-    DataTable
+    DataTable,
+    LoadingIndicator,
   }
 })
-
 export class ExportContactsContainer extends Vue {
 
   contactColumns = [];
   contactData = [];
-  error = '';
+  error: string = '';
+  isBusy: boolean = false;
   
   mounted() {
-    this.$store.dispatch(MutationTypes.EXPORT_CONTACTS_REQUEST, {payload: {}, callback: (res) => {
-      if (res.status === 'ok') {
-        this.contactColumns = res.data.payload.columns_display.map(label => ({
-          label,
-          filterable: true,
-          align: 'center'
-        }));
-        res.data.payload.columns_keys.forEach((key, index) => {
-          this.contactColumns[index]['field'] = key;
-        });
-        this.contactData = res.data.payload.data;
-        this.error = '';
-      } else {
-        this.error = res.msg;
-      }
-    }});
+    this.getContacts();
+  }
+
+  async getContacts() {
+    this.isBusy = true;
+    const exportContactsResponse = await this.$store.dispatch(MutationTypes.EXPORT_CONTACTS_REQUEST, {});
+    if (exportContactsResponse.status === 'error') {
+      this.error = exportContactsResponse.msg;
+      this.isBusy = false;
+      return;
+    }
+    this.contactColumns = exportContactsResponse.payload.columns_display.map(label => ({
+      label,
+      filterable: true,
+      align: 'center'
+    }));
+    exportContactsResponse.payload.columns_keys.forEach((key, index) => {
+      this.contactColumns[index]['field'] = key;
+    });
+    this.contactData = exportContactsResponse.payload.data;
+    this.error = '';
+    this.isBusy = false;
   }
 
   onDownloadAsCSV() {

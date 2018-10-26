@@ -293,21 +293,16 @@ const actions: ActionTree<State, State> = {
         });
       });
   },
-
-  [MutationTypes.EXPORT_CONTACTS_REQUEST]: ({ commit }, { payload, callback }) => {
-    sendPost('/export_contacts', payload)
-      .then((res: any) => {
-        callback({
-          status: 'ok',
-          data: res.data
+  // EXPORT_CONTACTS
+  [MutationTypes.EXPORT_CONTACTS_REQUEST]: ({ commit }, payload) => {
+    return new Promise((resolve) => {
+      sendPost('/export_contacts', payload)
+        .then((res: any) => {
+          resolve(res.data);
+        }).catch((error: any) => {
+          resolve({ status: 'error', msg: error.message });
         });
-      })
-      .catch((error: any) => {
-        callback({
-          status: 'error',
-          msg: 'Failed to get contacts'
-        });
-      });
+    });
   },
   // GET_BILLING_INFO
   [MutationTypes.GET_BILLING_INFO_REQUEST]: ({ commit }, payload) => {
