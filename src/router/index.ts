@@ -12,11 +12,8 @@ import { ForgotPasswordContainer } from '../containers/ForgotPassword';
 import { CreateCampaignContainer } from '../containers/CreateCampaign';
 import { BillingContainer } from '../containers/Billing';
 import { ExportContactsContainer } from '../containers/ExportContacts';
-<<<<<<< HEAD
 import { CampaignRecommendationContainer } from '../containers/CampaignRecommendation';
-=======
 import { SinglePersonContainer } from '../containers/SinglePerson'
->>>>>>> Single Person Page init
 
 
 // register the plugin
@@ -66,20 +63,17 @@ const router = new VueRouter({
           name: 'export',
           path: '/export',
           meta: { requiresAuth: true }
-<<<<<<< HEAD
         }, {
           component: CampaignRecommendationContainer,
           name: 'campaign_recommendation',
           path: '/campaign_recommendation',
           meta: { requireAuth: true }
-=======
         },
         {
           component: SinglePersonContainer,
           name: 'single-entity',
           path: '/single_entity/:id',
           meta: { requiresAuth: true }
->>>>>>> Single Person Page init
         }
       ]
     },
