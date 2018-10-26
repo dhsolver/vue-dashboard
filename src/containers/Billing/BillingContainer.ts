@@ -1,13 +1,16 @@
 import Vue from 'vue';
 import {MutationTypes} from '../../store/mutation-types';
 import { Component, Prop, Watch } from 'vue-property-decorator'
+import { LoadingIndicator } from '../../components/LoadingIndicator';
 
 import './styles.scss';
 
 @Component({
   template: require('./billing.html'),
+  components: {
+    LoadingIndicator,
+  }
 })
-
 export class BillingContainer extends Vue {
   mode: string = process.env.ENV;
   billingInfo: any = {};
