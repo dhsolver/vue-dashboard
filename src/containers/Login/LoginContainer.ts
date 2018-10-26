@@ -47,11 +47,11 @@ export class LoginContainer extends Vue {
       if (accountInfo) {
         this.createAccount();
       } else {
-        this.getClientName('/create-campaign');
+        this.getPersonInfo('/create-campaign');
       }
       localStorage.setItem('firstLogin', 'no');
     } else {
-      this.getClientName('/dashboard');
+      this.getPersonInfo('/dashboard');
     }
   }
 
@@ -65,19 +65,19 @@ export class LoginContainer extends Vue {
       this.isBusy = false;
       return;
     }
-    this.getClientName('/create-campaign');
+    this.getPersonInfo('/create-campaign');
   }
 
-  async getClientName(routeName) {
-    const getClientNameResponse = await this.$store.dispatch(MutationTypes.GET_CLIENT_NAME_REQUEST, {});
-    if (getClientNameResponse.status === 'error') {
-      this.error.response = getClientNameResponse.msg;
+  async getPersonInfo(routeName) {
+    const getPersonInfoResponse = await this.$store.dispatch(MutationTypes.GET_PERSON_INFO_REQUEST, {});
+    if (getPersonInfoResponse.status === 'error') {
+      this.error.response = getPersonInfoResponse.msg;
       this.error = { ...this.error };
       clearStorage();
       this.isBusy = false;
       return;
     }
-    localStorage.setItem('clientName', getClientNameResponse.msg);
+    localStorage.setItem('personInfo', JSON.stringify(getPersonInfoResponse.data));
     this.$router.replace(routeName);
     this.isBusy = false;
   }
