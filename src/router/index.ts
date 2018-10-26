@@ -12,6 +12,7 @@ import { ForgotPasswordContainer } from '../containers/ForgotPassword';
 import { CreateCampaignContainer } from '../containers/CreateCampaign';
 import { BillingContainer } from '../containers/Billing';
 import { ExportContactsContainer } from '../containers/ExportContacts';
+import { CampaignRecommendationContainer } from '../containers/CampaignRecommendation';
 
 
 // register the plugin
@@ -61,6 +62,11 @@ const router = new VueRouter({
           name: 'export',
           path: '/export',
           meta: { requiresAuth: true }
+        }, {
+          component: CampaignRecommendationContainer,
+          name: 'campaign_recommendation',
+          path: '/campaign_recommendation',
+          meta: { requireAuth: true }
         }
       ]
     },
