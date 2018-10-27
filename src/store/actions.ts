@@ -290,6 +290,17 @@ const actions: ActionTree<State, State> = {
         });
     });
   },
+  // EXPORT_CONTACTS_CAMPAIGN_RECOMMENDATION
+  [MutationTypes.EXPORT_CONTACTS_CAMPAIGN_RECOMMENDATION_REQUEST]: ({ commit }, payload) => {
+    return new Promise((resolve) => {
+      sendPost('/export_contacts_campaign_recomendation', payload)
+        .then((res: any) => {
+          resolve(res.data);
+        }).catch((error: any) => {
+          resolve({ status: 'error', msg: error.message });
+        });
+    });
+  },
   // GET_BILLING_INFO
   [MutationTypes.GET_BILLING_INFO_REQUEST]: ({ commit }, payload) => {
     return new Promise((resolve) => {

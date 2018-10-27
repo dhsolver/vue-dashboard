@@ -74,8 +74,8 @@ export class CampaignRecommendationContainer extends Vue {
         y: this.$data.adopt_curve_y,
         filter: this.$data.adopt_curve_limit
       }
-      /* --- API is not ready ---
-      const exportContactsResponse = await this.$store.dispatch(MutationTypes.EXPORT_CONTACTS_REQUEST, contactParams);
+      
+      const exportContactsResponse = await this.$store.dispatch(MutationTypes.EXPORT_CONTACTS_CAMPAIGN_RECOMMENDATION_REQUEST, contactParams);
       if (exportContactsResponse.status === 'error') {
         this.error = exportContactsResponse.msg;
         this.isBusy = false;
@@ -90,7 +90,7 @@ export class CampaignRecommendationContainer extends Vue {
         this.contactColumns[index]['field'] = key;
       });
       this.contactData = exportContactsResponse.payload.data;
-      */
+      
       this.error = '';
       this.isBusy = false;
     }
