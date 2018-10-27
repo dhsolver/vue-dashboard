@@ -41,7 +41,7 @@
             style="width: 100%; height: 500px;"
             frameborder="0"
             scrolling="no"
-            :src="'https://go.wrench.ai/chart=adoption_curve&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"
+            :src="'https://go.wrench.ai/chart=adop_curve_prelaunch_camp_feed&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"
           ></iframe>
         </div>
       </div>
@@ -65,7 +65,7 @@
             style="width: 100%; height: 500px;"
             frameborder="0"
             scrolling="no"
-            :src="'https://go.wrench.ai/chart=channel_strategy&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"
+            :src="'https://go.wrench.ai/chart=channel_strategy_prelaunch_camp_feed&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"
           ></iframe>
         </div>
       </div>
@@ -87,7 +87,7 @@
             style="width: 100%; height: 500px;"
             frameborder="0"
             scrolling="no"
-            :src="'https://go.wrench.ai/chart=persuasion&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"></iframe>
+            :src="'https://go.wrench.ai/chart=persuasion_prelaunch_camp_feed&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"></iframe>
         </div>
       </div>
     </div>
@@ -108,13 +108,13 @@
           </div>
         </div>
         <!-- end panel-heading -->
-      
+
         <loading-indicator v-if="isBusy"></loading-indicator>
-      
+
         <!-- begin panel-body -->
         <div class="panel-body" v-else>
           <p class="alert alert-danger" v-if="error">{{ error }}</p>
-      
+
           <!-- @onSelectRow: definition of row click event -->
           <data-table :columns="contactColumns" :data="contactData" paginate filterable v-else></data-table>
         </div>
