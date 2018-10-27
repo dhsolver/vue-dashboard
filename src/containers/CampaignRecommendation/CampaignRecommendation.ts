@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator'
+import { ExportToCsv } from 'export-to-csv';
 import { MutationTypes } from '../../store/mutation-types';
+import { DataTable } from '../../components/DataTable';
+import { LoadingIndicator } from '../../components/LoadingIndicator';
 
 import './styles.scss';
 
@@ -9,6 +12,8 @@ declare function getSubjectId();
 @Component({
   template: require('./CampaignRecommendation.html'),
   components: {
+    DataTable,
+    LoadingIndicator,
   },
   data: function() {
     return {
@@ -18,7 +23,50 @@ declare function getSubjectId();
 })
 
 export class CampaignRecommendationContainer extends Vue {
+  contactColumns = [];
+  contactData = [];
+  error: string = '';
+  isBusy: boolean = false;
+
   mounted() {
-    // console.log(this.subjectId);
+    this.getContacts();
+  }
+
+  async getContacts() {
+    this.isBusy = true;
+    /* const exportContactsResponse = await this.$store.dispatch(MutationTypes.EXPORT_CONTACTS_REQUEST, { campaign_recommendation: "prelaunch_camp_feedback" });
+    if (exportContactsResponse.status === 'error') {
+      this.error = exportContactsResponse.msg;
+      this.isBusy = false;
+      return;
+    }
+    this.contactColumns = exportContactsResponse.payload.columns_display.map(label => ({
+      label,
+      filterable: true,
+      align: 'center'
+    }));
+    exportContactsResponse.payload.columns_keys.forEach((key, index) => {
+      this.contactColumns[index]['field'] = key;
+    });
+    this.contactData = exportContactsResponse.payload.data;*/
+    this.error = '';
+    this.isBusy = false;
+  }
+
+  onDownloadAsCSV() {
+    if (this.contactData.length === 0) return;
+    const options = {
+      filename: 'Contacts',
+      showLabels: true,
+      headers: this.contactColumns.map(column => column.label),
+    };
+    const fields = this.contactColumns.map(column => column.field);
+    const csvData = this.contactData.map((contact) => {
+      const row = [];
+      fields.forEach(field => row.push(contact[field] || ''));
+      return row;
+    });
+    const csvExporter = new ExportToCsv(options);
+    csvExporter.generateCsv(csvData);
   }
 }
