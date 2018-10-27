@@ -28,7 +28,7 @@ webpackConfig.plugins = [...webpackConfig.plugins,
   new HtmlWebpackPlugin({
     inject: true,
     template: helpers.root('/src/index.html'),
-    favicon: helpers.root('/static/favicon.ico')
+    favicon: helpers.root('/src/assets/images/favicon.png') // favicon for dev
   }),
   new DefinePlugin({
     'process.env': env
