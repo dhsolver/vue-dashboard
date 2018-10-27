@@ -9,14 +9,40 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-lg-12 col-md-12 text-center filter-area">
+      <select v-model="adopt_curve_y" class="filter-dropdowns" @change="getContacts">
+        <option disabled value="">Please select one</option>
+        <option v-for="option in adopt_curve_y_options" :value="option.value">
+          {{ option.text }}
+        </option>
+      </select>
+      <select v-model="adopt_curve_x" class="filter-dropdowns" @change="getContacts">
+        <option disabled value="">Please select one</option>
+        <option v-for="option in adopt_curve_x_options" :value="option.value">
+          {{ option.text }}
+        </option>
+      </select>
+      <select v-model="adopt_curve_limit" class="filter-dropdowns" @change="getContacts">
+        <option disabled value="">Please select one</option>
+        <option v-for="option in adopt_curve_limit_options" :value="option.value">
+          {{ option.text }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-xl-8 chart-doc-area">
       <div class="panel bg-white">
         <div class="panel-heading panel-heading--light">
-          <h4 class="panel-title">Innovation Adoption Segments</h4>
+          <h4 class="panel-title">Category and Product Sophistication</h4>
         </div>
         <div class="panel-body panel-body--chart">
-          <!-- <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=adoption_curve&s=' + subjectId + '&x=dan_match&y=gabi_match'"></iframe> -->
-          <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=adoption_curve&s=d1237d6f-974f-4009-a23c-413dbddeeade&x=dan_match&y=gabi_match'"></iframe>
+          <iframe
+            style="width: 100%; height: 500px;"
+            frameborder="0"
+            scrolling="no"
+            :src="'https://go.wrench.ai/chart=adoption_curve&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"
+          ></iframe>
         </div>
       </div>
     </div>
@@ -35,8 +61,12 @@
           <h4 class="panel-title">OUTREACH PRIORITIES</h4>
         </div>
         <div class="panel-body panel-body--chart">
-          <!-- <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=channel_strategy&s=' + subjectId"></iframe> -->
-          <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=channel_strategy&s=d1237d6f-974f-4009-a23c-413dbddeeade'"></iframe>
+          <iframe
+            style="width: 100%; height: 500px;"
+            frameborder="0"
+            scrolling="no"
+            :src="'https://go.wrench.ai/chart=channel_strategy&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"
+          ></iframe>
         </div>
       </div>
     </div>
@@ -53,20 +83,40 @@
           <h4 class="panel-title">MESSAGING STRATEGY</h4>
         </div>
         <div class="panel-body panel-body--chart">
-          <!-- <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=persuasion&s=' + subjectId"></iframe> -->
-          <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" v-bind:src="'https://go.wrench.ai/chart=persuasion&s=d1237d6f-974f-4009-a23c-413dbddeeade'"></iframe>
+          <iframe
+            style="width: 100%; height: 500px;"
+            frameborder="0"
+            scrolling="no"
+            :src="'https://go.wrench.ai/chart=persuasion&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"></iframe>
         </div>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-xl-6 chart-doc-area">
-      <div class="panel bg-white">
-        <div class="panel-heading panel-heading--light">
-          <h4 class="panel-title"></h4>
+    <div class="col-xl-6">
+      <div class="panel panel-inverse no-padding">
+        <!-- begin panel-heading -->
+        <div class="panel-heading">
+          <h4 class="panel-title">Export Contacts</h4>
+          <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-md btn-icon btn-circle btn-default" @click="onDownloadAsCSV">
+              <i class="fa fa-download"></i>
+            </a>
+            <a href="javascript:;" class="btn btn-md btn-icon btn-circle btn-default" data-click="panel-expand">
+              <i class="fa fa-expand"></i>
+            </a>
+          </div>
         </div>
-        <div class="panel-body panel-body--chart">
-          Export table here?
+        <!-- end panel-heading -->
+      
+        <loading-indicator v-if="isBusy"></loading-indicator>
+      
+        <!-- begin panel-body -->
+        <div class="panel-body" v-else>
+          <p class="alert alert-danger" v-if="error">{{ error }}</p>
+      
+          <!-- @onSelectRow: definition of row click event -->
+          <data-table :columns="contactColumns" :data="contactData" paginate filterable v-else></data-table>
         </div>
       </div>
     </div>
