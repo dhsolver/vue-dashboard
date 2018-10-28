@@ -301,6 +301,19 @@ const actions: ActionTree<State, State> = {
         });
     });
   },
+
+  // CAMPAIGN_RECOMMENDATION
+  [MutationTypes.GET_CAMPAIGN_RECOMMENDATION]: ({ commit }, payload) => {
+    return new Promise((resolve) => {
+      sendPost('/campaign_recommendation', payload)
+        .then((res: any) => {
+          resolve(res.data);
+        }).catch((error: any) => {
+          resolve({ status: 'error', msg: error.message });
+        });
+    });
+  },
+
   // GET_BILLING_INFO
   [MutationTypes.GET_BILLING_INFO_REQUEST]: ({ commit }, payload) => {
     return new Promise((resolve) => {
