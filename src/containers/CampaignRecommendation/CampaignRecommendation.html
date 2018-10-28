@@ -3,26 +3,27 @@
     <div class="col-lg-12 col-md-12 chart-doc-area-title">
       <div class="panel bg-white">
         <div class="panel-body panel-body--chart">
-          <iframe style="width: 100%;" scrolling="no" frameborder="0" src="https://docs.google.com/document/d/e/2PACX-1vRxZywpP8x7BbU1sM30aHT-uQ-tbxhun7Abj5OBp8tRgjIPj1HRkNTzc_wNVmfrv36mBqepDRSIsohr/pub?embedded=true"></iframe>
+          <loading-indicator v-if="campaignRecommendationLoaded"></loading-indicator>
+          <iframe style="width: 100%;" frameborder="0" :src="titleDocURL" v-else></iframe>
         </div>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-lg-12 col-md-12 text-center filter-area">
-      <select v-model="adopt_curve_y" class="filter-dropdowns" @change="getContacts">
+      <select v-model="adopt_curve_y" class="filter-dropdowns" @change="onDropdownChange">
         <option disabled value="">Please select one</option>
         <option v-for="option in adopt_curve_y_options" :value="option.value">
           {{ option.text }}
         </option>
       </select>
-      <select v-model="adopt_curve_x" class="filter-dropdowns" @change="getContacts">
+      <select v-model="adopt_curve_x" class="filter-dropdowns" @change="onDropdownChange">
         <option disabled value="">Please select one</option>
         <option v-for="option in adopt_curve_x_options" :value="option.value">
           {{ option.text }}
         </option>
       </select>
-      <select v-model="adopt_curve_limit" class="filter-dropdowns" @change="getContacts">
+      <select v-model="adopt_curve_limit" class="filter-dropdowns" @change="onDropdownChange">
         <option disabled value="">Please select one</option>
         <option v-for="option in adopt_curve_limit_options" :value="option.value">
           {{ option.text }}
@@ -37,19 +38,15 @@
           <h4 class="panel-title">Category and Product Sophistication</h4>
         </div>
         <div class="panel-body panel-body--chart">
-          <iframe
-            style="width: 100%; height: 500px;"
-            frameborder="0"
-            scrolling="no"
-            :src="'https://go.wrench.ai/chart=adop_curve_prelaunch_camp_feed&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"
-          ></iframe>
+          <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" :src="categoryProductChartURL"></iframe>
         </div>
       </div>
     </div>
     <div class="col-xl-4 chart-doc-area">
       <div class="panel bg-white">
         <div class="panel-body panel-body--chart">
-          <iframe style="width: 100%; height: 500px;" frameborder="0" src="https://docs.google.com/document/d/e/2PACX-1vThqxJUQI8rK4B6twiRo5a0j3wptSUJ6xx4_0C6XuTuF0rlt2L-uqV8YtNlZPaKbHvWi1TqE4h-xqfu/pub?embedded=true"></iframe>
+          <loading-indicator v-if="campaignRecommendationLoaded"></loading-indicator>
+          <iframe style="width: 100%;" frameborder="0" :src="prescriptionDocURL" v-else></iframe>
         </div>
       </div>
     </div>
@@ -61,19 +58,15 @@
           <h4 class="panel-title">OUTREACH PRIORITIES</h4>
         </div>
         <div class="panel-body panel-body--chart">
-          <iframe
-            style="width: 100%; height: 500px;"
-            frameborder="0"
-            scrolling="no"
-            :src="'https://go.wrench.ai/chart=channel_strategy_prelaunch_camp_feed&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"
-          ></iframe>
+          <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" :src="outreachChartURL"></iframe>
         </div>
       </div>
     </div>
     <div class="col-xl-4 chart-doc-area">
       <div class="panel bg-white">
         <div class="panel-body panel-body--chart">
-          <iframe style="width: 100%; height: 500px;" frameborder="0" src="https://docs.google.com/document/d/e/2PACX-1vSbaFh3ogcZwqWE63n7Uljy-2ZzNsIc3yzU1V5IAxtDdzSyQm4rPuvWr6QBKkRbsCnR-7EMztTMQwr5/pub?embedded=true"></iframe>
+          <loading-indicator v-if="campaignRecommendationLoaded"></loading-indicator>
+          <iframe style="width: 100%;" frameborder="0" :src="contentTemplatesDocURL" v-else></iframe>
         </div>
       </div>
     </div>
@@ -83,11 +76,7 @@
           <h4 class="panel-title">MESSAGING STRATEGY</h4>
         </div>
         <div class="panel-body panel-body--chart">
-          <iframe
-            style="width: 100%; height: 500px;"
-            frameborder="0"
-            scrolling="no"
-            :src="'https://go.wrench.ai/chart=persuasion_prelaunch_camp_feed&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit"></iframe>
+          <iframe style="width: 100%; height: 500px;" frameborder="0" scrolling="no" :src="messagingChartURL"></iframe>
         </div>
       </div>
     </div>
@@ -113,8 +102,7 @@
 
         <!-- begin panel-body -->
         <div class="panel-body" v-else>
-          <p class="alert alert-danger" v-if="error">{{ error }}</p>
-
+          <p class="alert alert-danger" v-if="error">{{ error }}</p>  
           <!-- @onSelectRow: definition of row click event -->
           <data-table :columns="contactColumns" :data="contactData" paginate filterable v-else></data-table>
         </div>
@@ -126,7 +114,8 @@
           <h4 class="panel-title"></h4>
         </div>
         <div class="panel-body panel-body--chart">
-          <iframe style="width: 100%; height: 500px;" frameborder="0" src="https://docs.google.com/document/d/e/2PACX-1vSvCaKhzY2ryRXzcvFaQqc8ftf7oRaKIXgEt_HLiSYuS7H5oN7aWP4EYwl6_S34w9Z-wPJOvOnLVzW2/pub?embedded=true"></iframe>
+          <loading-indicator v-if="campaignRecommendationLoaded"></loading-indicator>
+          <iframe style="width: 100%;" frameborder="0" :src="buyersJourneyDocURL" v-else></iframe>
         </div>
       </div>
     </div>

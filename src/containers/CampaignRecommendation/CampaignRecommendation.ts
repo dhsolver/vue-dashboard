@@ -63,8 +63,51 @@ export class CampaignRecommendationContainer extends Vue {
   contactData = [];
   error: string = '';
   isBusy: boolean = false;
+  campaignRecommendationLoaded: boolean = false;
+  campaignRecommendationData: any;
+  categoryProductChartURL: string = '';
+  messagingChartURL: string = '';
+  outreachChartURL: string = '';
+  buyersJourneyDocURL: string = '';
+  contentTemplatesDocURL: string = '';
+  prescriptionDocURL: string = '';
+  titleDocURL: string = '';
 
-  async getContacts() {
+  mounted() {
+    this.getCampaignRecommendation();
+  }
+
+  async getCampaignRecommendation() {
+    this.campaignRecommendationLoaded = true;
+    const payload = {
+      campaign_name: 'pre_launch_feedback_value_viability'
+    };
+    const campaignRecommencation = await this.$store.dispatch(MutationTypes.GET_CAMPAIGN_RECOMMENDATION, payload);
+    if (campaignRecommencation.status === 'error') {
+      this.error = campaignRecommencation.msg;
+      return;
+    }
+    this.campaignRecommendationData = campaignRecommencation.payload.pre_launch_campaign_feedback;
+
+    this.getChartsURLs();
+
+    // Title Google Doc
+    this.titleDocURL = this.campaignRecommendationData.google_docs.title;
+
+    // Prescription Google Doc
+    this.prescriptionDocURL = this.campaignRecommendationData.google_docs.prescription;
+
+    // Conetent Templates Google Doc
+    this.contentTemplatesDocURL = this.campaignRecommendationData.google_docs.content_templates;
+
+    // Buyer's Journey Google Doc
+    this.buyersJourneyDocURL = this.campaignRecommendationData.google_docs.buyers_journey;
+
+    this.campaignRecommendationLoaded = false;
+  }
+
+  async onDropdownChange() {
+    this.getChartsURLs();
     if (this.$data.adopt_curve_x !== '' && this.$data.adopt_curve_y !== '') {
       this.isBusy = true;
 
@@ -74,7 +117,7 @@ export class CampaignRecommendationContainer extends Vue {
         y: this.$data.adopt_curve_y,
         filter: this.$data.adopt_curve_limit
       }
-      
+
       const exportContactsResponse = await this.$store.dispatch(MutationTypes.EXPORT_CONTACTS_CAMPAIGN_RECOMMENDATION_REQUEST, contactParams);
       if (exportContactsResponse.status === 'error') {
         this.error = exportContactsResponse.msg;
@@ -90,10 +133,34 @@ export class CampaignRecommendationContainer extends Vue {
         this.contactColumns[index]['field'] = key;
       });
       this.contactData = exportContactsResponse.payload.data;
-      
+
       this.error = '';
       this.isBusy = false;
     }
+  }
+
+  // Make Chart URLs from response
+  getChartsURLs() {
+    // Category and Product Chart
+    this.categoryProductChartURL = 'https://go.wrench.ai/chart=' + this.campaignRecommendationData.charts.category_and_product.chart;
+    this.categoryProductChartURL += '&chart_family=' + this.campaignRecommendationData.charts.category_and_product.chart_family;
+    this.categoryProductChartURL += '&segments=' + this.campaignRecommendationData.charts.category_and_product.segments;
+    this.categoryProductChartURL += '&s=' + this.$data.subjectId + '&x=' + this.$data.adopt_curve_x;
+    this.categoryProductChartURL += '&y=' + this.$data.adopt_curve_y + '&filter=' + this.$data.adopt_curve_limit;
+
+    // Outreach Chart
+    this.outreachChartURL = 'https://go.wrench.ai/chart=' + this.campaignRecommendationData.charts.outreach.chart;
+    this.outreachChartURL += '&chart_family=' + this.campaignRecommendationData.charts.outreach.chart_family;
+    this.outreachChartURL += '&segments=' + this.campaignRecommendationData.charts.messaging.segments;
+    this.outreachChartURL += '&s=' + this.$data.subjectId + '&x=' + this.$data.adopt_curve_x;
+    this.outreachChartURL += '&y=' + this.$data.adopt_curve_y + '&filter=' + this.$data.adopt_curve_limit;
+
+    // Messaging Chart
+    this.messagingChartURL = 'https://go.wrench.ai/chart=' + this.campaignRecommendationData.charts.messaging.chart;
+    this.messagingChartURL += '&chart_family=' + this.campaignRecommendationData.charts.messaging.chart_family;
+    this.messagingChartURL += '&segments=' + this.campaignRecommendationData.charts.messaging.segments;
+    this.messagingChartURL += '&s=' + this.$data.subjectId + '&x=' + this.$data.adopt_curve_x;
+    this.messagingChartURL += '&y=' + this.$data.adopt_curve_y + '&filter=' + this.$data.adopt_curve_limit;
   }
 
   onDownloadAsCSV() {
