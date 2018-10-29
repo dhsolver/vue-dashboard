@@ -184,4 +184,10 @@ export class CampaignRecommendationContainer extends Vue {
     const csvExporter = new ExportToCsv(options);
     csvExporter.generateCsv(csvData);
   }
+
+  onSelectContactRow(row) {
+    // open single person page when click row.
+    const singlePageRouteData = this.$router.resolve({ name: 'single-entity', params: { id: row.id } });
+    window.open(singlePageRouteData.href, '_blank');
+  }
 }
