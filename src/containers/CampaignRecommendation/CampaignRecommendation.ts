@@ -151,7 +151,7 @@ export class CampaignRecommendationContainer extends Vue {
     // Outreach Chart
     this.outreachChartURL = 'https://go.wrench.ai/chart=' + this.campaignRecommendationData.charts.outreach.chart;
     this.outreachChartURL += '&chart_family=' + this.campaignRecommendationData.charts.outreach.chart_family;
-    this.outreachChartURL += '&segments=' + this.campaignRecommendationData.charts.messaging.segments;
+    this.outreachChartURL += '&segments=' + this.campaignRecommendationData.charts.outreach.segments;
     this.outreachChartURL += '&s=' + this.$data.subjectId + '&x=' + this.$data.adopt_curve_x;
     this.outreachChartURL += '&y=' + this.$data.adopt_curve_y + '&filter=' + this.$data.adopt_curve_limit;
 
