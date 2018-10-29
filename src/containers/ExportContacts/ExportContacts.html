@@ -17,7 +17,7 @@
       <p class="alert alert-danger" v-if="error">{{ error }}</p>
 
       <!-- @onSelectRow: definition of row click event -->
-      <data-table :columns="contactColumns" :data="contactData" paginate filterable v-else></data-table>
+      <data-table :columns="contactColumns" :data="contactData" paginate filterable @onSelectRow="onSelectContactRow" v-else></data-table>
     </div>
   </div>
 </div>
