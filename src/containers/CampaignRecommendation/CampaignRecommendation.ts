@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
 import { ExportToCsv } from 'export-to-csv';
 import { MutationTypes } from '../../store/mutation-types';
 import { DataTable } from '../../components/DataTable';
@@ -28,7 +28,6 @@ declare function getSubjectId();
   },
 
   created() {
-
     function formatOptions(corpora) {
       const rv = [];
       corpora.forEach(function (corpus) {
@@ -41,7 +40,8 @@ declare function getSubjectId();
 
     this.$store.dispatch(MutationTypes.GET_CORPORA_REQUEST, {
       payload: {}, callback: res => {
-        const corpora = res.data['client_corpora'].concat(res.data['wrench_corpora'], res.data['common_corpora']);
+        // Taking only client's corporas
+        const corpora = res.data['client_corpora'];
         const dropdownValues = formatOptions(corpora);
         this.$data.adopt_curve_x_options = dropdownValues;
         this.$data.adopt_curve_y_options = dropdownValues;
@@ -73,6 +73,11 @@ export class CampaignRecommendationContainer extends Vue {
   prescriptionDocURL: string = '';
   titleDocURL: string = '';
 
+  @Watch('$route')
+  routeChanged() {
+    this.getCampaignRecommendation();
+  }
+
   mounted() {
     this.getCampaignRecommendation();
   }
@@ -80,7 +85,7 @@ export class CampaignRecommendationContainer extends Vue {
   async getCampaignRecommendation() {
     this.campaignRecommendationLoaded = true;
     const payload = {
-      campaign_name: 'pre_launch_feedback_value_viability'
+      campaign_name: this.$route.params.template
     };
     const campaignRecommencation = await this.$store.dispatch(MutationTypes.GET_CAMPAIGN_RECOMMENDATION, payload);
     if (campaignRecommencation.status === 'error') {

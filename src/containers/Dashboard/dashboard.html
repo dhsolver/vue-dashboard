@@ -81,19 +81,19 @@
               :src="'https://go.wrench.ai/chart=adoption_curve&s=' + subjectId + '&x=' + adopt_curve_x + '&y=' + adopt_curve_y + '&filter=' + adopt_curve_limit">
             </iframe>
             <select v-model="adopt_curve_y" >
-              <option disabled value="">Please select one</option>
+              <option disabled value="">Select y axis</option>
               <option v-for="option in adopt_curve_y_options" :value="option.value">
                 {{ option.text }}
               </option>
             </select>
             <select v-model="adopt_curve_x" >
-              <option disabled value="">Please select one</option>
+              <option disabled value="">Select x axis</option>
               <option v-for="option in adopt_curve_x_options" :value="option.value">
                 {{ option.text }}
               </option>
             </select>
             <select v-model="adopt_curve_limit">
-              <option disabled value="">Please select one</option>
+              <option disabled value="">Select filters and limits</option>
               <option v-for="option in adopt_curve_limit_options" :value="option.value">
                 {{ option.text }}
               </option>
@@ -140,21 +140,21 @@
             </iframe>
 
             <select v-model="influencers_y" >
-              <option disabled value="">Please select one</option>
+              <option disabled value="">Select y axis</option>
               <option v-for="option in influencers_y_options" :value="option.value">
                 {{ option.text }}
               </option>
             </select>
 
             <select v-model="influencers_x" >
-              <option disabled value="">Please select one</option>
+              <option disabled value="">Select x axis</option>
               <option v-for="option in influencers_x_options" :value="option.value">
                 {{ option.text }}
               </option>
             </select>
 
             <select v-model="influencers_limit">
-              <option disabled value="">Please select one</option>
+              <option disabled value="">Select filters and limits</option>
               <option v-for="option in influencers_limit_options" :value="option.value">
                 {{ option.text }}
               </option>
