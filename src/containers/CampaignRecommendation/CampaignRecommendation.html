@@ -12,19 +12,19 @@
   <div class="row">
     <div class="col-lg-12 col-md-12 text-center filter-area">
       <select v-model="adopt_curve_y" class="filter-dropdowns" @change="onDropdownChange">
-        <option disabled value="">Please select one</option>
+        <option disabled value="">Select y axis</option>
         <option v-for="option in adopt_curve_y_options" :value="option.value">
           {{ option.text }}
         </option>
       </select>
       <select v-model="adopt_curve_x" class="filter-dropdowns" @change="onDropdownChange">
-        <option disabled value="">Please select one</option>
+        <option disabled value="">Select x axis</option>
         <option v-for="option in adopt_curve_x_options" :value="option.value">
           {{ option.text }}
         </option>
       </select>
       <select v-model="adopt_curve_limit" class="filter-dropdowns" @change="onDropdownChange">
-        <option disabled value="">Please select one</option>
+        <option disabled value="">Select filters and limits</option>
         <option v-for="option in adopt_curve_limit_options" :value="option.value">
           {{ option.text }}
         </option>

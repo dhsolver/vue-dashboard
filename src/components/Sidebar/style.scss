@@ -1,0 +1,11 @@
+.campaign-recommendation-sub-menus {
+  display: block !important;
+}
+
+.campaign-recommendation-sub-menus li {
+  padding-left: 20px;
+}
+
+.campaign-recommendation-sub-menus li::after {
+  left: 15px !important;
+}
