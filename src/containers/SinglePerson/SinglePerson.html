@@ -38,7 +38,7 @@
                 </thead> -->
               <tbody v-if="isFetching">
                 <tr>
-                  <td>Loading...</td>
+                  <LoadingIndicator />
                 </tr>
               </tbody>
               <tbody v-if="!isFetching">
