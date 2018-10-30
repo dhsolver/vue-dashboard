@@ -11,6 +11,9 @@
   </transition>
   <div class="alert alert-success" v-if="message !== ''">
     {{ message }}
+    <router-link tag="a" to="/dashboard">
+      <span>here</span>
+    </router-link>.
   </div>
   <form action="/" method="POST" class="form-control-with-bg">
     <!-- begin wizard -->

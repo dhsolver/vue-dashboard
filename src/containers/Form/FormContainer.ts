@@ -208,7 +208,7 @@ export class FormContainer extends Vue {
     this.$store.dispatch(MutationTypes.UPLOAD_FILE_REQUEST, { file: file, callback: (res) => {
       this.uploading = false;
       if (res.status === 'ok') {
-        this.message = 'Your file was uploaded successfully. Would you like to upload another?';
+        this.message = 'Your file was uploaded successfully. You can upload additional files if you would like. Otherwise, once your files have been processed the results will be available on the home page';
       }
       else {
         this.error = res.msg;
