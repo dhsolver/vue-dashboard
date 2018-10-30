@@ -32,97 +32,43 @@
 					<span>Campaigns</span>
 				</a>
 				<ul class="sub-menu">
-					<!-- <router-link tag="li" :class="$route.path=='/campaign_recommendation' ? 'active' : ''" to="/campaign_recommendation">
-						<a>Campaign Recommendation</a>
-					</router-link> -->
-					<li class="has-sub expand sub-menu-item" id="campaign_recommendation_menu">
-						<a href="javascript:;">
-							<b class="caret"></b>
-							<span>Campaign Recommendation</span>
-						</a>
-						<ul class="sub-menu campaign-recommendation-sub-menus">
-							<router-link
-								tag="li"
-								:class="{'active': $route.path === '/campaign_recommendation/pre_launch_feedback_value_viability'}"
-								to="/campaign_recommendation/pre_launch_feedback_value_viability"
-							>
-								<a>Value and Viability</a>
-							</router-link>
-							<router-link
-								tag="li"
-								:class="{'active': $route.path === '/campaign_recommendation/pre_launch_feedback_value_message_simplicity'}"
-								to="/campaign_recommendation/pre_launch_feedback_value_message_simplicity"
-							>
-								<a>Message Simplicity</a>
-							</router-link>
-							<router-link
-								tag="li"
-								:class="{'active': $route.path === '/campaign_recommendation/pre_launch_pr_product_reviews_early_exclusives'}"
-								to="/campaign_recommendation/pre_launch_pr_product_reviews_early_exclusives"
-							>
-								<a>Product and Exclusives</a>
-							</router-link>
-							<router-link
-								tag="li"
-								:class="{'active': $route.path === '/campaign_recommendation/pre_launch_promotions_influencer_endorsements'}"
-								to="/campaign_recommendation/pre_launch_promotions_influencer_endorsements"
-							>
-								<a>Endorsements</a>
-							</router-link>
-							<router-link
-								tag="li"
-								:class="{'active': $route.path === '/campaign_recommendation/launch'}"
-								to="/campaign_recommendation/launch"
-							>
-								<a>Launch</a>
-							</router-link>
-						</ul>
-					</li>
-					<li>
-						<a href="https://app.smartsheet.com/b/publish?EQBCT=36554fdcafaa4d4ba8bfdd97899d97de" target="_blank">Product Launch</a>
-					</li>
-					<li>
-						<a href="https://app.smartsheet.com/b/publish?EQBCT=cbd3f1d1a9134dd1ace68645d67b8a79" target="_blank">Crowdfunding Raise</a>
-					</li>
-					<li>
-						<a href="https://app.smartsheet.com/b/publish?EQBCT=24ff154b29d647efa31ff24b6c11d3f8" target="_blank">Past Performance</a>
-					</li>
-					<li>
-						<a href="https://app.smartsheet.com/b/publish?EQBCT=dbf9311fbf71487dbe8d8c1030b8c844" target="_blank">Onboarding</a>
-					</li>
-					<li>
-						<a href="https://app.smartsheet.com/b/publish?EQBCT=4b583f0c29ce491fbdbe49d59609b8b0" target="_blank">Unknown To Influencer</a>
-					</li>
-					<li>
-						<a href="https://app.smartsheet.com/b/publish?EQBCT=381c8e19abe541b19e26ddeffc0f5969" target="_blank">ICO</a>
-					</li>
+          <router-link
+            tag="li"
+            :class="{'active': $route.path === '/campaign_recommendation/pre_launch_feedback_value_viability'}"
+            to="/campaign_recommendation/pre_launch_feedback_value_viability"
+          >
+            <a>New Product Feedback</a>
+          </router-link>
+          <router-link
+            tag="li"
+            :class="{'active': $route.path === '/campaign_recommendation/pre_launch_feedback_value_message_simplicity'}"
+            to="/campaign_recommendation/pre_launch_feedback_value_message_simplicity"
+          >
+            <a>Message Simplicity</a>
+          </router-link>
+          <router-link
+            tag="li"
+            :class="{'active': $route.path === '/campaign_recommendation/pre_launch_pr_product_reviews_early_exclusives'}"
+            to="/campaign_recommendation/pre_launch_pr_product_reviews_early_exclusives"
+          >
+            <a>Product and Exclusives</a>
+          </router-link>
+          <router-link
+            tag="li"
+            :class="{'active': $route.path === '/campaign_recommendation/pre_launch_promotions_influencer_endorsements'}"
+            to="/campaign_recommendation/pre_launch_promotions_influencer_endorsements"
+          >
+            <a>Endorsements</a>
+          </router-link>
+          <router-link
+            tag="li"
+            :class="{'active': $route.path === '/campaign_recommendation/launch'}"
+            to="/campaign_recommendation/launch"
+          >
+            <a>Launch</a>
+          </router-link>
 				</ul>
 			</li>
-			<!--<li :class="$route.path=='/serendipity' ? 'active has-sub' : 'has-sub'">-->
-			<!--<a href="serendipity">-->
-			<!--&lt;!&ndash;<b class="caret"></b>&ndash;&gt;-->
-			<!--<i class="fas fa-chart-pie"></i>-->
-			<!--<span>People</span>-->
-			<!--</a>-->
-			<!--<ul class="sub-menu">-->
-			<!--<li><a href="#">Ovreview</a></li>-->
-			<!--<li><a href="people">People</a></li>-->
-			<!--<li><a href="#">Companies</a></li>-->
-			<!--<li><a href="#">Tables</a></li>-->
-			<!--<li class="has-sub">-->
-			<!--<a href="javascript:;">-->
-			<!--<b class="caret"></b>-->
-			<!--<span>Parkour</span> -->
-			<!--</a>-->
-			<!--<ul class="sub-menu">-->
-			<!--<li><a href="#">Ovreview</a></li>-->
-			<!--<li><a href="#">People</a></li>-->
-			<!--<li><a href="#">Companies</a></li>-->
-			<!--<li><a href="#">Calendar</a></li>-->
-			<!--</ul>-->
-			<!--</li>-->
-			<!--</ul>-->
-			<!--</li>-->
 			<li class="has-sub">
 				<a href="javascript:;">
 					<b class="caret"></b>
@@ -141,18 +87,6 @@
 					</router-link>
 				</ul>
 			</li>
-			<!-- <router-link tag="li" :class="$route.path=='/export' ? 'active' : ''" to="/export">
-				<a>
-					<i class="fas fa-download"></i>
-					<span>Export</span>
-				</a>
-			</router-link> -->
-			<!--<li>-->
-			<!--<a href="#">-->
-			<!--<i class="fas fa-cog"></i>-->
-			<!--<span>Settings</span>-->
-			<!--</a>-->
-			<!--</li>-->
 		</ul>
 		<!-- end sidebar nav -->
 	</div>
