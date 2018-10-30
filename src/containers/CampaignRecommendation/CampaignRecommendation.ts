@@ -121,7 +121,7 @@ export class CampaignRecommendationContainer extends Vue {
         x: this.$data.adopt_curve_x,
         y: this.$data.adopt_curve_y,
         filter: this.$data.adopt_curve_limit,
-        segments: this.$route.params.template
+        segments: this.campaignRecommendationData.charts.category_and_product.segments
       }
 
       const exportContactsResponse = await this.$store.dispatch(MutationTypes.EXPORT_CONTACTS_CAMPAIGN_RECOMMENDATION_REQUEST, contactParams);
