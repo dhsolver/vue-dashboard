@@ -120,7 +120,8 @@ export class CampaignRecommendationContainer extends Vue {
         campaign_recommendation: 'prelaunch_camp_feedback',
         x: this.$data.adopt_curve_x,
         y: this.$data.adopt_curve_y,
-        filter: this.$data.adopt_curve_limit
+        filter: this.$data.adopt_curve_limit,
+        segments: this.$route.params.template
       }
 
       const exportContactsResponse = await this.$store.dispatch(MutationTypes.EXPORT_CONTACTS_CAMPAIGN_RECOMMENDATION_REQUEST, contactParams);
