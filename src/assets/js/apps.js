@@ -1489,6 +1489,22 @@ var handleToggleNavbarSearch = function() {
     });
 };
 
+var bootIntercom = function(email) {
+    window.Intercom('shutdown');
+    window.Intercom('boot', {
+        app_id: APP_ID,
+        email: email
+    });
+}
+
+var updateIntercom = function() {
+    window.Intercom(APP_ID);
+}
+
+var shutdownIntercom = function() {
+    window.Intercom('shutdown');
+    window.Intercom('boot', { app_id: APP_ID });
+}
 
 /* Application Controller
 ------------------------------------------------ */
@@ -1508,7 +1524,8 @@ var App = function () {
 		    this.initTopMenu();
 		    this.initComponent();
 		    this.initThemePanel();
-		    this.initPageLoad();
+            this.initPageLoad();
+            this.initIntercom();
 		    $(window).trigger('load');
 		    
 		    if (setting && setting.ajaxMode) {
@@ -1559,7 +1576,10 @@ var App = function () {
 			handleThemePageStructureControl();
 			handleThemePanelExpand();
 		    handleResetLocalStorage();
-		},
+        },
+        initIntercom: function() {
+            // bootIntercom();
+        },
 		initAjax: function() {
 			handleAjaxMode(setting);
 			$.ajaxSetup({

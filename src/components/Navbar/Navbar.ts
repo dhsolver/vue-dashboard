@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { Component, Watch } from 'vue-property-decorator';
 import { Link } from './link';
 import { MutationTypes } from '../../store/mutation-types';
+declare function shutdownIntercom(): any;
 
 @Component({
   template: require('./navbar.html')
@@ -24,6 +25,7 @@ export class Navbar extends Vue {
 
   logout() {
     this.$store.dispatch(MutationTypes.LOGOUT_USER_REQUEST);
+    shutdownIntercom();
     this.$router.replace('/login');
   }
 }
