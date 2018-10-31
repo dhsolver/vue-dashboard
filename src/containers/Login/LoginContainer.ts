@@ -11,6 +11,7 @@ import { Footbar } from '../../components/Footbar';
 import './styles.scss';
 
 declare function clearStorage();
+declare function bootIntercom(email): any;
 
 library.add(faCheck);
 
@@ -53,6 +54,9 @@ export class LoginContainer extends Vue {
     } else {
       this.getPersonInfo('/dashboard');
     }
+
+    // boot Intercom
+    bootIntercom(this.userData.username);
   }
 
   async createAccount() {
