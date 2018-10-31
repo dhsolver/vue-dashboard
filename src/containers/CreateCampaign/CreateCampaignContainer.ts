@@ -20,12 +20,16 @@ export class CreateCampaignContainer extends Vue {
   status: string = '';
   message: string = '';
   error: string = '';
+  uploading: boolean = false;
 
   mounted() {
-    this.clientName = localStorage.getItem('clientName');
+    // Get personinfo from localstorage to get client name
+    const personInfo = JSON.parse(localStorage.getItem('personInfo'));
+    this.clientName = personInfo.company_name;
   }
 
   createCampaign() {
+    this.uploading = true;
     this.campaignNameValidated = !!this.campaignName;
     this.descriptionValidated = !!this.campaignName;
     if (this.campaignNameValidated && this.descriptionValidated) {
@@ -33,15 +37,13 @@ export class CreateCampaignContainer extends Vue {
       this.$store.dispatch(MutationTypes.CREATE_CORPUS_REQUEST, { payload: campaignData, callback: (res) => {
         this.status = res.status;
         if (res.status === 'ok') {
-          this.message = 'Campaign has been successfully created.';
+          this.message = 'Campaign has been successfully created. You can create additional campaigns if you want. Otherwise, you can go next step';
           this.campaignName = '';
           this.description = '';
-          setTimeout(() => {
-            this.status = '';
-          }, 2000);
         } else {
           this.error = res.msg;
         }
+        this.uploading = false;
       }});
     }
   }

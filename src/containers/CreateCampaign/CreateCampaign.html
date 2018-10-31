@@ -1,5 +1,8 @@
 <!-- begin #content -->
 <div class="content">
+  <div class="spinner-area" v-if="uploading===true">
+    <i class="fas fa-spinner fa-spin fa-4x"></i>
+  </div>
   <form action="/" method="POST" @submit.prevent="createCampaign">
     <!-- begin row -->
     <div class="row">
@@ -10,6 +13,9 @@
           <transition name="fade">
             <div class="alert alert-success" v-if="status === 'ok'">
               {{ message }}
+              <router-link tag="a" to="/dashboard">
+                <span>here</span>
+              </router-link>.
             </div>
             <div class="alert alert-danger" v-if="status === 'error'">
               {{ error }}
@@ -41,7 +47,6 @@
         </div>
         <nav class="wd-form__footer text-center">
           <button type="submit" class="btn btn-primary btn-dark width-150">Create</button>
-          <router-link tag="button" class="btn btn-default btn-dark width-150" to="/form">Next</router-link>
         </nav>
       </div>
       <!-- end col-8 -->
