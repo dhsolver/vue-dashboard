@@ -37,7 +37,7 @@ export class CreateCampaignContainer extends Vue {
       this.$store.dispatch(MutationTypes.CREATE_CORPUS_REQUEST, { payload: campaignData, callback: (res) => {
         this.status = res.status;
         if (res.status === 'ok') {
-          this.message = 'Campaign has been successfully created. You can create additional campaigns if you want. Otherwise, you can go next step';
+          this.message = 'Your campaign has been saved. You can create additional campaigns, or proceed to uploading your contacts ';
           this.campaignName = '';
           this.description = '';
         } else {
