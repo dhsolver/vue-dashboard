@@ -10,8 +10,14 @@
       <!-- begin register-header -->
       <div class="register-header text-center">
         <div class="brand">
-          <b>Sign Up</b>
-          <p style="font-size: 16px;">Create your account to get started.</p>
+          <template v-if="step !== 1">
+            <b>Sign Up</b>
+            <p style="font-size: 16px;">Create your account to get started.</p>
+          </template>
+          <template v-else>
+            <b>You're almost there...</b>
+            <p style="font-size: 16px;">Enter your confirmation code below.</p>
+          </template>
         </div>
       </div>
       <!-- end register-header -->
