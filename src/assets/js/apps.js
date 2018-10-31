@@ -1498,7 +1498,7 @@ var bootIntercom = function(email) {
 }
 
 var updateIntercom = function() {
-    window.Intercom(APP_ID);
+    window.Intercom('update');
 }
 
 var shutdownIntercom = function() {
